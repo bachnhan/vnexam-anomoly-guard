@@ -1,0 +1,593 @@
+{
+  "yearly": [
+    {
+      "nam_thi": 2016,
+      "total_students": 877460,
+      "avg_math_pct": 0.4222562123
+    },
+    {
+      "nam_thi": 2017,
+      "total_students": 861068,
+      "avg_math_pct": 1.9637222037
+    },
+    {
+      "nam_thi": 2018,
+      "total_students": 921520,
+      "avg_math_pct": 0.0368749054
+    },
+    {
+      "nam_thi": 2019,
+      "total_students": 882594,
+      "avg_math_pct": 0.8915363431
+    },
+    {
+      "nam_thi": 2020,
+      "total_students": 881374,
+      "avg_math_pct": 6.2023242524
+    },
+    {
+      "nam_thi": 2021,
+      "total_students": 999790,
+      "avg_math_pct": 3.0868135917
+    },
+    {
+      "nam_thi": 2022,
+      "total_students": 995441,
+      "avg_math_pct": 1.7685306002
+    },
+    {
+      "nam_thi": 2023,
+      "total_students": 1022060,
+      "avg_math_pct": 0.7562091462
+    },
+    {
+      "nam_thi": 2024,
+      "total_students": 1061605,
+      "avg_math_pct": 0.8578281486
+    },
+    {
+      "nam_thi": 2025,
+      "total_students": 1153226,
+      "avg_math_pct": 1.1044635365
+    },
+    {
+      "nam_thi": 2026,
+      "total_students": 1208863,
+      "avg_math_pct": 3.482438006
+    }
+  ],
+  "flagged_provinces": [
+    {
+      "nam_thi": 2022,
+      "ma_tinh": "55",
+      "total_students": 12195,
+      "high_math_pct": 2.2304223042,
+      "z_math": 0.43,
+      "z_a00": -0.3,
+      "z_bio": 4.9,
+      "z_score": 4.9,
+      "yoy_math_delta_pct": -0.58
+    },
+    {
+      "nam_thi": 2016,
+      "ma_tinh": "SPS",
+      "total_students": 18226,
+      "high_math_pct": 1.2235268298,
+      "z_math": 1.22,
+      "z_a00": 1.22,
+      "z_bio": 4.6,
+      "z_score": 4.6,
+      "yoy_math_delta_pct": null
+    },
+    {
+      "nam_thi": 2018,
+      "ma_tinh": "36",
+      "total_students": 4445,
+      "high_math_pct": 0.0674915636,
+      "z_math": 0.75,
+      "z_a00": -0.6,
+      "z_bio": 4.43,
+      "z_score": 4.43,
+      "yoy_math_delta_pct": -1.98
+    },
+    {
+      "nam_thi": 2016,
+      "ma_tinh": "TDV",
+      "total_students": 21508,
+      "high_math_pct": 2.4409522038,
+      "z_math": 3.06,
+      "z_a00": 4.34,
+      "z_bio": 1.52,
+      "z_score": 4.34,
+      "yoy_math_delta_pct": null
+    },
+    {
+      "nam_thi": 2016,
+      "ma_tinh": "HDT",
+      "total_students": 20042,
+      "high_math_pct": 3.2332102585,
+      "z_math": 4.26,
+      "z_a00": 3.1,
+      "z_bio": 0.84,
+      "z_score": 4.26,
+      "yoy_math_delta_pct": null
+    },
+    {
+      "nam_thi": 2017,
+      "ma_tinh": "55",
+      "total_students": 10251,
+      "high_math_pct": 2.370500439,
+      "z_math": 0.29,
+      "z_a00": -0.71,
+      "z_bio": 4.15,
+      "z_score": 4.15,
+      "yoy_math_delta_pct": 2.37
+    },
+    {
+      "nam_thi": 2018,
+      "ma_tinh": "26",
+      "total_students": 21435,
+      "high_math_pct": 0.1119664101,
+      "z_math": 1.85,
+      "z_a00": 4.13,
+      "z_bio": 0.69,
+      "z_score": 4.13,
+      "yoy_math_delta_pct": -4.7
+    },
+    {
+      "nam_thi": 2021,
+      "ma_tinh": "55",
+      "total_students": 12061,
+      "high_math_pct": 2.8107122129,
+      "z_math": -0.15,
+      "z_a00": -0.48,
+      "z_bio": 4.03,
+      "z_score": 4.03,
+      "yoy_math_delta_pct": -4.93
+    },
+    {
+      "nam_thi": 2023,
+      "ma_tinh": "55",
+      "total_students": 12061,
+      "high_math_pct": 0.8705745792,
+      "z_math": 0.2,
+      "z_a00": -0.52,
+      "z_bio": 3.97,
+      "z_score": 3.97,
+      "yoy_math_delta_pct": -1.36
+    },
+    {
+      "nam_thi": 2016,
+      "ma_tinh": "SKH",
+      "total_students": 7599,
+      "high_math_pct": 1.2370048691,
+      "z_math": 1.24,
+      "z_a00": 3.87,
+      "z_bio": 3.1,
+      "z_score": 3.87,
+      "yoy_math_delta_pct": null
+    },
+    {
+      "nam_thi": 2020,
+      "ma_tinh": "4",
+      "total_students": 10857,
+      "high_math_pct": 12.388320899,
+      "z_math": 1.74,
+      "z_a00": 1.13,
+      "z_bio": 3.84,
+      "z_score": 3.84,
+      "yoy_math_delta_pct": 10.86
+    },
+    {
+      "nam_thi": 2016,
+      "ma_tinh": "GHA",
+      "total_students": 6918,
+      "high_math_pct": 2.9054640069,
+      "z_math": 3.77,
+      "z_a00": 3.42,
+      "z_bio": -0.36,
+      "z_score": 3.77,
+      "yoy_math_delta_pct": null
+    },
+    {
+      "nam_thi": 2018,
+      "ma_tinh": "15",
+      "total_students": 13699,
+      "high_math_pct": 0.1897948755,
+      "z_math": 3.76,
+      "z_a00": 0.46,
+      "z_bio": 0.47,
+      "z_score": 3.76,
+      "yoy_math_delta_pct": -1.68
+    },
+    {
+      "nam_thi": 2024,
+      "ma_tinh": "19",
+      "total_students": 17614,
+      "high_math_pct": 2.48665834,
+      "z_math": 2.79,
+      "z_a00": 3.71,
+      "z_bio": 0.22,
+      "z_score": 3.71,
+      "yoy_math_delta_pct": 0.35
+    },
+    {
+      "nam_thi": 2021,
+      "ma_tinh": "19",
+      "total_students": 16274,
+      "high_math_pct": 7.1094998157,
+      "z_math": 2.22,
+      "z_a00": 3.67,
+      "z_bio": 0.17,
+      "z_score": 3.67,
+      "yoy_math_delta_pct": -5.38
+    },
+    {
+      "nam_thi": 2024,
+      "ma_tinh": "55",
+      "total_students": 12841,
+      "high_math_pct": 0.7709679931,
+      "z_math": -0.15,
+      "z_a00": -0.45,
+      "z_bio": 3.48,
+      "z_score": 3.48,
+      "yoy_math_delta_pct": -0.1
+    },
+    {
+      "nam_thi": 2016,
+      "ma_tinh": "DCN",
+      "total_students": 14954,
+      "high_math_pct": 2.6548080781,
+      "z_math": 3.39,
+      "z_a00": 1.7,
+      "z_bio": 0.81,
+      "z_score": 3.39,
+      "yoy_math_delta_pct": null
+    },
+    {
+      "nam_thi": 2019,
+      "ma_tinh": "22",
+      "total_students": 12356,
+      "high_math_pct": 1.8533505989,
+      "z_math": 1.47,
+      "z_a00": 3.35,
+      "z_bio": 0.5,
+      "z_score": 3.35,
+      "yoy_math_delta_pct": 1.73
+    },
+    {
+      "nam_thi": 2025,
+      "ma_tinh": "25",
+      "total_students": 23477,
+      "high_math_pct": 3.0071985347,
+      "z_math": 2.35,
+      "z_a00": 3.35,
+      "z_bio": 0.35,
+      "z_score": 3.35,
+      "yoy_math_delta_pct": 0.76
+    },
+    {
+      "nam_thi": 2017,
+      "ma_tinh": "19",
+      "total_students": 13640,
+      "high_math_pct": 5.564516129,
+      "z_math": 2.61,
+      "z_a00": 3.3,
+      "z_bio": 0.45,
+      "z_score": 3.3,
+      "yoy_math_delta_pct": 5.56
+    },
+    {
+      "nam_thi": 2022,
+      "ma_tinh": "25",
+      "total_students": 19769,
+      "high_math_pct": 4.8307956902,
+      "z_math": 2.85,
+      "z_a00": 3.23,
+      "z_bio": 1.43,
+      "z_score": 3.23,
+      "yoy_math_delta_pct": -3.65
+    },
+    {
+      "nam_thi": 2020,
+      "ma_tinh": "25",
+      "total_students": 18668,
+      "high_math_pct": 17.5112491965,
+      "z_math": 3.18,
+      "z_a00": 2.99,
+      "z_bio": 0.56,
+      "z_score": 3.18,
+      "yoy_math_delta_pct": 15.26
+    },
+    {
+      "nam_thi": 2023,
+      "ma_tinh": "26",
+      "total_students": 20845,
+      "high_math_pct": 2.0436555529,
+      "z_math": 2.28,
+      "z_a00": 3.14,
+      "z_bio": 0.5,
+      "z_score": 3.14,
+      "yoy_math_delta_pct": -2.02
+    },
+    {
+      "nam_thi": 2016,
+      "ma_tinh": "YTB",
+      "total_students": 14176,
+      "high_math_pct": 1.7282731377,
+      "z_math": 1.98,
+      "z_a00": 3.11,
+      "z_bio": 1.04,
+      "z_score": 3.11,
+      "yoy_math_delta_pct": null
+    },
+    {
+      "nam_thi": 2025,
+      "ma_tinh": "4",
+      "total_students": 14390,
+      "high_math_pct": 1.8485059069,
+      "z_math": 0.92,
+      "z_a00": 0.98,
+      "z_bio": 3.09,
+      "z_score": 3.09,
+      "yoy_math_delta_pct": 0.61
+    },
+    {
+      "nam_thi": 2025,
+      "ma_tinh": "16",
+      "total_students": 16542,
+      "high_math_pct": 3.6029500665,
+      "z_math": 3.08,
+      "z_a00": 2.18,
+      "z_bio": 1.33,
+      "z_score": 3.08,
+      "yoy_math_delta_pct": 1.77
+    },
+    {
+      "nam_thi": 2023,
+      "ma_tinh": "19",
+      "total_students": 16724,
+      "high_math_pct": 2.1406362114,
+      "z_math": 2.45,
+      "z_a00": 3.05,
+      "z_bio": 0.93,
+      "z_score": 3.05,
+      "yoy_math_delta_pct": -1.64
+    },
+    {
+      "nam_thi": 2025,
+      "ma_tinh": "55",
+      "total_students": 13706,
+      "high_math_pct": 0.707719247,
+      "z_math": -0.49,
+      "z_a00": -0.46,
+      "z_bio": 3.04,
+      "z_score": 3.04,
+      "yoy_math_delta_pct": -0.06
+    },
+    {
+      "nam_thi": 2020,
+      "ma_tinh": "55",
+      "total_students": 10649,
+      "high_math_pct": 7.7378157573,
+      "z_math": 0.43,
+      "z_a00": -0.28,
+      "z_bio": 3.01,
+      "z_score": 3.01,
+      "yoy_math_delta_pct": 6.82
+    },
+    {
+      "nam_thi": 2020,
+      "ma_tinh": "26",
+      "total_students": 19593,
+      "high_math_pct": 13.5915888327,
+      "z_math": 2.08,
+      "z_a00": 2.88,
+      "z_bio": 0.92,
+      "z_score": 2.88,
+      "yoy_math_delta_pct": 11.37
+    }
+  ],
+  "students": [
+    {
+      "sbd": "BKA000945",
+      "nam_thi": 2016,
+      "ma_tinh": "BKA",
+      "toan": 9.25,
+      "vat_ly": 7.8000001907,
+      "hoa_hoc": 7.0,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 4.0
+    },
+    {
+      "sbd": "BKA002504",
+      "nam_thi": 2016,
+      "ma_tinh": "BKA",
+      "toan": 9.0,
+      "vat_ly": 6.1082448959,
+      "hoa_hoc": 8.3999996185,
+      "ngoai_ngu": 1.8799999952,
+      "ngu_van": 4.5
+    },
+    {
+      "sbd": "BKA005372",
+      "nam_thi": 2016,
+      "ma_tinh": "BKA",
+      "toan": 9.5,
+      "vat_ly": 8.6000003815,
+      "hoa_hoc": 8.0,
+      "ngoai_ngu": 1.8799999952,
+      "ngu_van": 4.5
+    },
+    {
+      "sbd": "BKA005524",
+      "nam_thi": 2016,
+      "ma_tinh": "BKA",
+      "toan": 9.0,
+      "vat_ly": 7.4000000954,
+      "hoa_hoc": 4.1999998093,
+      "ngoai_ngu": 1.75,
+      "ngu_van": 4.0
+    },
+    {
+      "sbd": "BKA008043",
+      "nam_thi": 2016,
+      "ma_tinh": "BKA",
+      "toan": 9.0,
+      "vat_ly": 8.3999996185,
+      "hoa_hoc": 8.0,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 4.75
+    },
+    {
+      "sbd": "BKA008153",
+      "nam_thi": 2016,
+      "ma_tinh": "BKA",
+      "toan": 9.0,
+      "vat_ly": 8.0,
+      "hoa_hoc": 6.5999999046,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 6.0
+    },
+    {
+      "sbd": "DCN000079",
+      "nam_thi": 2016,
+      "ma_tinh": "DCN",
+      "toan": 9.0,
+      "vat_ly": 7.8000001907,
+      "hoa_hoc": 6.1999998093,
+      "ngoai_ngu": 1.8799999952,
+      "ngu_van": 5.25
+    },
+    {
+      "sbd": "DCN002713",
+      "nam_thi": 2016,
+      "ma_tinh": "DCN",
+      "toan": 9.0,
+      "vat_ly": 6.0,
+      "hoa_hoc": 6.1999998093,
+      "ngoai_ngu": 1.8500000238,
+      "ngu_van": 5.0
+    },
+    {
+      "sbd": "DCN007928",
+      "nam_thi": 2016,
+      "ma_tinh": "DCN",
+      "toan": 9.0,
+      "vat_ly": 7.5999999046,
+      "hoa_hoc": 7.8000001907,
+      "ngoai_ngu": 1.8799999952,
+      "ngu_van": 5.5
+    },
+    {
+      "sbd": "DHS000837",
+      "nam_thi": 2016,
+      "ma_tinh": "DHS",
+      "toan": 9.0,
+      "vat_ly": 8.1999998093,
+      "hoa_hoc": 8.8000001907,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 4.0
+    },
+    {
+      "sbd": "DHS002326",
+      "nam_thi": 2016,
+      "ma_tinh": "DHS",
+      "toan": 9.25,
+      "vat_ly": 8.6000003815,
+      "hoa_hoc": 7.5999999046,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 5.5
+    },
+    {
+      "sbd": "DHS002472",
+      "nam_thi": 2016,
+      "ma_tinh": "DHS",
+      "toan": 9.0,
+      "vat_ly": 8.6000003815,
+      "hoa_hoc": 8.6000003815,
+      "ngoai_ngu": 1.75,
+      "ngu_van": 3.25
+    },
+    {
+      "sbd": "DHS012214",
+      "nam_thi": 2016,
+      "ma_tinh": "DHS",
+      "toan": 9.0,
+      "vat_ly": 8.6000003815,
+      "hoa_hoc": 8.8000001907,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 5.0
+    },
+    {
+      "sbd": "DHS012320",
+      "nam_thi": 2016,
+      "ma_tinh": "DHS",
+      "toan": 9.0,
+      "vat_ly": 8.3999996185,
+      "hoa_hoc": 7.4000000954,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 4.5
+    },
+    {
+      "sbd": "DHS012412",
+      "nam_thi": 2016,
+      "ma_tinh": "DHS",
+      "toan": 9.0,
+      "vat_ly": 8.1999998093,
+      "hoa_hoc": 6.8000001907,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 4.5
+    },
+    {
+      "sbd": "DHS012630",
+      "nam_thi": 2016,
+      "ma_tinh": "DHS",
+      "toan": 9.0,
+      "vat_ly": 7.4000000954,
+      "hoa_hoc": 7.8000001907,
+      "ngoai_ngu": 1.8799999952,
+      "ngu_van": 5.5
+    },
+    {
+      "sbd": "DHS013187",
+      "nam_thi": 2016,
+      "ma_tinh": "DHS",
+      "toan": 9.0,
+      "vat_ly": 8.0,
+      "hoa_hoc": 6.4000000954,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 4.75
+    },
+    {
+      "sbd": "DHS015356",
+      "nam_thi": 2016,
+      "ma_tinh": "DHS",
+      "toan": 9.0,
+      "vat_ly": 7.8000001907,
+      "hoa_hoc": 7.5999999046,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 5.0
+    },
+    {
+      "sbd": "DHS016894",
+      "nam_thi": 2016,
+      "ma_tinh": "DHS",
+      "toan": 9.0,
+      "vat_ly": 9.0,
+      "hoa_hoc": 8.8000001907,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 5.25
+    },
+    {
+      "sbd": "DHU008630",
+      "nam_thi": 2016,
+      "ma_tinh": "DHU",
+      "toan": 9.0,
+      "vat_ly": 7.5999999046,
+      "hoa_hoc": 7.0,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 3.75
+    }
+  ]
+}

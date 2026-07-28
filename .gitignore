@@ -1,0 +1,16 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Large Raw Datasets & Processed CSVs (>100MB)
+data/processed/
+data/*.csv
+
+# Generated Pipelines & Parquet Outputs
+output/
+
+# macOS / OS files
+.DS_Store
+.idea/
+.vscode/
