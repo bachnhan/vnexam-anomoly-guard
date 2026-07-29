@@ -41,7 +41,7 @@
 - **Tên Đầy Đủ:** Hệ Thống Phân Tích Phổ Điểm & Phát Hiện Gian Lận Điểm Thi THPT Quốc Gia (2016–2026) Trên Nền Tảng Apache Spark
 - **Thư Mục Lưu Trữ Dự Án:** `/Users/cation/big-data/final_project`
 - **Công Cụ Kỹ Thuật Chính:** Apache Spark (PySpark DataFrame API, Spark SQL Engine, Spark MLlib), Streamlit, Tailwind CSS, Chart.js
-- **Tập Dữ Liệu:** `exam_scores_2016_2026.csv` (1.01 GB / 10,865,001 bản ghi / 33 thuộc tính)
+- **Tập Dữ Liệu Kaggle:** [Vietnam National Examination Scores 2016–2026 (Kaggle)](https://www.kaggle.com/datasets/bchnhnnguynhunh/viet-name-national-exam-scores-2016-2026) (1.01 GB / 10,865,001 bản ghi / 33 thuộc tính)
 - **Môi Trường Triển Khai:** Cluster Standalone local bằng Docker Compose (1 Master + 2 Workers)
 - **Hạn Nộp Bài:** 08:00 AM - Thứ 7 (01/08/2026) | **Ngày Thuyết Trình:** Chủ Nhật (02/08/2026)
 

@@ -6,38 +6,31 @@
 
 ## Tóm Tắt (Abstract)
 
-Báo cáo này giới thiệu **VNExam-AnomalyGuard**, một hệ thống xử lý Big Data toàn diện xây dựng trên nền tảng Apache Spark nhằm phân tích phổ điểm và tự động phát hiện các bất thường thống kê trong kỳ thi THPT Quốc Gia Việt Nam giai đoạn 2016–2026. Với quy mô **10.86 triệu bản ghi thí sinh**, dung lượng dữ liệu thô **1.01 GB** cùng 33 thuộc tính, tập dữ liệu đặt ra thách thức tính toán đối với các công cụ xử lý đơn nút truyền thống. Được triển khai trên cụm máy chủ giả lập phân tán Docker Standalone (1 Master Node, 2 Worker Nodes) kết hợp hệ thống lưu trữ Parquet phân vùng, VNExam-AnomalyGuard áp dụng cơ chế phát hiện bất thường SOTA **5 Phương án (5-Method Multi-Layer Anomaly Framework)**:
+Báo cáo này giới thiệu **VNExam-AnomalyGuard**, một hệ thống xử lý Big Data toàn diện xây dựng trên nền tảng Apache Spark nhằm phân tích phổ điểm và tự động phát hiện các bất thường thống kê trong kỳ thi THPT Quốc Gia Việt Nam giai đoạn 2016–2026. Với quy mô **10.86 triệu bản ghi thí sinh**, dung lượng dữ liệu thô **1.01 GB** cùng 33 thuộc tính, tập dữ liệu đặt ra thách thức tính toán đối với các công cụ xử lý đơn nút truyền thống. Được triển khai trên cụm máy chủ giả lập phân tán Docker Standalone (1 Master Node, 2 Worker Nodes) kết hợp hệ thống lưu trữ Parquet phân vùng, VNExam-AnomalyGuard áp dụng **Khung 3 Phương Án Bất Thường Phân Tán Trên Apache Spark (3-Method Spark Anomaly Framework)**:
 
-1. **PySpark MLlib K-Means Distance Outlier ($D > 3\sigma$):** Gom cụm thí sinh và dán nhãn khoảng cách lệch tâm.
-2. **Multi-Subject Z-Score Engine ($Z > 3.0$):** Cô lập địa phương có mật độ điểm giỏi vọt tăng đột biến.
-3. **Year-over-Year (YoY) Window Lag Delta ($\Delta Z > 2.0$):** So sánh chênh lệch chuỗi thời gian năm $T$ so me với năm $T-1$.
-4. **Benford's Law Chi-Square Forensic Audit ($\chi^2 > 26.12$):** Bẫy dấu vết sửa điểm trắc nghiệm thủ công dựa trên phân phối chữ số đầu.
-5. **Mahalanobis Distance Covariance ($D_M > 18.55$) & Shannon Entropy Audit ($H(X)$):** Đo độ tương quan đa môn và độ hỗn loạn phổ điểm.
+1. **Phương án 1 (Cấp Thí sinh - Student Outliers):** PySpark MLlib K-Means Clustering ($K=4$) đo khoảng cách Euclidean lệch tâm $D(x_i, C_k) > 3\sigma$.
+2. **Phương án 2 (Cấp Tỉnh thành - Multi-Subject Z-Score):** Tính Z-Score tiêu chuẩn $Z = \frac{X - \mu}{\sigma} > 3.0$ đồng thời trên toàn bộ **9 môn thi** và **5 khối thi tuyển sinh đại học**.
+3. **Phương án 3 (Cấp Chuỗi thời gian - YoY Window Lag Delta):** Sử dụng PySpark Window Function `LAG` để đo biến động nhảy vọt đột biến theo năm $\Delta Z_{\text{YoY}} = Z_T - Z_{T-1} > 2.0$.
 
-Hệ thống cô lập 100% các sự cố gian lận Ground Truth lịch sử (2018 Hà Giang/Sơn La, 2021 Sinh học, 2026 Tuyên Quang) đồng thời phát hiện và giải thích thuyết phục **4 Case nghiên cứu giáo dục đặc thù ngoài Ground-Truth** (Cụm Y Dược ĐBSCL, Nôi học tập Nam Định/Thái Bình, Phân hóa Cụm thi Đại học 2016 và Đột biến Đề thi COVID-19 năm 2020).
+Hệ thống cô lập 100% các sự cố gian lận Ground Truth lịch sử (2018 Hà Giang/Sơn La/Hòa Bình, 2021 Sinh học, 2026 Tuyên Quang) đồng thời phát hiện và giải thích thuyết phục **4 Case nghiên cứu giáo dục đặc thù ngoài Ground-Truth** (Cụm Y Dược ĐBSCL, Nôi học tập Nam Định/Thái Bình, Phân hóa Cụm thi Đại học 2016 và Đột biến Đề thi COVID-19 năm 2020).
 
 ---
 
 ## 1. Giới Thiệu (Introduction)
 
-Kỳ thi THPT Quốc Gia là kỳ thi chuẩn hóa quan trọng bậc nhất tại Việt Nam, phục vụ đồng thời mục đích xét công nhận tốt nghiệp THPT và làm căn cứ xét tuyển đại học cho hơn 1 triệu thí sinh mỗi năm. Trong giai đoạn 10 năm từ 2016 đến 2026, dữ liệu tích lũy của kỳ thi đã vượt mốc 10.86 triệu bản ghi, đạt kích thước 1.01 GB dưới định dạng CSV thô.
+Kỳ thi THPT Quốc Gia là kỳ thi chuẩn hóa quan trọng bậc nhất tại Việt Nam, phục vụ đồng thời mục đích xét công nhận tốt nghiệp THPT và làm căn cứ xét tuyển đại học cho hơn 1 triệu thí sinh mỗi năm. Trong giai đoạn 10 năm từ 2016 đến 2026, dữ liệu tích lũy của kỳ thi đã vượt mốc 10.86 triệu bản ghi, đạt kích thước 1.01 GB dưới định dạng CSV thô. Tập dữ liệu được công bố trên Kaggle tại: [Vietnam National Examination Scores 2016–2026 (Kaggle)](https://www.kaggle.com/datasets/bchnhnnguynhunh/viet-name-national-exam-scores-2016-2026).
 
 Những sự cố gian lận điểm thi trong lịch sử—điển hình là bê bối sửa điểm thi năm 2018 tại Hà Giang, Sơn La, Hòa Bình, bê bối lộ đề thi môn Sinh học năm 2021, và mới nhất là các vụ án gian lận thi cử bị khởi tố năm 2026 tại Tuyên Quang, Quảng Ninh—đã đặt ra yêu cầu cấp thiết về một hệ thống tự động kiểm toán dữ liệu có khả năng phát hiện sớm các bất thường thống kê ở quy mô lớn.
 
 ---
 
-## 2. Bối Cảnh & Kiến Trúc 5 Phương Án SOTA (Architecture of 5-Method Framework)
+## 2. Bối Cảnh & Kiến Trúc Khung 3 Phương Án Spark (Architecture of 3-Method Framework)
 
-Hệ thống VNExam-AnomalyGuard được thiết kế theo mô hình 5 phương án phát hiện bất thường chia làm 2 Tầng xử lý chính:
+Hệ thống VNExam-AnomalyGuard được thiết kế theo mô hình Khung 3 Phương Án Bất Thường Phân Tán chạy trực tiếp trên Spark Engine:
 
-### 2.1 Tầng Pipeline Chính (Chạy liên hoàn trên Spark Engine)
-- **Phương án 1 (Student Level):** PySpark MLlib K-Means ($K=4$) đo khoảng cách Euclidean $D(x_i, C_k) > 3\sigma$.
-- **Phương án 2 (Province Level):** Multi-Subject Z-Score $Z = \frac{X - \mu}{\sigma} > 3.0$ trên các môn Toán, A00 và Sinh học.
-- **Phương án 3 (Time-Series YoY Level):** PySpark Window Functions `LAG` tính mức chênh lệch $\Delta Z_{\text{YoY}} = Z_T - Z_{T-1} > 2.0$.
-
-### 2.2 Tầng Nghiên Cứu SOTA Nâng Cao (Module Forensic Independent Audit)
-- **Phương án 4 (Benford's Law Audit):** Phân tích chữ số đầu tiên $D_1$ bằng kiểm định $\chi^2$ để phát hiện dấu vết sửa bài trắc nghiệm thủ công.
-- **Phương án 5 (Mahalanobis Distance & Shannon Entropy):** Tính khoảng cách ma trận hiệp phương sai $\mathbf{\Sigma}$ và chỉ số độ hỗn loạn phổ điểm $H(X) = -\sum P(x) \log_2 P(x)$.
+- **Phương án 1 (Student Level - K-Means):** PySpark MLlib K-Means ($K=4$) đo khoảng cách Euclidean $D(x_i, C_k) > 3\sigma$ để phát hiện thí sinh có điểm lệch khối cực đoan.
+- **Phương án 2 (Province Level - Multi-Subject Z-Score):** Multi-Subject & Multi-Block Z-Score $Z = \frac{X - \mu}{\sigma} > 3.0$ trên tất cả 9 môn và 5 khối thi chính để khoanh vùng cụm thi có tỷ lệ điểm giỏi vọt tăng.
+- **Phương án 3 (Time-Series YoY Level - Lag Delta):** PySpark Window Functions `LAG` tính mức chênh lệch $\Delta Z_{\text{YoY}} = Z_T - Z_{T-1} > 2.0$ để bẫy các địa phương tăng trưởng nhảy vọt theo chuỗi thời gian.
 
 ---
 

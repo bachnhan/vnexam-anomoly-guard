@@ -51,19 +51,25 @@ def main() -> None:
     top_chart    = extra.get("top_chart", [])
     sota         = extra.get("sota", {})
 
-    render_appbar(src)
-    page = render_sidebar(kpi)
+    active_page = render_sidebar(kpi, src)
+    render_appbar(active_page, kpi, src)
 
-    # ── Strategy / Page Dispatch ─────────────────────────────────────────────
-    PAGE_MAP = {
-        "datasource": lambda: views.data_source_page.render(),
-        "kpi":        lambda: views.kpi_page.render(prov_df, yearly_df, kpi, top_chart),
-        "province":   lambda: views.province_page.render(prov_df, top_chart),
-        "students":   lambda: views.students_page.render(student_df),
-        "ground":     lambda: views.ground_truth_page.render(prov_df, ground_truth),
-        "sota":       lambda: views.sota_page.render(sota),
-    }
-    PAGE_MAP.get(page, PAGE_MAP["kpi"])()
+    st.markdown('<div class="main-body">', unsafe_allow_html=True)
+
+    if active_page == "kpi":
+        views.kpi_page.render(kpi, yearly_df, prov_df, top_chart)
+    elif active_page == "province":
+        views.province_page.render(prov_df, top_chart)
+    elif active_page == "students":
+        views.students_page.render(student_df)
+    elif active_page == "ground_truth":
+        views.ground_truth_page.render(ground_truth, prov_df)
+    elif active_page == "sota":
+        views.sota_page.render(sota)
+    elif active_page == "data_source":
+        views.data_source_page.render(src, prov_df, student_df, yearly_df)
+
+    st.markdown('</div>', unsafe_allow_html=True)
 
 
 if __name__ == "__main__":

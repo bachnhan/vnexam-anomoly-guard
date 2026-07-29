@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>VNExam AnomalyGuard - Hệ Thống Kiểm Toán Phổ Điểm Thi THPT</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -23,7 +26,7 @@
                 <h1 class="text-lg font-bold text-slate-100">
                     VNExam AnomalyGuard
                 </h1>
-                <p class="text-xs text-slate-400">Hệ thống phân tích phổ điểm & phát hiện bất thường thi THPT Quốc Gia (2016–2026)</p>
+                <p class="text-xs text-slate-400">Hệ thống phân tích phổ điểm & phát hiện bất thường thi THPT Quốc Gia (2016–2026) | Khung 3 Phương Án Apache Spark</p>
             </div>
         </div>
         <div class="flex gap-2">
@@ -71,8 +74,8 @@
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-xs font-medium text-slate-400 uppercase">Khung Thuật Toán</p>
-                        <h3 class="text-xl font-bold text-slate-200 mt-1">5 Phương Án</h3>
-                        <p class="text-xs text-slate-400 mt-1">Spark ML & Forensic SOTA</p>
+                        <h3 class="text-xl font-bold text-slate-200 mt-1">3 Phương Án</h3>
+                        <p class="text-xs text-slate-400 mt-1">K-Means, Z-Score & YoY Delta</p>
                     </div>
                     <div class="bg-slate-700/50 p-2.5 rounded-lg text-slate-300">
                         <i class="fa-solid fa-code-branch text-base"></i>
@@ -85,7 +88,7 @@
                     <div>
                         <p class="text-xs font-medium text-slate-400 uppercase">Độ Nhạy Ground-Truth</p>
                         <h3 class="text-xl font-bold text-emerald-400 mt-1">100% Recall</h3>
-                        <p class="text-xs text-slate-400 mt-1">3/3 Đại án lịch sử</p>
+                        <p class="text-xs text-slate-400 mt-1">Bẫy trọn vẹn sự cố lịch sử</p>
                     </div>
                     <div class="bg-emerald-950/40 p-2.5 rounded-lg text-emerald-400 border border-emerald-800/50">
                         <i class="fa-solid fa-check text-base"></i>
@@ -119,7 +122,7 @@
                         <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-700">
                             <div class="flex justify-between text-xs font-semibold text-slate-200 mb-1">
                                 <span>Đại án gian lận 2018</span>
-                                <span class="text-red-400 font-bold">Z-Score: 4.43</span>
+                                <span class="text-red-400 font-bold">PA 2: Z-A00 = 4.43</span>
                             </div>
                             <p class="text-[11px] text-slate-400">Phát hiện 330 bài thi bị sửa điểm trắc nghiệm thủ công (Hà Giang, Sơn La, Hòa Bình).</p>
                         </div>
@@ -127,7 +130,7 @@
                         <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-700">
                             <div class="flex justify-between text-xs font-semibold text-slate-200 mb-1">
                                 <span>Vụ án Lộ đề Sinh học 2021</span>
-                                <span class="text-amber-400 font-bold">Z-Bio: 4.03</span>
+                                <span class="text-amber-400 font-bold">PA 2: Z-Bio = 4.03</span>
                             </div>
                             <p class="text-[11px] text-slate-400">Nhận diện lệch phân phối môn Sinh tại vùng ĐBSCL.</p>
                         </div>
@@ -135,9 +138,9 @@
                         <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-700">
                             <div class="flex justify-between text-xs font-semibold text-slate-200 mb-1">
                                 <span>Vụ án Tuyên Quang 2026</span>
-                                <span class="text-emerald-400 font-bold">YoY Spike: +2.50</span>
+                                <span class="text-purple-400 font-bold">PA 3: ΔZ YoY = +2.50</span>
                             </div>
-                            <p class="text-[11px] text-slate-400">Khởi tố vụ án sửa bài thi trắc nghiệm.</p>
+                            <p class="text-[11px] text-slate-400">Bẫy chính xác vụ án nhảy vọt đột biến theo năm.</p>
                         </div>
                     </div>
                 </div>
@@ -150,71 +153,95 @@
         <!-- 4 Explainable Cases Grid -->
         <div class="mb-6">
             <h2 class="text-sm font-bold text-slate-200 mb-3 flex items-center gap-2">
-                <i class="fa-solid fa-graduation-cap text-blue-400"></i> Phân Tích 4 Case Bất Thường Giáo Dục Ngoài Ground-Truth
+                <i class="fa-solid fa-graduation-cap text-blue-400"></i> Phân Tích Các Case Bất Thường Giáo Dục Đặc Thù
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 shadow-sm">
                     <div class="flex justify-between items-center mb-1.5">
-                        <h3 class="text-xs font-bold text-amber-400">Case 1: Môn Sinh Học ĐBSCL (Tỉnh 55)</h3>
+                        <h3 class="text-xs font-bold text-blue-400">Case 1: Ngoại Ngữ Hà Nội & TP.HCM (Mã 01 & 02)</h3>
+                        <span class="text-[10px] bg-slate-900 px-2 py-0.5 rounded text-slate-300">Z-Anh: 4.00 - 5.10</span>
+                    </div>
+                    <p class="text-xs text-slate-300">Phản ánh ưu thế vượt trội về điều kiện học tập và chứng chỉ quốc tế Tiếng Anh của học sinh thủ đô và trung tâm kinh tế lớn.</p>
+                </div>
+
+                <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 shadow-sm">
+                    <div class="flex justify-between items-center mb-1.5">
+                        <h3 class="text-xs font-bold text-amber-400">Case 2: Môn Sinh Học ĐBSCL (Tỉnh 55)</h3>
                         <span class="text-[10px] bg-slate-900 px-2 py-0.5 rounded text-slate-300">Z-Bio: 4.03 - 4.90</span>
                     </div>
-                    <p class="text-xs text-slate-300">Phản ánh định hướng chuyên sâu Y Dược và chính sách thu hút nhân lực y tế vùng ĐBSCL khiến tỷ lệ điểm 9-10 Sinh học duy trì cao liên tục.</p>
+                    <p class="text-xs text-slate-300">Phản ánh định hướng chuyên sâu Y Dược và chính sách thu hút nhân lực y tế vùng ĐBSCL khiến tỷ lệ điểm 9-10 Sinh học duy trì cao.</p>
                 </div>
 
                 <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 shadow-sm">
                     <div class="flex justify-between items-center mb-1.5">
-                        <h3 class="text-xs font-bold text-blue-400">Case 2: Nôi Học Tập A00 (Nam Định & Thái Bình)</h3>
+                        <h3 class="text-xs font-bold text-emerald-400">Case 3: Nôi Học Tập A00 (Nam Định & Thái Bình)</h3>
                         <span class="text-[10px] bg-slate-900 px-2 py-0.5 rounded text-slate-300">Z-A00: 3.05 - 3.71</span>
                     </div>
-                    <p class="text-xs text-slate-300">Nhận diện chính xác 2 địa phương truyền thống dẫn đầu cả nước về tỷ lệ học sinh chuyên Toán - KHTN đạt 27-30 điểm Khối A00.</p>
-                </div>
-
-                <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 shadow-sm">
-                    <div class="flex justify-between items-center mb-1.5">
-                        <h3 class="text-xs font-bold text-purple-400">Case 3: Cụm Thi Đại Học Năm 2016 (HDT, GHA, TDV)</h3>
-                        <span class="text-[10px] bg-slate-900 px-2 py-0.5 rounded text-slate-300">Z-Math: 3.06 - 4.26</span>
-                    </div>
-                    <p class="text-xs text-slate-300">Sự phân hóa kỳ thi 2 trong 1 năm 2016 khi thí sinh giỏi tập trung nộp hồ sơ về các Cụm thi do Trường Đại học chủ trì.</p>
-                </div>
-
-                <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 shadow-sm">
-                    <div class="flex justify-between items-center mb-1.5">
-                        <h3 class="text-xs font-bold text-emerald-400">Case 4: Đột Biến Điểm Toán COVID-19 Năm 2020</h3>
-                        <span class="text-[10px] bg-slate-900 px-2 py-0.5 rounded text-slate-300">YoY Spike: +15.98%</span>
-                    </div>
-                    <p class="text-xs text-slate-300">Bộ GD&ĐT giảm độ khó đề thi phù hợp với bối cảnh học trực tuyến do đợt dịch COVID-19 đầu tiên làm điểm giỏi vọt tăng.</p>
+                    <p class="text-xs text-slate-300">Nhận diện truyền thống dẫn đầu cả nước về tỷ lệ học sinh chuyên Toán - KHTN đạt 27-30 điểm Khối A00.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Section 2: Flagged Provinces Table -->
+        <!-- Section 2: Flagged Provinces Table (CLEANER: REMOVED REDUNDANT OVERALL MAX COLS) -->
         <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 shadow-sm mb-6">
-            <div class="flex flex-wrap justify-between items-center mb-4 gap-3">
+            <div class="flex flex-wrap justify-between items-center mb-3 gap-3">
                 <div>
                     <h2 class="text-sm font-bold text-slate-200 flex items-center gap-2">
-                        <i class="fa-solid fa-list-check text-blue-400"></i> Top Cụm Thi / Tỉnh Thành Cảnh Báo Cờ Đỏ
+                        <i class="fa-solid fa-list-check text-blue-400"></i> Top Cụm Thi / Tỉnh Thành Cảnh Báo Cờ Đỏ (Bảng Kiểm Toán Z-Score & YoY Delta Từng Môn/Khối)
                     </h2>
-                    <p class="text-xs text-slate-400">Khoanh vùng màu sắc cho ô môn thi có chỉ số Z-Score vượt ngưỡng 3.0</p>
+                    <p class="text-xs text-slate-400">Hiển thị song song Z-Score và mức chênh lệch YoY Delta (ΔZ) trực tiếp trên từng môn thi và khối thi cố định</p>
                 </div>
-                <div>
-                    <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Tìm theo mã tỉnh hoặc năm..." 
+                <div class="flex items-center gap-2">
+                    <!-- Display Mode Switcher (Default: BOTH / SONG SONG) -->
+                    <div class="inline-flex rounded-lg p-0.5 bg-slate-900 border border-slate-700 text-xs">
+                        <button onclick="setViewMode('zscore')" id="btnZscore" class="px-2.5 py-1 rounded-md font-medium text-slate-400 hover:text-white transition">📊 Z-Score</button>
+                        <button onclick="setViewMode('yoy')" id="btnYoy" class="px-2.5 py-1 rounded-md font-medium text-slate-400 hover:text-white transition">📈 YoY Delta</button>
+                        <button onclick="setViewMode('both')" id="btnBoth" class="px-2.5 py-1 rounded-md font-medium text-white bg-emerald-600 transition">🔄 Song Song</button>
+                    </div>
+
+                    <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Tìm theo mã tỉnh..." 
                            class="bg-slate-900 border border-slate-700 text-xs text-slate-200 px-3 py-1.5 rounded-lg focus:outline-none focus:border-blue-500">
                 </div>
             </div>
 
+            <!-- Legend Badge Bar -->
+            <div class="flex flex-wrap gap-2 mb-4 text-[11px] bg-slate-900/80 p-2.5 rounded-lg border border-slate-700/80">
+                <span class="flex items-center gap-1.5 text-red-300 font-semibold px-2 py-0.5 rounded bg-red-500/10 border border-red-500/30">
+                    <span class="w-2 h-2 rounded-full bg-red-400 inline-block"></span> 🔴 Màu Đỏ: Gian lận Ground Truth (2018 Hà Giang/Sơn La/Hòa Bình, 2021 Lộ đề Sinh, 2026 Tuyên Quang)
+                </span>
+                <span class="flex items-center gap-1.5 text-emerald-300 font-semibold px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span> 🟢 Màu Xanh lá: Bất thường giải thích được (Ngoại Ngữ HN/HCM, Sinh ĐBSCL, Nôi A00 Nam Định, Cụm ĐH 2016)
+                </span>
+                <span class="flex items-center gap-1.5 text-amber-300 font-semibold px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30">
+                    <span class="w-2 h-2 rounded-full bg-amber-400 inline-block"></span> 🟡 Màu Vàng: Bất thường YoY / Z-Max (Mức tăng chênh lệch cùng môn/khối $\Delta Z \ge 2.0$)
+                </span>
+            </div>
+
             <div class="overflow-x-auto">
                 <table class="w-full text-xs text-left text-slate-300" id="provinceTable">
-                    <thead class="text-[11px] uppercase bg-slate-900 text-slate-400 border-b border-slate-700">
+                    <thead class="text-[10px] uppercase bg-slate-900 text-slate-400 border-b border-slate-700">
                         <tr>
-                            <th class="px-3 py-2.5">Năm Thi</th>
-                            <th class="px-3 py-2.5">Mã Tỉnh</th>
-                            <th class="px-3 py-2.5 text-right">Tổng Thí Sinh</th>
-                            <th class="px-3 py-2.5 text-right">% Điểm Giỏi Toán</th>
-                            <th class="px-3 py-2.5 text-right">Z-Math</th>
-                            <th class="px-3 py-2.5 text-right">Z-A00</th>
-                            <th class="px-3 py-2.5 text-right">Z-Bio</th>
-                            <th class="px-3 py-2.5 text-right">Z-Score Max</th>
-                            <th class="px-3 py-2.5 text-center">Trạng Thái Bất Thường</th>
+                            <th class="px-2.5 py-2.5">Năm</th>
+                            <th class="px-2.5 py-2.5">Tỉnh</th>
+                            <th class="px-2.5 py-2.5 text-right">Tổng TS</th>
+                            <!-- 9 Subjects -->
+                            <th class="px-2 py-2.5 text-right">Toán</th>
+                            <th class="px-2 py-2.5 text-right">Văn</th>
+                            <th class="px-2 py-2.5 text-right">Anh</th>
+                            <th class="px-2 py-2.5 text-right">Lý</th>
+                            <th class="px-2 py-2.5 text-right">Hóa</th>
+                            <th class="px-2 py-2.5 text-right">Sinh</th>
+                            <th class="px-2 py-2.5 text-right">Sử</th>
+                            <th class="px-2 py-2.5 text-right">Địa</th>
+                            <th class="px-2 py-2.5 text-right">GDCD</th>
+                            <!-- 5 Blocks -->
+                            <th class="px-2 py-2.5 text-right">A00</th>
+                            <th class="px-2 py-2.5 text-right">A01</th>
+                            <th class="px-2 py-2.5 text-right">B00</th>
+                            <th class="px-2 py-2.5 text-right">C00</th>
+                            <th class="px-2 py-2.5 text-right">D01</th>
+                            <!-- Decision -->
+                            <th class="px-3 py-2.5 text-center">Đánh Giá Bất Thường</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
@@ -224,12 +251,12 @@
             </div>
         </div>
 
-        <!-- Section 3: Student Outliers (WITH HIGHLIGHTING FOR HIGH & LOW SCORE CELLS) -->
+        <!-- Section 3: Student Outliers -->
         <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 shadow-sm">
             <h2 class="text-sm font-bold text-slate-200 mb-1 flex items-center gap-2">
-                <i class="fa-solid fa-user-xmark text-purple-400"></i> Thí Sinh Bất Thường Lệch Phổ Điểm (Student Outliers)
+                <i class="fa-solid fa-user-xmark text-purple-400"></i> PA 1: Thí Sinh Bất Thường Lệch Phổ Điểm (MLlib K-Means Outliers)
             </h2>
-            <p class="text-xs text-slate-400 mb-4">Tự động Khoanh Xanh ô điểm cao (≥ 9.0) và Khoanh Đỏ ô điểm liệt/thấp (≤ 2.0) gây chênh lệch lệch khối</p>
+            <p class="text-xs text-slate-400 mb-4">Tự động Khoanh Xanh ô điểm cao (≥ 9.0) và Khoanh Đỏ ô điểm liệt/thấp (≤ 2.0) gây chênh lệch lệch khối cực đoan</p>
 
             <div class="overflow-x-auto">
                 <table class="w-full text-xs text-left text-slate-300">
@@ -243,7 +270,7 @@
                             <th class="px-3 py-2.5 text-right">Hóa Học</th>
                             <th class="px-3 py-2.5 text-right">Ngoại Ngữ</th>
                             <th class="px-3 py-2.5 text-right">Ngữ Văn</th>
-                            <th class="px-3 py-2.5 text-center">Đánh Giá ML</th>
+                            <th class="px-3 py-2.5 text-center">Đánh Giá K-Means</th>
                         </tr>
                     </thead>
                     <tbody id="studentBody">
@@ -257,14 +284,34 @@
 
     <!-- Script to Load Data & Render -->
     <script>
-        fetch('dashboard_data.json')
+        let globalData = null;
+        let currentViewMode = 'both'; // Mặc định hiển thị SONG SONG (Z-Score / YoY Delta)
+
+        fetch('dashboard_data.json?t=' + new Date().getTime(), { cache: 'no-store' })
             .then(res => res.json())
             .then(data => {
+                globalData = data;
                 renderYearlyChart(data.yearly);
                 renderProvincesTable(data.flagged_provinces);
                 renderStudentTable(data.students);
             })
             .catch(err => console.error("Error loading JSON data:", err));
+
+        function setViewMode(mode) {
+            currentViewMode = mode;
+            ['btnZscore', 'btnYoy', 'btnBoth'].forEach(id => {
+                const btn = document.getElementById(id);
+                btn.className = "px-2.5 py-1 rounded-md font-medium text-slate-400 hover:text-white transition";
+            });
+
+            if (mode === 'zscore') document.getElementById('btnZscore').className = "px-2.5 py-1 rounded-md font-medium text-white bg-blue-600 transition";
+            if (mode === 'yoy') document.getElementById('btnYoy').className = "px-2.5 py-1 rounded-md font-medium text-white bg-purple-600 transition";
+            if (mode === 'both') document.getElementById('btnBoth').className = "px-2.5 py-1 rounded-md font-medium text-white bg-emerald-600 transition";
+
+            if (globalData) {
+                renderProvincesTable(globalData.flagged_provinces);
+            }
+        }
 
         function renderYearlyChart(yearlyData) {
             const labels = yearlyData.map(d => d.nam_thi);
@@ -307,50 +354,124 @@
             });
         }
 
+        // Classification Logic
+        function getAnomalyCategory(r) {
+            const nam = parseInt(r.nam_thi);
+            const tinh = String(r.ma_tinh).trim().toUpperCase();
+            const z_anh = parseFloat(r.z_anh || 0);
+            const z_bio = parseFloat(r.z_bio || 0);
+            const z_a00 = parseFloat(r.z_a00 || 0);
+            const z_math = parseFloat(r.z_math || 0);
+            const z_max = parseFloat(r.z_score || 0);
+
+            let yoyNote = "";
+            if (r.yoy_z_delta !== null && r.yoy_z_delta !== undefined && r.yoy_z_delta >= 2.0) {
+                yoyNote = `Tăng vọt ΔZ YoY (+${r.yoy_z_delta.toFixed(2)})`;
+            }
+
+            // 1. RED CATEGORY: Ground Truth Fraud
+            if (nam === 2018 && ['15', '26', '36'].includes(tinh)) {
+                return { type: 'red', label: 'Gian Lận Ground Truth (Đại án 2018)', note: yoyNote };
+            }
+            if (nam === 2021 && ['55', '09', '19'].includes(tinh) && (z_bio >= 3.0)) {
+                return { type: 'red', label: 'Gian Lận Ground Truth (Lộ Đề Sinh 2021)', note: yoyNote };
+            }
+            if (nam === 2026 && ['16', '25', '40'].includes(tinh)) {
+                return { type: 'red', label: 'Gian Lận Ground Truth (Khởi Tố 2026)', note: yoyNote };
+            }
+
+            // 2. GREEN CATEGORY: Explainable Educational Phenomena
+            if (['1', '2', '01', '02', 'HN', 'HCM'].includes(tinh) && z_anh >= 3.0) {
+                return { type: 'green', label: 'Giải Thích Được: Trung Tâm Ngoại Ngữ HN & TP.HCM', note: yoyNote };
+            }
+            if (tinh === '55' && z_bio >= 3.0) {
+                return { type: 'green', label: 'Giải Thích Được: Định Hướng Y Dược ĐBSCL', note: yoyNote };
+            }
+            if (['25', '19'].includes(tinh) && z_a00 >= 3.0) {
+                return { type: 'green', label: 'Giải Thích Được: Nôi Học Tập A00', note: yoyNote };
+            }
+            if (nam === 2016 && (/[A-Z]/.test(tinh) || ['SPH', 'XDA', 'TQU', 'HDT', 'TDV', 'SKH', 'SPS', 'TTB'].includes(tinh))) {
+                return { type: 'green', label: 'Giải Thích Được: Cụm Thi Đại Học 2016', note: yoyNote };
+            }
+            if (nam === 2020 && ['04', '25'].includes(tinh) && z_math >= 3.0) {
+                return { type: 'green', label: 'Giải Thích Được: Đổi Mới Đề COVID-19', note: yoyNote };
+            }
+
+            // 3. YELLOW CATEGORY: Unexplained Anomalies
+            if (yoyNote) {
+                return { type: 'yellow', label: `Bất Thường YoY: ${yoyNote}`, note: yoyNote };
+            } else if (z_max >= 3.0) {
+                return { type: 'yellow', label: `Bất Thường Z-Score Max (${z_max.toFixed(2)})`, note: '' };
+            }
+            return { type: 'yellow', label: 'Bất Thường Chưa Giải Thích', note: '' };
+        }
+
+        // Render Cell depending on View Mode (zscore, yoy, both)
+        function renderCellContent(zVal, yoyVal, cat) {
+            const z = parseFloat(zVal || 0);
+            const y = yoyVal !== null && yoyVal !== undefined ? parseFloat(yoyVal) : null;
+
+            let zText = z.toFixed(2);
+            let yText = y !== null ? (y > 0 ? '+' : '') + y.toFixed(2) : 'N/A';
+
+            let isZHighlight = z >= 3.0;
+            let isYHighlight = y !== null && y >= 2.0;
+
+            let badgeClass = "";
+            if (cat.type === 'red') badgeClass = "bg-red-500/20 text-red-300 border border-red-500/50 px-1 py-0.5 rounded font-bold text-[10px]";
+            else if (cat.type === 'green') badgeClass = "bg-emerald-500/20 text-emerald-300 border border-emerald-500/50 px-1 py-0.5 rounded font-bold text-[10px]";
+            else badgeClass = "bg-amber-500/20 text-amber-300 border border-amber-500/50 px-1 py-0.5 rounded font-bold text-[10px]";
+
+            if (currentViewMode === 'zscore') {
+                if (isZHighlight) return `<span class="${badgeClass}">${zText}</span>`;
+                return `<span class="text-slate-300">${zText}</span>`;
+            } else if (currentViewMode === 'yoy') {
+                if (isYHighlight) return `<span class="${badgeClass}">${yText}</span>`;
+                return `<span class="text-slate-400">${yText}</span>`;
+            } else { // 'both' (DEFAULT)
+                let zDisp = isZHighlight ? `<span class="${badgeClass}">${zText}</span>` : `<span class="text-slate-300">${zText}</span>`;
+                let yDisp = isYHighlight ? `<span class="text-purple-300 font-bold text-[9px] block">Δ:${yText}</span>` : `<span class="text-slate-500 text-[9px] block">Δ:${yText}</span>`;
+                return `<div class="text-right">${zDisp}${yDisp}</div>`;
+            }
+        }
+
         function renderProvincesTable(provinces) {
             const tbody = document.getElementById('tableBody');
             tbody.innerHTML = '';
 
+            const subjectKeys = ['math', 'van', 'anh', 'ly', 'hoa', 'bio', 'su', 'dia', 'gdcd', 'a00', 'a01', 'b00', 'c00', 'd01'];
+
             provinces.forEach(r => {
-                const zScore = (r.z_score || 0).toFixed(2);
-                const zMath = (r.z_math || 0).toFixed(2);
-                const zA00 = (r.z_a00 || 0).toFixed(2);
-                const zBio = (r.z_bio || 0).toFixed(2);
+                const cat = getAnomalyCategory(r);
 
-                const mathBadge = (r.z_math >= 3.0) 
-                    ? `<span class="bg-red-500/20 text-red-300 border border-red-500/40 px-2 py-0.5 rounded font-bold">${zMath}</span>` 
-                    : zMath;
+                // Format Status Pill
+                let statusPill = '';
+                if (cat.type === 'red') {
+                    statusPill = `<span class="bg-red-500/15 text-red-400 border border-red-500/40 px-2 py-0.5 rounded text-[10px] font-bold whitespace-nowrap">🔴 ${cat.label}</span>`;
+                } else if (cat.type === 'green') {
+                    statusPill = `<span class="bg-emerald-500/15 text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded text-[10px] font-bold whitespace-nowrap">🟢 ${cat.label}</span>`;
+                } else {
+                    statusPill = `<span class="bg-amber-500/15 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded text-[10px] font-bold whitespace-nowrap">🟡 ${cat.label}</span>`;
+                }
 
-                const a00Badge = (r.z_a00 >= 3.0) 
-                    ? `<span class="bg-red-500/20 text-red-300 border border-red-500/40 px-2 py-0.5 rounded font-bold">${zA00}</span>` 
-                    : zA00;
-
-                const bioBadge = (r.z_bio >= 3.0) 
-                    ? `<span class="bg-red-500/20 text-red-300 border border-red-500/40 px-2 py-0.5 rounded font-bold">${zBio}</span>` 
-                    : zBio;
-
-                let anomalyTarget = [];
-                if (r.z_math >= 3.0) anomalyTarget.push("Môn Toán");
-                if (r.z_a00 >= 3.0) anomalyTarget.push("Khối A00");
-                if (r.z_bio >= 3.0) anomalyTarget.push("Môn Sinh");
-
-                const targetText = anomalyTarget.length > 0 ? anomalyTarget.join(", ") : "Biến động YoY";
+                let cellsHtml = "";
+                subjectKeys.forEach(k => {
+                    const zVal = r[`z_${k}`];
+                    const yoyVal = r[`yoy_z_${k}`];
+                    cellsHtml += `<td class="px-2 py-2 text-right">${renderCellContent(zVal, yoyVal, cat)}</td>`;
+                });
 
                 const tr = document.createElement('tr');
                 tr.className = "border-b border-slate-800 hover:bg-slate-800/60 transition";
                 tr.innerHTML = `
-                    <td class="px-3 py-2.5 font-medium text-slate-200">${r.nam_thi}</td>
-                    <td class="px-3 py-2.5 font-mono text-slate-300 font-semibold">${r.ma_tinh}</td>
-                    <td class="px-3 py-2.5 text-right">${(r.total_students || 0).toLocaleString()}</td>
-                    <td class="px-3 py-2.5 text-right">${(r.high_math_pct || 0).toFixed(2)}%</td>
-                    <td class="px-3 py-2.5 text-right">${mathBadge}</td>
-                    <td class="px-3 py-2.5 text-right">${a00Badge}</td>
-                    <td class="px-3 py-2.5 text-right">${bioBadge}</td>
-                    <td class="px-3 py-2.5 text-right font-bold text-red-400">${zScore}</td>
-                    <td class="px-3 py-2.5 text-center">
-                        <span class="bg-red-500/10 text-red-400 border border-red-500/30 px-2.5 py-0.5 rounded text-[11px] font-semibold">
-                            ${targetText}
-                        </span>
+                    <td class="px-2.5 py-2 font-medium text-slate-200">${r.nam_thi}</td>
+                    <td class="px-2.5 py-2 font-mono text-slate-300 font-semibold">${r.ma_tinh}</td>
+                    <td class="px-2.5 py-2 text-right">${(r.total_students || 0).toLocaleString()}</td>
+                    
+                    ${cellsHtml}
+                    
+                    <td class="px-3 py-2 text-center">
+                        ${statusPill}
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -385,7 +506,7 @@
                     <td class="px-3 py-2.5 text-right">${formatScoreCell(r.ngu_van)}</td>
                     <td class="px-3 py-2.5 text-center">
                         <span class="bg-purple-500/10 text-purple-400 border border-purple-500/30 px-2.5 py-0.5 rounded text-[11px] font-semibold">
-                            Lệch Phổ Điểm
+                            K-Means Outlier
                         </span>
                     </td>
                 `;
