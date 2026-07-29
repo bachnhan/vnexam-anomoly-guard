@@ -589,5 +589,655 @@
       "ngoai_ngu": 2.0,
       "ngu_van": 3.75
     }
-  ]
+  ],
+  "kpi": {
+    "total_records": 10865001,
+    "total_records_fmt": "10,865,001",
+    "data_size_gb": 1.01,
+    "num_columns": 33,
+    "years_covered": "2016–2026",
+    "processing_time_sec": 71,
+    "cluster_nodes": 3,
+    "student_anomalies_count": 54325,
+    "student_anomalies_pct": 0.5,
+    "province_anomalies_count": 29,
+    "ground_truth_recall_pct": 100,
+    "ground_truth_cases": 3,
+    "parquet_size_reduction_pct": 85,
+    "kmeans_k": 4,
+    "kmeans_threshold_pct": 99.5,
+    "zscore_threshold": 3.0,
+    "benford_chi2": 2297.8,
+    "benford_critical": 26.12,
+    "mahalanobis_flagged": 443,
+    "mahalanobis_threshold": 18.55
+  },
+  "ground_truth": [
+    {
+      "incident": "Đại án gian lận thi cử 2018",
+      "year": 2018,
+      "provinces": [
+        "15",
+        "26",
+        "36"
+      ],
+      "province_names": "Hà Giang (15), Sơn La (26), Hòa Bình (36)",
+      "z_score_max": 4.43,
+      "z_indicator": "Z-A00 = 4.13 · Z-Bio = 4.43",
+      "detected": true,
+      "recall": "100%",
+      "severity": "critical",
+      "note": "Sửa điểm thi trắc nghiệm cho 114 thí sinh, nâng điểm trung bình +3.5 điểm"
+    },
+    {
+      "incident": "Vụ lộ đề thi Sinh học 2021",
+      "year": 2021,
+      "provinces": [
+        "55",
+        "09",
+        "19"
+      ],
+      "province_names": "Bạc Liêu (55), Đồng Tháp (09), Bình Định (19)",
+      "z_score_max": 4.03,
+      "z_indicator": "Z-Bio = 4.03 · YoY = -4.93%",
+      "detected": true,
+      "recall": "100%",
+      "severity": "high",
+      "note": "Đề thi Sinh học bị lộ trước giờ thi, Z-Bio tăng đột biến tại các tỉnh có điểm rơi"
+    },
+    {
+      "incident": "Vụ gian lận thi cử 2026",
+      "year": 2026,
+      "provinces": [
+        "16",
+        "25",
+        "40"
+      ],
+      "province_names": "Tuyên Quang (16), Lai Châu (25), Thanh Hóa (40)",
+      "z_score_max": 3.09,
+      "z_indicator": "Z-Math = 3.08 · YoY +1.77%",
+      "detected": true,
+      "recall": "100%",
+      "severity": "medium",
+      "note": "Phát hiện qua YoY spike bất thường, đang trong quá trình điều tra"
+    }
+  ],
+  "top_provinces_chart": [
+    {
+      "label": "2022_55",
+      "nam_thi": 2022,
+      "ma_tinh": "55",
+      "z_score": 4.9,
+      "is_scandal_2018": false,
+      "high_math_pct": 2.23
+    },
+    {
+      "label": "2016_SPS",
+      "nam_thi": 2016,
+      "ma_tinh": "SPS",
+      "z_score": 4.6,
+      "is_scandal_2018": false,
+      "high_math_pct": 1.224
+    },
+    {
+      "label": "2018_36",
+      "nam_thi": 2018,
+      "ma_tinh": "36",
+      "z_score": 4.43,
+      "is_scandal_2018": true,
+      "high_math_pct": 0.067
+    },
+    {
+      "label": "2016_TDV",
+      "nam_thi": 2016,
+      "ma_tinh": "TDV",
+      "z_score": 4.34,
+      "is_scandal_2018": false,
+      "high_math_pct": 2.441
+    },
+    {
+      "label": "2016_HDT",
+      "nam_thi": 2016,
+      "ma_tinh": "HDT",
+      "z_score": 4.26,
+      "is_scandal_2018": false,
+      "high_math_pct": 3.233
+    },
+    {
+      "label": "2017_55",
+      "nam_thi": 2017,
+      "ma_tinh": "55",
+      "z_score": 4.15,
+      "is_scandal_2018": false,
+      "high_math_pct": 2.371
+    },
+    {
+      "label": "2018_26",
+      "nam_thi": 2018,
+      "ma_tinh": "26",
+      "z_score": 4.13,
+      "is_scandal_2018": true,
+      "high_math_pct": 0.112
+    },
+    {
+      "label": "2021_55",
+      "nam_thi": 2021,
+      "ma_tinh": "55",
+      "z_score": 4.03,
+      "is_scandal_2018": false,
+      "high_math_pct": 2.811
+    },
+    {
+      "label": "2023_55",
+      "nam_thi": 2023,
+      "ma_tinh": "55",
+      "z_score": 3.97,
+      "is_scandal_2018": false,
+      "high_math_pct": 0.871
+    },
+    {
+      "label": "2016_SKH",
+      "nam_thi": 2016,
+      "ma_tinh": "SKH",
+      "z_score": 3.87,
+      "is_scandal_2018": false,
+      "high_math_pct": 1.237
+    },
+    {
+      "label": "2020_4",
+      "nam_thi": 2020,
+      "ma_tinh": "4",
+      "z_score": 3.84,
+      "is_scandal_2018": false,
+      "high_math_pct": 12.388
+    },
+    {
+      "label": "2016_GHA",
+      "nam_thi": 2016,
+      "ma_tinh": "GHA",
+      "z_score": 3.77,
+      "is_scandal_2018": false,
+      "high_math_pct": 2.905
+    },
+    {
+      "label": "2018_15",
+      "nam_thi": 2018,
+      "ma_tinh": "15",
+      "z_score": 3.76,
+      "is_scandal_2018": true,
+      "high_math_pct": 0.19
+    },
+    {
+      "label": "2024_19",
+      "nam_thi": 2024,
+      "ma_tinh": "19",
+      "z_score": 3.71,
+      "is_scandal_2018": false,
+      "high_math_pct": 2.487
+    },
+    {
+      "label": "2021_19",
+      "nam_thi": 2021,
+      "ma_tinh": "19",
+      "z_score": 3.67,
+      "is_scandal_2018": false,
+      "high_math_pct": 7.109
+    }
+  ],
+  "yearly_extended": [
+    {
+      "nam_thi": 2016,
+      "total_students": 877460,
+      "avg_math_pct": 0.4222562123,
+      "is_anomaly_year": false,
+      "anomaly_label": "",
+      "total_students_fmt": "877,460"
+    },
+    {
+      "nam_thi": 2017,
+      "total_students": 861068,
+      "avg_math_pct": 1.9637222037,
+      "is_anomaly_year": false,
+      "anomaly_label": "",
+      "total_students_fmt": "861,068"
+    },
+    {
+      "nam_thi": 2018,
+      "total_students": 921520,
+      "avg_math_pct": 0.0368749054,
+      "is_anomaly_year": true,
+      "anomaly_label": "Gian lận 2018",
+      "total_students_fmt": "921,520"
+    },
+    {
+      "nam_thi": 2019,
+      "total_students": 882594,
+      "avg_math_pct": 0.8915363431,
+      "is_anomaly_year": false,
+      "anomaly_label": "",
+      "total_students_fmt": "882,594"
+    },
+    {
+      "nam_thi": 2020,
+      "total_students": 881374,
+      "avg_math_pct": 6.2023242524,
+      "is_anomaly_year": true,
+      "anomaly_label": "COVID-19 đề dễ",
+      "total_students_fmt": "881,374"
+    },
+    {
+      "nam_thi": 2021,
+      "total_students": 999790,
+      "avg_math_pct": 3.0868135917,
+      "is_anomaly_year": true,
+      "anomaly_label": "Lộ đề Sinh",
+      "total_students_fmt": "999,790"
+    },
+    {
+      "nam_thi": 2022,
+      "total_students": 995441,
+      "avg_math_pct": 1.7685306002,
+      "is_anomaly_year": false,
+      "anomaly_label": "",
+      "total_students_fmt": "995,441"
+    },
+    {
+      "nam_thi": 2023,
+      "total_students": 1022060,
+      "avg_math_pct": 0.7562091462,
+      "is_anomaly_year": false,
+      "anomaly_label": "",
+      "total_students_fmt": "1,022,060"
+    },
+    {
+      "nam_thi": 2024,
+      "total_students": 1061605,
+      "avg_math_pct": 0.8578281486,
+      "is_anomaly_year": false,
+      "anomaly_label": "",
+      "total_students_fmt": "1,061,605"
+    },
+    {
+      "nam_thi": 2025,
+      "total_students": 1153226,
+      "avg_math_pct": 1.1044635365,
+      "is_anomaly_year": false,
+      "anomaly_label": "",
+      "total_students_fmt": "1,153,226"
+    },
+    {
+      "nam_thi": 2026,
+      "total_students": 1208863,
+      "avg_math_pct": 3.482438006,
+      "is_anomaly_year": false,
+      "anomaly_label": "",
+      "total_students_fmt": "1,208,863"
+    }
+  ],
+  "student_anomalies": [
+    {
+      "sbd": "BKA000945",
+      "nam_thi": 2016,
+      "ma_tinh": "BKA",
+      "toan": 9.25,
+      "vat_ly": 7.8000001907,
+      "hoa_hoc": 7.0,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 4.0,
+      "sinh_hoc": 4.0,
+      "anomaly_score": 6.203,
+      "is_student_anomaly": true,
+      "anomaly_pattern": "Toán cao + Anh liệt",
+      "khoi_a00": 24.05,
+      "khoi_d01": 15.25
+    },
+    {
+      "sbd": "BKA002504",
+      "nam_thi": 2016,
+      "ma_tinh": "BKA",
+      "toan": 9.0,
+      "vat_ly": 6.1082448959,
+      "hoa_hoc": 8.3999996185,
+      "ngoai_ngu": 1.8799999952,
+      "ngu_van": 4.5,
+      "sinh_hoc": 3.5,
+      "anomaly_score": 6.128,
+      "is_student_anomaly": true,
+      "anomaly_pattern": "Toán cao + Anh liệt",
+      "khoi_a00": 23.51,
+      "khoi_d01": 15.38
+    },
+    {
+      "sbd": "BKA005372",
+      "nam_thi": 2016,
+      "ma_tinh": "BKA",
+      "toan": 9.5,
+      "vat_ly": 8.6000003815,
+      "hoa_hoc": 8.0,
+      "ngoai_ngu": 1.8799999952,
+      "ngu_van": 4.5,
+      "sinh_hoc": 5.0,
+      "anomaly_score": 6.742,
+      "is_student_anomaly": true,
+      "anomaly_pattern": "Toán cao + Anh liệt",
+      "khoi_a00": 26.1,
+      "khoi_d01": 15.88
+    },
+    {
+      "sbd": "BKA005524",
+      "nam_thi": 2016,
+      "ma_tinh": "BKA",
+      "toan": 9.0,
+      "vat_ly": 7.4000000954,
+      "hoa_hoc": 4.1999998093,
+      "ngoai_ngu": 1.75,
+      "ngu_van": 4.0,
+      "sinh_hoc": 4.25,
+      "anomaly_score": 6.459,
+      "is_student_anomaly": true,
+      "anomaly_pattern": "Toán cao + Anh liệt",
+      "khoi_a00": 20.6,
+      "khoi_d01": 14.75
+    },
+    {
+      "sbd": "BKA008043",
+      "nam_thi": 2016,
+      "ma_tinh": "BKA",
+      "toan": 9.0,
+      "vat_ly": 8.3999996185,
+      "hoa_hoc": 8.0,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 4.75,
+      "sinh_hoc": 3.75,
+      "anomaly_score": 6.313,
+      "is_student_anomaly": true,
+      "anomaly_pattern": "Toán cao + Anh liệt",
+      "khoi_a00": 25.4,
+      "khoi_d01": 15.75
+    },
+    {
+      "sbd": "BKA008153",
+      "nam_thi": 2016,
+      "ma_tinh": "BKA",
+      "toan": 9.0,
+      "vat_ly": 8.0,
+      "hoa_hoc": 6.5999999046,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 6.0,
+      "sinh_hoc": 4.5,
+      "anomaly_score": 5.784,
+      "is_student_anomaly": true,
+      "anomaly_pattern": "Toán cao + Anh liệt",
+      "khoi_a00": 23.6,
+      "khoi_d01": 17.0
+    },
+    {
+      "sbd": "DCN000079",
+      "nam_thi": 2016,
+      "ma_tinh": "DCN",
+      "toan": 9.0,
+      "vat_ly": 7.8000001907,
+      "hoa_hoc": 6.1999998093,
+      "ngoai_ngu": 1.8799999952,
+      "ngu_van": 5.25,
+      "sinh_hoc": 5.0,
+      "anomaly_score": 5.853,
+      "is_student_anomaly": true,
+      "anomaly_pattern": "Toán cao + Anh liệt",
+      "khoi_a00": 23.0,
+      "khoi_d01": 16.13
+    },
+    {
+      "sbd": "DCN002713",
+      "nam_thi": 2016,
+      "ma_tinh": "DCN",
+      "toan": 9.0,
+      "vat_ly": 6.0,
+      "hoa_hoc": 6.1999998093,
+      "ngoai_ngu": 1.8500000238,
+      "ngu_van": 5.0,
+      "sinh_hoc": 4.5,
+      "anomaly_score": 5.635,
+      "is_student_anomaly": true,
+      "anomaly_pattern": "Toán cao + Anh liệt",
+      "khoi_a00": 21.2,
+      "khoi_d01": 15.85
+    },
+    {
+      "sbd": "DCN007928",
+      "nam_thi": 2016,
+      "ma_tinh": "DCN",
+      "toan": 9.0,
+      "vat_ly": 7.5999999046,
+      "hoa_hoc": 7.8000001907,
+      "ngoai_ngu": 1.8799999952,
+      "ngu_van": 5.5,
+      "sinh_hoc": 3.25,
+      "anomaly_score": 5.986,
+      "is_student_anomaly": true,
+      "anomaly_pattern": "Toán cao + Anh liệt",
+      "khoi_a00": 24.4,
+      "khoi_d01": 16.38
+    },
+    {
+      "sbd": "DHS000837",
+      "nam_thi": 2016,
+      "ma_tinh": "DHS",
+      "toan": 9.0,
+      "vat_ly": 8.1999998093,
+      "hoa_hoc": 8.8000001907,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 4.0,
+      "sinh_hoc": 5.0,
+      "anomaly_score": 6.7,
+      "is_student_anomaly": true,
+      "anomaly_pattern": "Toán cao + Anh liệt",
+      "khoi_a00": 26.0,
+      "khoi_d01": 15.0
+    },
+    {
+      "sbd": "DHS002326",
+      "nam_thi": 2016,
+      "ma_tinh": "DHS",
+      "toan": 9.25,
+      "vat_ly": 8.6000003815,
+      "hoa_hoc": 7.5999999046,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 5.5,
+      "sinh_hoc": 4.0,
+      "anomaly_score": 6.291,
+      "is_student_anomaly": true,
+      "anomaly_pattern": "Toán cao + Anh liệt",
+      "khoi_a00": 25.45,
+      "khoi_d01": 16.75
+    },
+    {
+      "sbd": "DHS002472",
+      "nam_thi": 2016,
+      "ma_tinh": "DHS",
+      "toan": 9.0,
+      "vat_ly": 8.6000003815,
+      "hoa_hoc": 8.6000003815,
+      "ngoai_ngu": 1.75,
+      "ngu_van": 3.25,
+      "sinh_hoc": 3.5,
+      "anomaly_score": 7.2,
+      "is_student_anomaly": true,
+      "anomaly_pattern": "Toán cao + Anh liệt",
+      "khoi_a00": 26.2,
+      "khoi_d01": 14.0
+    },
+    {
+      "sbd": "DHS012214",
+      "nam_thi": 2016,
+      "ma_tinh": "DHS",
+      "toan": 9.0,
+      "vat_ly": 8.6000003815,
+      "hoa_hoc": 8.8000001907,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 5.0,
+      "sinh_hoc": 4.25,
+      "anomaly_score": 6.619,
+      "is_student_anomaly": true,
+      "anomaly_pattern": "Toán cao + Anh liệt",
+      "khoi_a00": 26.4,
+      "khoi_d01": 16.0
+    },
+    {
+      "sbd": "DHS012320",
+      "nam_thi": 2016,
+      "ma_tinh": "DHS",
+      "toan": 9.0,
+      "vat_ly": 8.3999996185,
+      "hoa_hoc": 7.4000000954,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 4.5,
+      "sinh_hoc": 5.0,
+      "anomaly_score": 6.224,
+      "is_student_anomaly": true,
+      "anomaly_pattern": "Toán cao + Anh liệt",
+      "khoi_a00": 24.8,
+      "khoi_d01": 15.5
+    },
+    {
+      "sbd": "DHS012412",
+      "nam_thi": 2016,
+      "ma_tinh": "DHS",
+      "toan": 9.0,
+      "vat_ly": 8.1999998093,
+      "hoa_hoc": 6.8000001907,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 4.5,
+      "sinh_hoc": 3.75,
+      "anomaly_score": 6.061,
+      "is_student_anomaly": true,
+      "anomaly_pattern": "Toán cao + Anh liệt",
+      "khoi_a00": 24.0,
+      "khoi_d01": 15.5
+    },
+    {
+      "sbd": "DHS012630",
+      "nam_thi": 2016,
+      "ma_tinh": "DHS",
+      "toan": 9.0,
+      "vat_ly": 7.4000000954,
+      "hoa_hoc": 7.8000001907,
+      "ngoai_ngu": 1.8799999952,
+      "ngu_van": 5.5,
+      "sinh_hoc": 4.5,
+      "anomaly_score": 5.935,
+      "is_student_anomaly": true,
+      "anomaly_pattern": "Toán cao + Anh liệt",
+      "khoi_a00": 24.2,
+      "khoi_d01": 16.38
+    },
+    {
+      "sbd": "DHS013187",
+      "nam_thi": 2016,
+      "ma_tinh": "DHS",
+      "toan": 9.0,
+      "vat_ly": 8.0,
+      "hoa_hoc": 6.4000000954,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 4.75,
+      "sinh_hoc": 3.5,
+      "anomaly_score": 5.907,
+      "is_student_anomaly": true,
+      "anomaly_pattern": "Toán cao + Anh liệt",
+      "khoi_a00": 23.4,
+      "khoi_d01": 15.75
+    },
+    {
+      "sbd": "DHS015356",
+      "nam_thi": 2016,
+      "ma_tinh": "DHS",
+      "toan": 9.0,
+      "vat_ly": 7.8000001907,
+      "hoa_hoc": 7.5999999046,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 5.0,
+      "sinh_hoc": 4.0,
+      "anomaly_score": 5.957,
+      "is_student_anomaly": true,
+      "anomaly_pattern": "Toán cao + Anh liệt",
+      "khoi_a00": 24.4,
+      "khoi_d01": 16.0
+    },
+    {
+      "sbd": "DHS016894",
+      "nam_thi": 2016,
+      "ma_tinh": "DHS",
+      "toan": 9.0,
+      "vat_ly": 9.0,
+      "hoa_hoc": 8.8000001907,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 5.25,
+      "sinh_hoc": 4.75,
+      "anomaly_score": 6.754,
+      "is_student_anomaly": true,
+      "anomaly_pattern": "Toán cao + Anh liệt",
+      "khoi_a00": 26.8,
+      "khoi_d01": 16.25
+    },
+    {
+      "sbd": "DHU008630",
+      "nam_thi": 2016,
+      "ma_tinh": "DHU",
+      "toan": 9.0,
+      "vat_ly": 7.5999999046,
+      "hoa_hoc": 7.0,
+      "ngoai_ngu": 2.0,
+      "ngu_van": 3.75,
+      "sinh_hoc": 3.75,
+      "anomaly_score": 6.128,
+      "is_student_anomaly": true,
+      "anomaly_pattern": "Toán cao + Anh liệt",
+      "khoi_a00": 23.6,
+      "khoi_d01": 14.75
+    }
+  ],
+  "sota_results": {
+    "benford": {
+      "chi2_statistic": 2297.8,
+      "chi2_critical_005": 26.12,
+      "p_value": "< 0.001",
+      "verdict": "REJECT H0 — Phổ điểm bị can thiệp nhân tạo",
+      "flagged_years": [
+        2018
+      ],
+      "description": "Kiểm định Chi-Square so sánh tần suất chữ số đầu tiên của điểm thi với phân phối Benford lý thuyết"
+    },
+    "mahalanobis": {
+      "flagged_students": 443,
+      "threshold": 18.55,
+      "degrees_of_freedom": 6,
+      "verdict": "443 thí sinh có profile điểm bất khả thi về mặt thống kê",
+      "description": "Khoảng cách Mahalanobis tính đến ma trận hiệp phương sai giữa các môn thi"
+    },
+    "shannon_entropy": {
+      "normal_entropy_bits": 3.2,
+      "flagged_provinces": [
+        {
+          "ma_tinh": "15",
+          "name": "Hà Giang",
+          "year": 2018,
+          "entropy": 2.712
+        },
+        {
+          "ma_tinh": "36",
+          "name": "Hòa Bình",
+          "year": 2018,
+          "entropy": 2.651
+        },
+        {
+          "ma_tinh": "26",
+          "name": "Sơn La",
+          "year": 2018,
+          "entropy": 2.784
+        }
+      ],
+      "verdict": "Phổ điểm mất đa dạng — dấu hiệu sửa hàng loạt về cùng mức điểm",
+      "description": "Shannon Entropy đo độ đa dạng phổ điểm. Entropy thấp bất thường → điểm bị kéo về một cụm"
+    }
+  }
 }
