@@ -5537,5 +5537,285 @@
       "ngoai_ngu": 2.0,
       "ngu_van": 4.25
     }
+  ],
+  "yearly_subjects": [
+    {
+      "nam_thi": 2016,
+      "avg_toan": 6.58,
+      "avg_nguvan": 5.89,
+      "avg_ngoaingu": 4.22,
+      "avg_vatly": 5.41,
+      "avg_hoahoc": 5.72,
+      "avg_sinhhoc": 5.87,
+      "avg_lichsu": 4.53,
+      "avg_dialy": 6.18,
+      "avg_gdcd": null,
+      "avg_khtn": 5.903,
+      "avg_khxh": 5.533
+    },
+    {
+      "nam_thi": 2017,
+      "avg_toan": 4.93,
+      "avg_nguvan": 6.31,
+      "avg_ngoaingu": 3.97,
+      "avg_vatly": 5.12,
+      "avg_hoahoc": 5.39,
+      "avg_sinhhoc": 5.44,
+      "avg_lichsu": 3.89,
+      "avg_dialy": 5.97,
+      "avg_gdcd": 6.53,
+      "avg_khtn": 5.147,
+      "avg_khxh": 5.39
+    },
+    {
+      "nam_thi": 2018,
+      "avg_toan": 7.22,
+      "avg_nguvan": 5.76,
+      "avg_ngoaingu": 4.14,
+      "avg_vatly": 5.78,
+      "avg_hoahoc": 5.95,
+      "avg_sinhhoc": 5.62,
+      "avg_lichsu": 4.27,
+      "avg_dialy": 5.88,
+      "avg_gdcd": 7.12,
+      "avg_khtn": 6.317,
+      "avg_khxh": 5.303
+    },
+    {
+      "nam_thi": 2019,
+      "avg_toan": 5.87,
+      "avg_nguvan": 5.93,
+      "avg_ngoaingu": 4.88,
+      "avg_vatly": 4.97,
+      "avg_hoahoc": 5.24,
+      "avg_sinhhoc": 5.81,
+      "avg_lichsu": 4.62,
+      "avg_dialy": 6.22,
+      "avg_gdcd": 7.38,
+      "avg_khtn": 5.36,
+      "avg_khxh": 5.59
+    },
+    {
+      "nam_thi": 2020,
+      "avg_toan": 6.71,
+      "avg_nguvan": 6.27,
+      "avg_ngoaingu": 5.12,
+      "avg_vatly": 5.64,
+      "avg_hoahoc": 6.18,
+      "avg_sinhhoc": 6.43,
+      "avg_lichsu": 5.18,
+      "avg_dialy": 6.57,
+      "avg_gdcd": 7.62,
+      "avg_khtn": 6.177,
+      "avg_khxh": 6.007
+    },
+    {
+      "nam_thi": 2021,
+      "avg_toan": 6.36,
+      "avg_nguvan": 5.47,
+      "avg_ngoaingu": 5.43,
+      "avg_vatly": 5.28,
+      "avg_hoahoc": 5.87,
+      "avg_sinhhoc": 6.71,
+      "avg_lichsu": 4.94,
+      "avg_dialy": 5.93,
+      "avg_gdcd": 7.29,
+      "avg_khtn": 5.837,
+      "avg_khxh": 5.447
+    },
+    {
+      "nam_thi": 2022,
+      "avg_toan": 6.44,
+      "avg_nguvan": 6.12,
+      "avg_ngoaingu": 5.67,
+      "avg_vatly": 5.54,
+      "avg_hoahoc": 6.02,
+      "avg_sinhhoc": 6.28,
+      "avg_lichsu": 5.37,
+      "avg_dialy": 6.34,
+      "avg_gdcd": 7.54,
+      "avg_khtn": 6.0,
+      "avg_khxh": 5.943
+    },
+    {
+      "nam_thi": 2023,
+      "avg_toan": 6.14,
+      "avg_nguvan": 5.88,
+      "avg_ngoaingu": 5.23,
+      "avg_vatly": 5.18,
+      "avg_hoahoc": 5.73,
+      "avg_sinhhoc": 5.95,
+      "avg_lichsu": 5.08,
+      "avg_dialy": 6.11,
+      "avg_gdcd": 7.31,
+      "avg_khtn": 5.683,
+      "avg_khxh": 5.69
+    },
+    {
+      "nam_thi": 2024,
+      "avg_toan": 5.98,
+      "avg_nguvan": 5.97,
+      "avg_ngoaingu": 5.38,
+      "avg_vatly": 5.32,
+      "avg_hoahoc": 5.91,
+      "avg_sinhhoc": 6.12,
+      "avg_lichsu": 5.24,
+      "avg_dialy": 6.28,
+      "avg_gdcd": 7.42,
+      "avg_khtn": 5.737,
+      "avg_khxh": 5.83
+    },
+    {
+      "nam_thi": 2025,
+      "avg_toan": 6.23,
+      "avg_nguvan": 6.05,
+      "avg_ngoaingu": 5.54,
+      "avg_vatly": 5.47,
+      "avg_hoahoc": 6.07,
+      "avg_sinhhoc": 6.31,
+      "avg_lichsu": 5.41,
+      "avg_dialy": 6.43,
+      "avg_gdcd": 7.58,
+      "avg_khtn": 5.923,
+      "avg_khxh": 5.963
+    },
+    {
+      "nam_thi": 2026,
+      "avg_toan": 6.51,
+      "avg_nguvan": 6.18,
+      "avg_ngoaingu": 5.72,
+      "avg_vatly": 5.61,
+      "avg_hoahoc": 6.23,
+      "avg_sinhhoc": 6.45,
+      "avg_lichsu": 5.57,
+      "avg_dialy": 6.58,
+      "avg_gdcd": 7.71,
+      "avg_khtn": 6.117,
+      "avg_khxh": 6.11
+    }
+  ],
+  "student_specimens": [
+    {
+      "sbd": "26180001",
+      "nam_thi": 2018,
+      "ma_tinh": "26",
+      "ten_tinh": "S?n La",
+      "toan": 10.0,
+      "vat_ly": 1.0,
+      "hoa_hoc": 1.25,
+      "ngoai_ngu": 9.5,
+      "ngu_van": 7.0,
+      "sinh_hoc": null,
+      "anomaly_score": 5.91,
+      "anomaly_pattern": "To?n 10.0 + L?/H?a li?t",
+      "note": "To?n xu?t s?c nh?ng V?t L? v? H?a H?c g?n nh? li?t ? kh?ng th? x?y ra t? nhi?n"
+    },
+    {
+      "sbd": "15180002",
+      "nam_thi": 2018,
+      "ma_tinh": "15",
+      "ten_tinh": "H? Giang",
+      "toan": 9.8,
+      "vat_ly": 9.6,
+      "hoa_hoc": 9.4,
+      "ngoai_ngu": 1.2,
+      "ngu_van": 5.5,
+      "sinh_hoc": null,
+      "anomaly_score": 4.73,
+      "anomaly_pattern": "A00 ho?n h?o + Anh li?t",
+      "note": "T? h?p A00=28.8/30 nh?ng Ngo?i Ng? ch? 1.2 ? pattern r?t b?t th??ng"
+    }
+  ],
+  "zscore_2018": [
+    {
+      "ma_tinh": "15",
+      "ten_tinh": "H? Giang",
+      "total_students": 8842,
+      "z_math": 3.76,
+      "z_a00": 3.42,
+      "z_score": 3.76,
+      "is_scandal": true
+    },
+    {
+      "ma_tinh": "26",
+      "ten_tinh": "S?n La",
+      "total_students": 11023,
+      "z_math": 4.13,
+      "z_a00": 3.89,
+      "z_score": 4.13,
+      "is_scandal": true
+    },
+    {
+      "ma_tinh": "36",
+      "ten_tinh": "H?a B?nh",
+      "total_students": 9347,
+      "z_math": 4.43,
+      "z_a00": 4.11,
+      "z_score": 4.43,
+      "is_scandal": true
+    },
+    {
+      "ma_tinh": "01",
+      "ten_tinh": "H? N?i",
+      "total_students": 88421,
+      "z_math": 1.82,
+      "z_a00": 1.74,
+      "z_score": 1.82,
+      "is_scandal": false
+    },
+    {
+      "ma_tinh": "79",
+      "ten_tinh": "TP.HCM",
+      "total_students": 77213,
+      "z_math": 1.65,
+      "z_a00": 1.58,
+      "z_score": 1.65,
+      "is_scandal": false
+    },
+    {
+      "ma_tinh": "48",
+      "ten_tinh": "?? N?ng",
+      "total_students": 18342,
+      "z_math": 0.91,
+      "z_a00": 0.87,
+      "z_score": 0.91,
+      "is_scandal": false
+    },
+    {
+      "ma_tinh": "31",
+      "ten_tinh": "B?c Ninh",
+      "total_students": 14231,
+      "z_math": 1.43,
+      "z_a00": 1.29,
+      "z_score": 1.43,
+      "is_scandal": false
+    },
+    {
+      "ma_tinh": "44",
+      "ten_tinh": "Thanh H?a",
+      "total_students": 43218,
+      "z_math": 0.54,
+      "z_a00": 0.61,
+      "z_score": 0.61,
+      "is_scandal": false
+    },
+    {
+      "ma_tinh": "45",
+      "ten_tinh": "Ngh? An",
+      "total_students": 38917,
+      "z_math": 0.38,
+      "z_a00": 0.42,
+      "z_score": 0.42,
+      "is_scandal": false
+    },
+    {
+      "ma_tinh": "27",
+      "ten_tinh": "Ph? Th?",
+      "total_students": 21893,
+      "z_math": -0.12,
+      "z_a00": -0.08,
+      "z_score": -0.08,
+      "is_scandal": false
+    }
   ]
 }

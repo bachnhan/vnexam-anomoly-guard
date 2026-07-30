@@ -119,11 +119,14 @@ def _parse_json_extra() -> dict:
 
 def _parse_extra(raw: dict) -> dict:
     return {
-        "kpi":             raw.get("kpi", {}),
-        "ground_truth":    raw.get("ground_truth", []),
-        "top_chart":       raw.get("top_provinces_chart", []),
-        "yearly_extended": raw.get("yearly_extended", []),
-        "sota":            raw.get("sota_results", {}),
+        "kpi":               raw.get("kpi", {}),
+        "ground_truth":      raw.get("ground_truth", []),
+        "top_chart":         raw.get("top_provinces_chart", []),
+        "yearly_extended":   raw.get("yearly_extended", []),
+        "sota":              raw.get("sota_results", {}),
+        "yearly_subjects":   raw.get("yearly_subjects", []),
+        "student_specimens": raw.get("student_specimens", []),
+        "zscore_2018":       raw.get("zscore_2018", []),
     }
 
 

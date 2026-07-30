@@ -24,15 +24,13 @@ PAGE_TITLE   = "VNExam AnomalyGuard — Kiểm Toán Thi THPT"
 
 # ── Navigation items: (page_key, icon_emoji, display_label) ──────────────────
 NAV_ITEMS = [
-    ("datasource", "🗄️", "Data Source"),
-    ("kpi",        "📊", "KPI Overview"),
-    ("province",   "🗺️", "Province Analysis"),
-    ("students",   "👤", "Student Outliers"),
-    ("ground",     "🎯", "Ground-Truth"),
-    ("sota",       "🔬", "SOTA Audit"),
+    ("tong_quan", "📊", "Tổng Quan"),
+    ("thong_ke",  "📋", "Thống Kê Mô Tả"),
+    ("kmeans",    "👤", "K-Means Thí Sinh"),
+    ("zscore",    "🗺️", "Z-Score Tỉnh Thành"),
 ]
 
-DEFAULT_PAGE = NAV_ITEMS[1][0]  # mặc định vào KPI Overview
+DEFAULT_PAGE = NAV_ITEMS[0][0]  # mặc định vào Tổng Quan
 
 # ── ML / Analytics thresholds ─────────────────────────────────────────────────
 Z_SCORE_THRESHOLD   = 3.0
