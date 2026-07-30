@@ -12,48 +12,91 @@ from data.loader import style_z
 _SEV_ICON = {"critical": "🔴", "high": "🟡", "medium": "🟠"}
 
 
+_Z_THRESHOLD = 3.0   # Cố định ngưỡng Z
+
+
 def render(prov_df: pd.DataFrame, ground_truth: list, zscore_2018: list = None) -> None:
 
     # ── 3b: Tỉnh có Z > 3.0 ────────────────────────────────────────────────────
     ang_section(
         "🗺️", "Z-Score Engine — Tỉnh Thành Bất Thường",
-        "Tỉnh nào có Z > 3.0 ở phân khúc điểm cao? · Lọc theo năm và ngưỡng"
+        f"Tỉnh nào có Z > {_Z_THRESHOLD} ở phân khúc điểm cao? · Lọc theo tỉnh và năm"
     )
+
+    # ── Build danh sách tỉnh từ data ─────────────────────────────────────────
+    years = sorted(prov_df["nam_thi"].dropna().unique().tolist())
+
+    tinh_list = ["Tất cả tỉnh"]
+    if "ten_tinh" in prov_df.columns:
+        tinh_list += sorted(prov_df["ten_tinh"].dropna().unique().tolist())
+    elif "ma_tinh" in prov_df.columns:
+        tinh_list += sorted(prov_df["ma_tinh"].dropna().unique().tolist())
 
     col_f, col_t = st.columns([1, 3])
     with col_f:
-        years  = sorted(prov_df["nam_thi"].dropna().unique().tolist())
-        sel_yr = st.selectbox("📅 Năm thi:", ["All"] + [str(int(y)) for y in years])
-        z_thr  = st.slider("Z-Score threshold:", 2.0, 5.0, 3.0, 0.1)
+        sel_tinh = st.selectbox("🏙️ Tỉnh / Thành:", tinh_list)
+        sel_yr   = st.selectbox("📅 Năm thi:", ["Tất cả"] + [str(int(y)) for y in years])
         gls_alert(
-            "<b>Legend</b><br>"
-            "🔴 Z ≥ 4.0 Critical<br>"
-            "🟡 Z ≥ 3.0 Warning<br>"
+            f"<b>Threshold cố định:</b> Z ≥ {_Z_THRESHOLD}<br>"
+            "🔴 Z ≥ 4.0 — Critical<br>"
+            "🟡 Z ≥ 3.0 — Warning<br>"
             "YoY = % thay đổi so với năm trước",
             variant="cyan",
         )
+
     with col_t:
-        filtered = prov_df[prov_df["z_score"] >= z_thr].copy()
-        if sel_yr != "All":
+        # Áp filter tỉnh + năm
+        filtered = prov_df.copy()
+        if sel_tinh != "Tất cả tỉnh":
+            if "ten_tinh" in filtered.columns:
+                filtered = filtered[filtered["ten_tinh"] == sel_tinh]
+            else:
+                filtered = filtered[filtered["ma_tinh"] == sel_tinh]
+
+        if sel_yr != "Tất cả":
             filtered = filtered[filtered["nam_thi"].astype(str) == sel_yr]
-        filtered = filtered.sort_values("z_score", ascending=False)
+
+        # Nếu chọn tỉnh cụ thể → hiển thị toàn bộ các năm (không lọc Z)
+        # Nếu tất cả tỉnh → chỉ hiển thị Z >= threshold
+        if sel_tinh == "Tất cả tỉnh":
+            filtered = filtered[filtered["z_score"] >= _Z_THRESHOLD]
+
+        filtered = filtered.sort_values(["nam_thi", "z_score"], ascending=[True, False])
+
+        # Header count
+        if sel_tinh == "Tất cả tỉnh":
+            label = f"🚩 {len(filtered)} province-year clusters bị cờ (Z ≥ {_Z_THRESHOLD})"
+        else:
+            label = f"📍 {sel_tinh} — {len(filtered)} bản ghi qua các năm"
+
         st.markdown(
             f'<div style="color:#00BCD4;font-size:0.8rem;font-weight:700;margin-bottom:8px;">'
-            f'🚩 {len(filtered)} PROVINCE CLUSTERS FLAGGED (Z ≥ {z_thr})</div>',
+            f'{label}</div>',
             unsafe_allow_html=True,
         )
+
         if filtered.empty:
-            st.info("Không có dữ liệu khớp filter.")
+            st.info("Không có dữ liệu khớp. Thử chọn tỉnh khác hoặc năm khác.")
         else:
             show_cols = [c for c in [
-                "nam_thi", "ma_tinh", "total_students", "high_math_pct",
-                "z_math", "z_a00", "z_bio", "z_score", "yoy_math_delta_pct",
+                "nam_thi", "ten_tinh", "ma_tinh", "total_students",
+                "avg_toan", "high_math_pct",
+                "z_math", "z_a00", "z_bio", "z_score",
+                "yoy_math_delta_pct", "is_province_anomaly",
             ] if c in filtered.columns]
             z_cols = [c for c in ["z_math", "z_a00", "z_bio", "z_score"] if c in filtered.columns]
-            st.dataframe(
-                filtered[show_cols].style.map(style_z, subset=z_cols),
-                use_container_width=True, height=360,
-            )
+
+            # Highlight hàng anomaly
+            def _highlight(row):
+                is_anom = row.get("is_province_anomaly", row.get("z_score", 0) >= _Z_THRESHOLD)
+                return ["background-color: rgba(239,83,80,0.08)" if is_anom else "" for _ in row]
+
+            styled = filtered[show_cols].style \
+                .map(style_z, subset=z_cols) \
+                .apply(_highlight, axis=1)
+
+            st.dataframe(styled, use_container_width=True, height=380)
+
 
     ang_divider()
 
