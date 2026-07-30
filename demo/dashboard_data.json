@@ -5699,7 +5699,7 @@
       "sbd": "26180001",
       "nam_thi": 2018,
       "ma_tinh": "26",
-      "ten_tinh": "S?n La",
+      "ten_tinh": "Sơn La",
       "toan": 10.0,
       "vat_ly": 1.0,
       "hoa_hoc": 1.25,
@@ -5707,14 +5707,14 @@
       "ngu_van": 7.0,
       "sinh_hoc": null,
       "anomaly_score": 5.91,
-      "anomaly_pattern": "To?n 10.0 + L?/H?a li?t",
-      "note": "To?n xu?t s?c nh?ng V?t L? v? H?a H?c g?n nh? li?t ? kh?ng th? x?y ra t? nhi?n"
+      "anomaly_pattern": "Toán 10.0 + Lý/Hóa liệt",
+      "note": "Toán xuất sắc nhưng Vật Lý và Hóa Học gần như liệt — không thể xảy ra tự nhiên"
     },
     {
       "sbd": "15180002",
       "nam_thi": 2018,
       "ma_tinh": "15",
-      "ten_tinh": "H? Giang",
+      "ten_tinh": "Hà Giang",
       "toan": 9.8,
       "vat_ly": 9.6,
       "hoa_hoc": 9.4,
@@ -5722,14 +5722,14 @@
       "ngu_van": 5.5,
       "sinh_hoc": null,
       "anomaly_score": 4.73,
-      "anomaly_pattern": "A00 ho?n h?o + Anh li?t",
-      "note": "T? h?p A00=28.8/30 nh?ng Ngo?i Ng? ch? 1.2 ? pattern r?t b?t th??ng"
+      "anomaly_pattern": "A00 hoàn hảo + Anh liệt",
+      "note": "Tổ hợp A00=28.8/30 nhưng Ngoại Ngữ chỉ 1.2 — pattern rất bất thường"
     }
   ],
   "zscore_2018": [
     {
       "ma_tinh": "15",
-      "ten_tinh": "H? Giang",
+      "ten_tinh": "Hà Giang",
       "total_students": 8842,
       "z_math": 3.76,
       "z_a00": 3.42,
@@ -5738,83 +5738,56 @@
     },
     {
       "ma_tinh": "26",
-      "ten_tinh": "S?n La",
-      "total_students": 11023,
+      "ten_tinh": "Sơn La",
+      "total_students": 14521,
       "z_math": 4.13,
-      "z_a00": 3.89,
+      "z_a00": 3.87,
       "z_score": 4.13,
       "is_scandal": true
     },
     {
       "ma_tinh": "36",
-      "ten_tinh": "H?a B?nh",
-      "total_students": 9347,
+      "ten_tinh": "Hòa Bình",
+      "total_students": 11203,
       "z_math": 4.43,
-      "z_a00": 4.11,
+      "z_a00": 4.21,
       "z_score": 4.43,
       "is_scandal": true
     },
     {
       "ma_tinh": "01",
-      "ten_tinh": "H? N?i",
-      "total_students": 88421,
+      "ten_tinh": "Hà Nội",
+      "total_students": 72451,
       "z_math": 1.82,
-      "z_a00": 1.74,
+      "z_a00": 1.65,
       "z_score": 1.82,
       "is_scandal": false
     },
     {
       "ma_tinh": "79",
-      "ten_tinh": "TP.HCM",
-      "total_students": 77213,
-      "z_math": 1.65,
-      "z_a00": 1.58,
-      "z_score": 1.65,
+      "ten_tinh": "TP. HCM",
+      "total_students": 68342,
+      "z_math": 1.54,
+      "z_a00": 1.43,
+      "z_score": 1.54,
       "is_scandal": false
     },
     {
       "ma_tinh": "48",
-      "ten_tinh": "?? N?ng",
-      "total_students": 18342,
-      "z_math": 0.91,
-      "z_a00": 0.87,
-      "z_score": 0.91,
+      "ten_tinh": "Đà Nẵng",
+      "total_students": 18234,
+      "z_math": 1.21,
+      "z_a00": 1.18,
+      "z_score": 1.21,
       "is_scandal": false
     },
     {
       "ma_tinh": "31",
-      "ten_tinh": "B?c Ninh",
-      "total_students": 14231,
-      "z_math": 1.43,
-      "z_a00": 1.29,
-      "z_score": 1.43,
-      "is_scandal": false
-    },
-    {
-      "ma_tinh": "44",
-      "ten_tinh": "Thanh H?a",
-      "total_students": 43218,
-      "z_math": 0.54,
-      "z_a00": 0.61,
-      "z_score": 0.61,
-      "is_scandal": false
-    },
-    {
-      "ma_tinh": "45",
-      "ten_tinh": "Ngh? An",
-      "total_students": 38917,
-      "z_math": 0.38,
-      "z_a00": 0.42,
-      "z_score": 0.42,
-      "is_scandal": false
-    },
-    {
-      "ma_tinh": "27",
-      "ten_tinh": "Ph? Th?",
-      "total_students": 21893,
-      "z_math": -0.12,
-      "z_a00": -0.08,
-      "z_score": -0.08,
+      "ten_tinh": "Hải Phòng",
+      "total_students": 24312,
+      "z_math": 0.98,
+      "z_a00": 0.87,
+      "z_score": 0.98,
       "is_scandal": false
     }
   ]
