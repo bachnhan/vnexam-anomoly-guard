@@ -125,13 +125,31 @@ Những sự cố gian lận điểm thi trong lịch sử—điển hình là b
 ### 2. Bối Cảnh & Kiến Trúc 5 Phương Án SOTA
 
 #### 2.1 Tầng Pipeline Chính (Chạy liên hoàn trên Spark Engine)
-- **Phương án 1 (Student Level):** PySpark MLlib K-Means ($K=4$) đo khoảng cách Euclidean $D(x_i, C_k) > 3\sigma$.
-- **Phương án 2 (Province Level):** Multi-Subject Z-Score $Z = \frac{X - \mu}{\sigma} > 3.0$ trên các môn Toán, A00 và Sinh học.
-- **Phương án 3 (Time-Series YoY Level):** PySpark Window Functions `LAG` tính mức chênh lệch $\Delta Z_{\text{YoY}} = Z_T - Z_{T-1} > 2.0$.
+- **Phương án 1 (Student Level):** PySpark MLlib K-Means ($K=4$) đo khoảng cách Euclidean $D(x_i, C_k) \ge 11.0271$ (Phân vị 99.5%).
+- **Phương án 2 (Province Level):** Multi-Subject Z-Score $Z = \frac{X - \mu}{\sigma} \ge 3.0$ đồng thời trên 9 môn thi và 5 khối thi.
+- **Phương án 3 (Time-Series YoY Level):** PySpark Window Functions `LAG` tính mức chênh lệch $\Delta Z_{\text{YoY}} = Z_T - Z_{T-1} \ge 2.0$.
 
-#### 2.2 Tầng Nghiên Cứu SOTA Nâng Cao (Module Forensic Independent Audit)
-- **Phương án 4 (Benford's Law Audit):** Phân tích chữ số đầu tiên $D_1$ bằng kiểm định $\chi^2$ để phát hiện dấu vết sửa bài trắc nghiệm thủ công.
-- **Phương án 5 (Mahalanobis Distance & Shannon Entropy):** Tính khoảng cách ma trận hiệp phương sai $\mathbf{\Sigma}$ và chỉ số độ hỗn loạn phổ điểm $H(X) = -\sum P(x) \log_2 P(x)$.
+#### 2.2 Danh Sách Tất Cả Các Case Ground-Truth & Ma Trận 3 Approaches Giải Quyết
+
+##### 🔴 Danh Sách 6 Case Gian Lận Ground-Truth Thực Tế
+1. **Ground-Truth 1 (Hà Giang 2018):** Can thiệp nâng điểm 330 bài thi trắc nghiệm ($Z_{\text{A00}} = 4.43$).
+2. **Ground-Truth 2 (Sơn La 2018):** Tẩy xóa sửa bài thi nâng điểm tổ hợp KHTN ($Z_{\text{A00}} = 3.71$).
+3. **Ground-Truth 3 (Hòa Bình 2018):** Cán bộ mở hòm phiếu sửa bài thi ($Z_{\text{A00}} = 3.05$).
+4. **Ground-Truth 4 (Lộ Đề Sinh Học 2021):** Vi phạm ngân hàng đề thi môn Sinh làm lệch phổ điểm ĐBSCL ($Z_{\text{Bio}} = 4.03$).
+5. **Ground-Truth 5 (Gian Lận Tuyên Quang / Quảng Ninh 2026):** Vụ án bùng phát mới năm 2026 với mức tăng vọt thời gian ($\Delta Z_{\text{YoY}} = +2.94$).
+6. **Ground-Truth 6 (Thí Sinh Outlier Đơn Lẻ):** Sửa bài thi tráo đổi nâng môn này nhưng liệt môn khác trong cùng bài thi ($D \ge 11.0271$).
+
+##### 🟢 Danh Sách 5 Case Bất Thường Giáo Dục Giải Thích Được
+7. **Educational Case 1 (Ngoại Ngữ Hà Nội & TP.HCM - Mã 01 & 02):** $Z_{\text{Anh}} = 4.00 - 5.10$ do ưu thế hạ tầng học tập & chứng chỉ quốc tế.
+8. **Educational Case 2 (Định Hướng Y Dược ĐBSCL - Tỉnh 55):** $Z_{\text{Bio}} = 4.03 - 4.90$ do chính sách đào tạo nguồn nhân lực y tế khu vực.
+9. **Educational Case 3 (Nôi Học Tập A00 Nam Định & Thái Bình):** $Z_{\text{A00}} = 3.05 - 3.71$ do truyền thống chuyên KHTN.
+10. **Educational Case 4 (Cụm Thi Đại Học Năm 2016 - SPH, HDT, TDV):** $Z_{\text{Math}} = 3.06 - 9.79$ do thí sinh giỏi tập trung nộp hồ sơ về Cụm thi Đại học.
+11. **Educational Case 5 (Đột Biến Điểm Toán COVID-19 Năm 2020):** Điểm giỏi Toán tăng từ $1.5\%$ lên $17.5\%$ do Bộ GD&ĐT giảm độ khó đề thi bối cảnh học trực tuyến.
+
+##### 🔍 Ma Trận 3 Approaches Giải Quyết
+- **Approach 1 (MLlib K-Means):** Bẫy trực tiếp **Ground-Truth 6** (Thí sinh có điểm Toán $\ge 9.0$ nhưng liệt môn khác).
+- **Approach 2 (Multi-Subject Z-Score):** Bẫy trực tiếp **Ground-Truth 1, 2, 3** (Đại án 2018) và **Ground-Truth 4** (Lộ đề Sinh 2021).
+- **Approach 3 (YoY Lag Delta Engine):** Bẫy trực tiếp **Ground-Truth 5** (Vụ án bùng phát đột biến Tuyên Quang 2026).
 
 ---
 
