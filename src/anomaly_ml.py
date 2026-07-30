@@ -56,12 +56,24 @@ def detect_student_level_anomalies(spark, df, k=4):
     print(f"🎯 Ngưỡng điểm khoảng cách bất thường (Anomaly Score Threshold 99.5%): {threshold:.4f}")
     
     anomalies_df = predictions_with_dist.withColumn("is_student_anomaly", col("anomaly_score") >= threshold)
-    
+
+    # Gán nhãn anomaly_pattern để dashboard hiển thị ví dụ điển hình
+    anomalies_df = anomalies_df.withColumn(
+        "anomaly_pattern",
+        when((col("toan") >= 9.0) & (col("vat_ly") <= 2.0),  "Toán cao + Lý liệt")
+        .when((col("toan") >= 9.0) & (col("hoa_hoc") <= 2.0),  "Toán cao + Hóa liệt")
+        .when((col("toan") >= 9.0) & (col("ngoai_ngu") <= 2.0), "Toán cao + Anh liệt")
+        .when((col("ngu_van") >= 9.0) & (col("toan") <= 2.0),  "Văn cao + Toán liệt")
+        .when((col("sinh_hoc") >= 9.0) & (col("vat_ly") <= 3.0), "Sinh cao + Lý thấp")
+        .when(col("is_student_anomaly"), "Lệch phổ điểm bất thường")
+        .otherwise("Normal")
+    )
+
     anomaly_count = anomalies_df.filter(col("is_student_anomaly") == True).count()
     elapsed = time.time() - start_time
     print(f"✅ Hoàn tất K-Means Anomaly Detection trong {elapsed:.2f} giây!")
     print(f"🚨 Phát hiện {anomaly_count:,} thí sinh có điểm số bất thường (Student Outliers).")
-    
+
     return anomalies_df, threshold
 
 def detect_province_level_anomalies(spark, df):
@@ -76,11 +88,19 @@ def detect_province_level_anomalies(spark, df):
     df.createOrReplaceTempView("ml_exam_data")
     
     prov_stats = spark.sql("""
-        SELECT 
+        SELECT
             nam_thi,
             ma_tinh,
             COUNT(*) AS total_students,
-            
+
+            -- Điểm trung bình các môn (dùng cho Top 10 tỉnh, Req 1b dashboard)
+            ROUND(AVG(toan),      2) AS avg_toan,
+            ROUND(AVG(ngu_van),   2) AS avg_nguvan,
+            ROUND(AVG(ngoai_ngu), 2) AS avg_ngoaingu,
+            ROUND(AVG(vat_ly),    2) AS avg_vatly,
+            ROUND(AVG(hoa_hoc),   2) AS avg_hoahoc,
+            ROUND(AVG(sinh_hoc),  2) AS avg_sinhhoc,
+
             -- Tỷ lệ % điểm giỏi 9 môn thi (>= 9.0)
             (100.0 * SUM(CASE WHEN toan >= 9.0 THEN 1 ELSE 0 END) / COUNT(*)) AS high_math_pct,
             (100.0 * SUM(CASE WHEN ngu_van >= 9.0 THEN 1 ELSE 0 END) / COUNT(*)) AS high_van_pct,
@@ -91,7 +111,7 @@ def detect_province_level_anomalies(spark, df):
             (100.0 * SUM(CASE WHEN lich_su >= 9.0 THEN 1 ELSE 0 END) / COUNT(*)) AS high_su_pct,
             (100.0 * SUM(CASE WHEN dia_ly >= 9.0 THEN 1 ELSE 0 END) / COUNT(*)) AS high_dia_pct,
             (100.0 * SUM(CASE WHEN gdcd >= 9.0 THEN 1 ELSE 0 END) / COUNT(*)) AS high_gdcd_pct,
-            
+
             -- Tỷ lệ % điểm giỏi 5 Khối thi đại học chính (>= 27.0)
             (100.0 * SUM(CASE WHEN khoi_a00 >= 27.0 THEN 1 ELSE 0 END) / COUNT(*)) AS high_a00_pct,
             (100.0 * SUM(CASE WHEN khoi_a01 >= 27.0 THEN 1 ELSE 0 END) / COUNT(*)) AS high_a01_pct,
