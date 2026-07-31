@@ -20,12 +20,10 @@ from data.loader import load_data
 from styles.theme import inject_css
 from components.appbar import render_appbar
 from components.sidebar import render_sidebar
-import views.data_source_page
-import views.kpi_page
-import views.province_page
-import views.students_page
-import views.ground_truth_page
-import views.sota_page
+import views.tong_quan_page
+import views.thong_ke_page
+import views.kmeans_page
+import views.zscore_page
 
 # ── Page config (must be first Streamlit call) ─────────────────────────────────
 st.set_page_config(
@@ -46,28 +44,27 @@ def main() -> None:
         st.error("❌ Không tìm thấy dữ liệu. Kiểm tra dashboard_data.json.")
         return
 
-    kpi          = extra.get("kpi", {})
-    ground_truth = extra.get("ground_truth", [])
-    top_chart    = extra.get("top_chart", [])
-    sota         = extra.get("sota", {})
+    kpi               = extra.get("kpi", {})
+    ground_truth      = extra.get("ground_truth", [])
+    top_chart         = extra.get("top_chart", [])
+    sota              = extra.get("sota", {})
+    yearly_subjects   = extra.get("yearly_subjects", [])
+    student_specimens = extra.get("student_specimens", [])
+    zscore_2018       = extra.get("zscore_2018", [])
 
-    active_page = render_sidebar(kpi, src)
-    render_appbar(active_page, kpi, src)
+    active_page = render_sidebar(kpi)
+    render_appbar(src)
 
     st.markdown('<div class="main-body">', unsafe_allow_html=True)
 
-    if active_page == "kpi":
-        views.kpi_page.render(kpi, yearly_df, prov_df, top_chart)
-    elif active_page == "province":
-        views.province_page.render(prov_df, top_chart)
-    elif active_page == "students":
-        views.students_page.render(student_df)
-    elif active_page == "ground_truth":
-        views.ground_truth_page.render(ground_truth, prov_df)
-    elif active_page == "sota":
-        views.sota_page.render(sota)
-    elif active_page == "data_source":
-        views.data_source_page.render(src, prov_df, student_df, yearly_df)
+    if active_page == "tong_quan":
+        views.tong_quan_page.render(prov_df, kpi)
+    elif active_page == "thong_ke":
+        views.thong_ke_page.render(prov_df, yearly_subjects)
+    elif active_page == "kmeans":
+        views.kmeans_page.render(student_df, kpi, student_specimens)
+    elif active_page == "zscore":
+        views.zscore_page.render(prov_df, ground_truth, zscore_2018)
 
     st.markdown('</div>', unsafe_allow_html=True)
 

@@ -1,10 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap');
+﻿/* System font stack â€” no internet required */
+:root {
+    --font-sans: 'Segoe UI', 'SF Pro Display', -apple-system, BlinkMacSystemFont,
+                 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+    --font-mono: 'Cascadia Code', 'Consolas', 'Roboto Mono', 'Courier New', monospace;
+}
 
 /* == Global Background == */
 html, body, [data-testid="stAppViewContainer"] {
     background: linear-gradient(135deg, #0A0E1A 0%, #0D1B2E 35%, #111827 70%, #0A0E1A 100%) !important;
     background-attachment: fixed !important;
-    font-family: 'Roboto', sans-serif !important;
+    font-family: var(--font-sans) !important;
 }
 [data-testid="stMain"] { background: transparent !important; }
 [data-testid="block-container"] { padding-top: 1rem !important; }
@@ -41,7 +46,7 @@ html, body, [data-testid="stAppViewContainer"] {
     color: #607D8B !important;
     font-size: 0.84rem !important;
     font-weight: 500 !important;
-    font-family: 'Roboto', sans-serif !important;
+    font-family: var(--font-sans) !important;
     letter-spacing: 0.2px !important;
     transition: all 0.18s ease !important;
     box-sizing: border-box !important;
@@ -59,7 +64,7 @@ html, body, [data-testid="stAppViewContainer"] {
     outline: none !important;
     box-shadow: none !important;
 }
-[data-testid="stSidebar"] .stButton:has(button p:contains("▸")) > button {
+[data-testid="stSidebar"] .stButton:has(button p:contains("â–¸")) > button {
     background: rgba(0,188,212,0.12) !important;
     border-left-color: #00BCD4 !important;
     color: #00BCD4 !important;
@@ -128,7 +133,7 @@ html, body, [data-testid="stAppViewContainer"] {
     transform: translateY(-2px);
 }
 .glass-kpi .kv { font-size: 1.9rem; font-weight: 900; color: #FFFFFF;
-                  font-family: 'Roboto Mono', monospace; line-height: 1; }
+                  font-family: var(--font-mono); line-height: 1; }
 .glass-kpi .kv.cyan  { color: #00BCD4; text-shadow: 0 0 20px rgba(0,188,212,0.5); }
 .glass-kpi .kv.red   { color: #EF5350; text-shadow: 0 0 20px rgba(239,83,80,0.4); }
 .glass-kpi .kv.green { color: #66BB6A; text-shadow: 0 0 20px rgba(102,187,106,0.4); }
@@ -191,7 +196,7 @@ html, body, [data-testid="stAppViewContainer"] {
     color: #00BCD4; font-size: 0.72rem; font-weight: 700;
     padding: 3px 10px; border-radius: 2px;
     text-transform: uppercase; letter-spacing: 0.8px;
-    font-family: 'Roboto Mono', monospace;
+    font-family: var(--font-mono);
 }
 .ang-chip.red   { background: rgba(239,83,80,0.1); border-color: rgba(239,83,80,0.3); color: #EF9A9A; }
 .ang-chip.green { background: rgba(102,187,106,0.1); border-color: rgba(102,187,106,0.3); color: #A5D6A7; }
@@ -208,7 +213,7 @@ html, body, [data-testid="stAppViewContainer"] {
 .gt-header { background: rgba(0,188,212,0.06) !important; border-bottom: 1px solid rgba(0,188,212,0.25) !important; }
 .gt-row .cell { color: #90A4AE; font-size: 0.82rem; padding-right: 12px; }
 .gt-row .cell-h { color: #00BCD4; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-.gt-row .z-val { font-family: 'Roboto Mono', monospace; font-weight: 700; color: #EF5350; font-size: 0.9rem; }
+.gt-row .z-val { font-family: var(--font-mono); font-weight: 700; color: #EF5350; font-size: 0.9rem; }
 
 /* == SOTA Box == */
 .sota-box {
@@ -217,7 +222,7 @@ html, body, [data-testid="stAppViewContainer"] {
     border-radius: 4px; padding: 20px 24px;
     position: relative; overflow: hidden; margin: 12px 0;
 }
-.sota-box .big-num { font-size: 2.5rem; font-weight: 900; font-family: 'Roboto Mono', monospace;
+.sota-box .big-num { font-size: 2.5rem; font-weight: 900; font-family: var(--font-mono);
                       line-height: 1; margin-bottom: 4px; }
 .sota-box .label { color: #546E7A; font-size: 0.72rem; text-transform: uppercase;
                     letter-spacing: 1px; font-weight: 700; }
@@ -231,7 +236,7 @@ html, body, [data-testid="stAppViewContainer"] {
 }
 
 /* == Text elements == */
-h1, h2, h3 { color: #E2E8F0 !important; font-family: 'Roboto', sans-serif !important; }
+h1, h2, h3 { color: #E2E8F0 !important; font-family: var(--font-sans) !important; }
 p, li, span, label { color: #90A4AE !important; }
 strong, b { color: #E2E8F0 !important; }
 
@@ -266,3 +271,4 @@ strong, b { color: #E2E8F0 !important; }
 
 /* == Caption == */
 .stCaption { color: #546E7A !important; font-size: 0.75rem !important; }
+
