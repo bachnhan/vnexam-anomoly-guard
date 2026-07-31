@@ -15,7 +15,9 @@ def render_appbar(src: str) -> None:
         unsafe_allow_html=True,
     )
     chip_html = (
-        '<span class="ang-chip green">✓ Parquet Pipeline</span>'
+        '<div style="text-align:right;padding:8px 0 0 0;">'
+        '<span class="ang-chip green"><i class="fa-solid fa-check" style="margin-right:4px;"></i>Parquet Pipeline</span>'
+        '</div>'
         if src == "parquet"
         else '<span class="ang-chip">◈ JSON Demo Mode</span>'
     )

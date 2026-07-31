@@ -12,60 +12,30 @@ import random
 import pandas as pd
 import streamlit as st
 
-from config import OUTPUT_DIR, JSON_PATH, Z_SCORE_THRESHOLD, BASE_DIR
+from config import OUTPUT_DIR, JSON_PATH, YEARLY_SUBJECTS_PATH, SPARK_META_PATH, Z_SCORE_THRESHOLD, BASE_DIR
 
-# Bảng tra tên tỉnh đúng UTF-8 — dùng để fix Parquet bị lỗi encoding
 _MATINH_CSV = BASE_DIR / "data" / "metadata" / "ma_tinh.csv"
 
 def _load_tinh_lookup() -> dict:
-    """Load ma_tinh → ten_tinh mapping từ CSV chuẩn, bổ sung fallback đầy đủ 63 tỉnh."""
-    # Fallback đầy đủ 63 tỉnh/thành — dùng khi CSV thiếu
-    _FALLBACK = {
-        "01": "Hà Nội",        "02": "Hồ Chí Minh",   "03": "Hải Phòng",
-        "04": "Đà Nẵng",       "05": "Hà Giang",       "06": "Cao Bằng",
-        "07": "Lai Châu",      "08": "Lào Cai",         "09": "Tuyên Quang",
-        "10": "Lạng Sơn",      "11": "Bắc Kạn",        "12": "Thái Nguyên",
-        "13": "Yên Bái",       "14": "Sơn La",          "15": "Phú Thọ",
-        "16": "Vĩnh Phúc",     "17": "Quảng Ninh",     "18": "Bắc Giang",
-        "19": "Bắc Ninh",      "20": "Hải Dương",       "21": "Hưng Yên",
-        "22": "Hòa Bình",      "23": "Hà Nam",          "24": "Nam Định",
-        "25": "Thái Bình",     "26": "Ninh Bình",       "27": "Thanh Hóa",
-        "28": "Nghệ An",       "29": "Hà Tĩnh",         "30": "Quảng Bình",
-        "31": "Quảng Trị",     "32": "Thừa Thiên Huế", "33": "Quảng Nam",
-        "34": "Quảng Ngãi",    "35": "Bình Định",       "36": "Phú Yên",
-        "37": "Khánh Hòa",     "38": "Ninh Thuận",     "39": "Bình Thuận",
-        "40": "Kon Tum",       "41": "Gia Lai",          "42": "Đắk Lắk",
-        "43": "Lâm Đồng",      "44": "Bình Phước",      "45": "Tây Ninh",
-        "46": "Bình Dương",    "47": "Đồng Nai",        "48": "Bà Rịa - Vũng Tàu",
-        "49": "Long An",       "50": "Đồng Tháp",       "51": "An Giang",
-        "52": "Tiền Giang",    "53": "Bến Tre",          "54": "Vĩnh Long",
-        "55": "Trà Vinh",      "56": "Cần Thơ",          "57": "Sóc Trăng",
-        "58": "Kiên Giang",    "59": "Bạc Liêu",        "60": "Cà Mau",
-        "61": "Điện Biên",     "62": "Đắk Nông",        "63": "Hậu Giang",
-        "64": "Hậu Giang",     "65": "Bộ Quốc Phòng",
-        # Mã thực tế từ Parquet (có thể khác chuẩn hành chính)
-        "66": "Gia Lai",       "68": "Đắk Lắk",         "72": "Bình Phước",
-        "74": "Bình Dương",    "75": "Đồng Nai",        "77": "Bà Rịa - Vũng Tàu",
-        "79": "TP. HCM",       "80": "Long An",          "82": "Tiền Giang",
-        "83": "Bến Tre",       "84": "Trà Vinh",         "86": "Vĩnh Long",
-        "87": "Đồng Tháp",     "89": "An Giang",         "91": "Kiên Giang",
-        "92": "Cần Thơ",       "93": "Hậu Giang",        "94": "Sóc Trăng",
-        "95": "Bạc Liêu",      "96": "Cà Mau",
-    }
+    """Load ma_cum_thi → ten_cum_thi mapping chuẩn Mã Cụm Thi THPT Quốc Gia (Bộ GD&ĐT)."""
     try:
         df = pd.read_csv(_MATINH_CSV, encoding="utf-8", dtype={"ma_tinh": str})
-        df["ma_tinh"] = df["ma_tinh"].str.strip().str.zfill(2)
+        df["ma_tinh"] = df["ma_tinh"].str.strip()
         df["ten_tinh"] = (
             df["ten_tinh"]
+            .str.replace(r"^Cụm\s+Thi\s+", "", regex=True)
             .str.replace(r"^Thành phố\s+", "", regex=True)
             .str.replace(r"^Tỉnh\s+", "", regex=True)
             .str.strip()
         )
         csv_lookup = dict(zip(df["ma_tinh"], df["ten_tinh"]))
-        # Fallback bổ sung những mã CSV không có
-        return {**_FALLBACK, **csv_lookup}
+        # Cung cấp fallback cho mã zfill 2 chữ số
+        for k, v in list(csv_lookup.items()):
+            if k.isdigit():
+                csv_lookup[k.zfill(2)] = v
+        return csv_lookup
     except Exception:
-        return _FALLBACK
+        return {}
 
 _TINH_LOOKUP: dict = {}  # lazy-loaded once
 
@@ -98,13 +68,13 @@ def load_data() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, str, dict]:
 # ────────────────────────────────────────────────────────────────
 
 def style_z(val: float) -> str:
-    """Return CSS style string for a Z-Score cell."""
+    """Return CSS style string for a Z-Score cell with high contrast."""
     if isinstance(val, (int, float)):
         if val >= 4.0:
-            return "background-color:rgba(239,83,80,0.25);color:#FFCDD2;font-weight:700;"
+            return "background-color:rgba(239,83,80,0.2);color:#C62828;font-weight:800;"
         if val >= Z_SCORE_THRESHOLD:
-            return "background-color:rgba(239,83,80,0.12);color:#EF9A9A;font-weight:600;"
-    return "color:#90A4AE;"
+            return "background-color:rgba(255,152,0,0.2);color:#E65100;font-weight:700;"
+    return "color:#37474F;font-weight:400;"
 
 
 def style_score(val: float) -> str:
@@ -132,13 +102,30 @@ def _try_parquet():
         prov_df    = pd.read_parquet(prov_file)
         student_df = pd.read_parquet(student_file)
 
-        # Fix ten_tinh bị lỗi encoding — dùng bảng tra ma_tinh.csv
-        if not _TINH_LOOKUP:
-            _TINH_LOOKUP = _load_tinh_lookup()
-        if _TINH_LOOKUP and "ma_tinh" in prov_df.columns:
-            prov_df["ma_tinh_key"] = prov_df["ma_tinh"].astype(str).str.strip().str.zfill(2)
-            prov_df["ten_tinh"]    = prov_df["ma_tinh_key"].map(_TINH_LOOKUP).fillna(prov_df.get("ten_tinh", ""))
-            prov_df.drop(columns=["ma_tinh_key"], inplace=True)
+        # Standardize ma_cum & ten_cum (Mã Cụm Thi & Tên Cụm Thi)
+        lookup = _load_tinh_lookup()
+        def get_cluster_name(code):
+            if pd.isna(code): return ""
+            str_code = str(code).strip()
+            key = str_code.zfill(2) if str_code.isdigit() else str_code
+            if key in lookup and lookup[key]:
+                return lookup[key]
+            if str_code in lookup and lookup[str_code]:
+                return lookup[str_code]
+            return f"ĐH {str_code}" if not str_code.isdigit() else f"Cụm Thi {str_code}"
+
+        if "ma_tinh" in prov_df.columns:
+            prov_df["ma_cum"]  = prov_df["ma_tinh"].astype(str).str.strip()
+            prov_df["ten_cum"] = prov_df["ma_cum"].apply(get_cluster_name)
+            # Aliases for backward compatibility
+            prov_df["ma_tinh"]  = prov_df["ma_cum"]
+            prov_df["ten_tinh"] = prov_df["ten_cum"]
+
+        if "ma_tinh" in student_df.columns:
+            student_df["ma_cum"]  = student_df["ma_tinh"].astype(str).str.strip()
+            student_df["ten_cum"] = student_df["ma_cum"].apply(get_cluster_name)
+            student_df["ma_tinh"]  = student_df["ma_cum"]
+            student_df["ten_tinh"] = student_df["ten_cum"]
 
         yearly_df  = prov_df.groupby("nam_thi").agg(
             total_students=("total_students", "sum"),
@@ -168,7 +155,7 @@ def _load_json():
     elif "students" in raw:
         student_df = pd.DataFrame(raw["students"])
     else:
-        student_df = _mock_students()
+        student_df = pd.DataFrame()
 
     return prov_df, student_df, yearly_df, "json", _parse_extra(raw)
 
@@ -183,14 +170,36 @@ def _parse_json_extra() -> dict:
 
 
 def _parse_extra(raw: dict) -> dict:
+    yearly_subjects = raw.get("yearly_subjects", [])
+    if YEARLY_SUBJECTS_PATH.exists():
+        try:
+            with YEARLY_SUBJECTS_PATH.open("r", encoding="utf-8") as f:
+                yearly_subjects = json.load(f)
+        except Exception:
+            pass
+
+    kpi = raw.get("kpi", {})
+    student_specimens = raw.get("student_specimens", [])
+
+    if SPARK_META_PATH.exists():
+        try:
+            with SPARK_META_PATH.open("r", encoding="utf-8") as f:
+                spark_meta = json.load(f)
+                if "kpi" in spark_meta:
+                    kpi = {**kpi, **spark_meta["kpi"]}
+                if "student_specimens" in spark_meta and spark_meta["student_specimens"]:
+                    student_specimens = spark_meta["student_specimens"]
+        except Exception:
+            pass
+
     return {
-        "kpi":               raw.get("kpi", {}),
+        "kpi":               kpi,
         "ground_truth":      raw.get("ground_truth", []),
         "top_chart":         raw.get("top_provinces_chart", []),
         "yearly_extended":   raw.get("yearly_extended", []),
         "sota":              raw.get("sota_results", {}),
-        "yearly_subjects":   raw.get("yearly_subjects", []),
-        "student_specimens": raw.get("student_specimens", []),
+        "yearly_subjects":   yearly_subjects,
+        "student_specimens": student_specimens,
         "zscore_2018":       raw.get("zscore_2018", []),
     }
 

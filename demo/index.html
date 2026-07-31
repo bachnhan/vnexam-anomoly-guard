@@ -194,9 +194,9 @@
                 <div class="flex items-center gap-2">
                     <!-- Display Mode Switcher (Default: BOTH / SONG SONG) -->
                     <div class="inline-flex rounded-lg p-0.5 bg-slate-900 border border-slate-700 text-xs">
-                        <button onclick="setViewMode('zscore')" id="btnZscore" class="px-2.5 py-1 rounded-md font-medium text-slate-400 hover:text-white transition">📊 Z-Score</button>
-                        <button onclick="setViewMode('yoy')" id="btnYoy" class="px-2.5 py-1 rounded-md font-medium text-slate-400 hover:text-white transition">📈 YoY Delta</button>
-                        <button onclick="setViewMode('both')" id="btnBoth" class="px-2.5 py-1 rounded-md font-medium text-white bg-emerald-600 transition">🔄 Song Song</button>
+                        <button onclick="setViewMode('zscore')" id="btnZscore" class="px-2.5 py-1 rounded-md font-medium text-slate-400 hover:text-white transition"><i class="fa-solid fa-chart-pie mr-1"></i> Z-Score</button>
+                        <button onclick="setViewMode('yoy')" id="btnYoy" class="px-2.5 py-1 rounded-md font-medium text-slate-400 hover:text-white transition"><i class="fa-solid fa-chart-line mr-1"></i> YoY Delta</button>
+                        <button onclick="setViewMode('both')" id="btnBoth" class="px-2.5 py-1 rounded-md font-medium text-white bg-emerald-600 transition"><i class="fa-solid fa-rotate mr-1"></i> Song Song</button>
                     </div>
 
                     <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Tìm theo mã tỉnh..." 
@@ -207,13 +207,13 @@
             <!-- Legend Badge Bar -->
             <div class="flex flex-wrap gap-2 mb-4 text-[11px] bg-slate-900/80 p-2.5 rounded-lg border border-slate-700/80">
                 <span class="flex items-center gap-1.5 text-red-300 font-semibold px-2 py-0.5 rounded bg-red-500/10 border border-red-500/30">
-                    <span class="w-2 h-2 rounded-full bg-red-400 inline-block"></span> 🔴 Màu Đỏ: Gian lận Ground Truth (2018 Hà Giang/Sơn La/Hòa Bình, 2021 Lộ đề Sinh, 2026 Tuyên Quang)
+                    <span class="w-2 h-2 rounded-full bg-red-400 inline-block"></span> <i class="fa-solid fa-circle-exclamation text-red-400"></i> Màu Đỏ: Gian lận Ground Truth (2018 Hà Giang/Sơn La/Hòa Bình, 2021 Lộ đề Sinh, 2026 Tuyên Quang)
                 </span>
                 <span class="flex items-center gap-1.5 text-emerald-300 font-semibold px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span> 🟢 Màu Xanh lá: Bất thường giải thích được (Ngoại Ngữ HN/HCM, Sinh ĐBSCL, Nôi A00 Nam Định, Cụm ĐH 2016)
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span> <i class="fa-solid fa-circle-check text-emerald-400"></i> Màu Xanh lá: Bất thường giải thích được (Ngoại Ngữ HN/HCM, Sinh ĐBSCL, Nôi A00 Nam Định, Cụm ĐH 2016)
                 </span>
                 <span class="flex items-center gap-1.5 text-amber-300 font-semibold px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30">
-                    <span class="w-2 h-2 rounded-full bg-amber-400 inline-block"></span> 🟡 Màu Vàng: Bất thường YoY / Z-Max (Mức tăng chênh lệch cùng môn/khối $\Delta Z \ge 2.0$)
+                    <span class="w-2 h-2 rounded-full bg-amber-400 inline-block"></span> <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> Màu Vàng: Bất thường YoY / Z-Max (Mức tăng chênh lệch cùng môn/khối $\Delta Z \ge 2.0$)
                 </span>
             </div>
 
@@ -447,11 +447,11 @@
                 // Format Status Pill
                 let statusPill = '';
                 if (cat.type === 'red') {
-                    statusPill = `<span class="bg-red-500/15 text-red-400 border border-red-500/40 px-2 py-0.5 rounded text-[10px] font-bold whitespace-nowrap">🔴 ${cat.label}</span>`;
+                    statusPill = `<span class="bg-red-500/15 text-red-400 border border-red-500/40 px-2 py-0.5 rounded text-[10px] font-bold whitespace-nowrap"><i class="fa-solid fa-circle-exclamation mr-1"></i>${cat.label}</span>`;
                 } else if (cat.type === 'green') {
-                    statusPill = `<span class="bg-emerald-500/15 text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded text-[10px] font-bold whitespace-nowrap">🟢 ${cat.label}</span>`;
+                    statusPill = `<span class="bg-emerald-500/15 text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded text-[10px] font-bold whitespace-nowrap"><i class="fa-solid fa-circle-check mr-1"></i>${cat.label}</span>`;
                 } else {
-                    statusPill = `<span class="bg-amber-500/15 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded text-[10px] font-bold whitespace-nowrap">🟡 ${cat.label}</span>`;
+                    statusPill = `<span class="bg-amber-500/15 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded text-[10px] font-bold whitespace-nowrap"><i class="fa-solid fa-triangle-exclamation mr-1"></i>${cat.label}</span>`;
                 }
 
                 let cellsHtml = "";

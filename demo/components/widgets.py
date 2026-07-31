@@ -127,7 +127,7 @@ def gt_row(
     z_score_max: object, z_indicator: str, detected: bool,
 ) -> None:
     """Render one row of the Ground Truth table."""
-    status = "✅ DETECTED" if detected else "❌ MISSED"
+    status = '<span class="ang-chip green"><i class="fa-solid fa-check" style="margin-right:4px;"></i>DETECTED</span>' if detected else '<span class="ang-chip red"><i class="fa-solid fa-xmark" style="margin-right:4px;"></i>MISSED</span>'
     st.markdown(
         _render(
             "gt_row.html",

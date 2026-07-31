@@ -1,65 +1,132 @@
 ma_tinh,ten_tinh
-01,Thành phố Hà Nội
-02,Thành phố Hồ Chí Minh
-03,Thành phố Hải Phòng
-04,Thành phố Đà Nẵng
-05,Tỉnh Hà Giang
-06,Tỉnh Cao Bằng
-07,Tỉnh Lai Châu
-08,Tỉnh Lào Cai
-09,Tỉnh Tuyên Quang
-10,Tỉnh Lạng Sơn
-11,Tỉnh Bắc Kạn
-12,Tỉnh Thái Nguyên
-13,Tỉnh Yên Bái
-14,Tỉnh Sơn La
-15,Tỉnh Phú Thọ
-16,Tỉnh Vĩnh Phúc
-17,Tỉnh Quảng Ninh
-18,Tỉnh Bắc Giang
-19,Tỉnh Bắc Ninh
-21,Tỉnh Hải Dương
-22,Tỉnh Hưng Yên
-23,Tỉnh Hòa Bình
-24,Tỉnh Hà Nam
-25,Tỉnh Nam Định
-26,Tỉnh Thái Bình
-27,Tỉnh Ninh Bình
-28,Tỉnh Thanh Hóa
-29,Tỉnh Nghệ An
-30,Tỉnh Hà Tĩnh
-31,Tỉnh Quảng Bình
-32,Tỉnh Quảng Trị
-33,Tỉnh Thừa Thiên Huế
-34,Tỉnh Quảng Nam
-35,Tỉnh Quảng Ngãi
-36,Tỉnh Kon Tum
-37,Tỉnh Bình Định
-38,Tỉnh Gia Lai
-39,Tỉnh Phú Yên
-40,Tỉnh Đắk Lắk
-41,Tỉnh Khánh Hòa
-42,Tỉnh Lâm Đồng
-43,Tỉnh Bình Phước
-44,Tỉnh Bình Dương
-45,Tỉnh Ninh Thuận
-46,Tỉnh Tây Ninh
-47,Tỉnh Bình Thuận
-48,Tỉnh Đồng Nai
-49,Tỉnh Long An
-50,Tỉnh Đồng Tháp
-51,Tỉnh An Giang
-52,Tỉnh Bà Rịa - Vũng Tàu
-53,Tỉnh Tiền Giang
-54,Tỉnh Kiên Giang
-55,Thành phố Cần Thơ
-56,Tỉnh Bến Tre
-57,Tỉnh Vĩnh Long
-58,Tỉnh Trà Vinh
-59,Tỉnh Sóc Trăng
-60,Tỉnh Bạc Liêu
-61,Tỉnh Cà Mau
-62,Tỉnh Điện Biên
-63,Tỉnh Đắk Nông
-64,Tỉnh Hậu Giang
-65,Cục Nhà trường - Bộ Quốc phòng
+01,Hà Nội
+02,TP. Hồ Chí Minh
+03,Hải Phòng
+04,Đà Nẵng
+05,Hà Giang (Mã 05)
+06,Cao Bằng
+07,Lai Châu
+08,Lào Cai
+09,Tuyên Quang
+10,Lạng Sơn
+11,Bắc Kạn
+12,Thái Nguyên (Mã 12)
+13,Yên Bái
+14,Sơn La (Mã 14)
+15,Hà Giang
+16,Vĩnh Phúc
+17,Quảng Ninh
+18,Bắc Giang
+19,Bắc Ninh
+20,Hải Dương
+21,Hưng Yên
+22,Thái Nguyên
+23,Hà Nam
+24,Nam Định
+25,Thái Bình
+26,Sơn La
+27,Ninh Bình
+28,Thanh Hóa
+29,Nghệ An
+30,Hà Tĩnh
+31,Quảng Bình
+32,Quảng Trị
+33,Thừa Thiên Huế
+34,Quảng Nam
+35,Quảng Ngãi
+36,Hòa Bình
+37,Bình Định
+38,Gia Lai
+39,Phú Yên
+40,Đắk Lắk
+41,Khánh Hòa
+42,Lâm Đồng
+43,Bình Phước
+44,Bình Dương
+45,Ninh Thuận
+46,Tây Ninh
+47,Bình Thuận
+48,Bà Rịa - Vũng Tàu (Mã 48)
+49,Long An
+50,Đồng Tháp
+51,An Giang
+52,Bà Rịa - Vũng Tàu
+53,Tiền Giang
+54,Vĩnh Long
+55,Bạc Liêu
+56,TP. Cần Thơ
+57,Trà Vinh
+58,Sóc Trăng
+59,Kiên Giang
+60,Cà Mau
+61,Điện Biên
+62,Đắk Nông
+63,Hậu Giang
+64,Bộ Quốc Phòng
+DCN,ĐH Công Nghiệp Hà Nội
+GHA,ĐH Giao Thông Vận Tải
+BKA,ĐH Bách Khoa Hà Nội
+SPH,ĐH Sư Phạm Hà Nội
+HDT,ĐH Hồng Đức
+TDV,ĐH Tây Bắc
+SP2,ĐH Sư Phạm Hà Nội 2
+THP,ĐH Hải Phòng
+DND,ĐH Đà Nẵng
+HUI,ĐH Công Nghiệp TP.HCM
+TND,ĐH Thái Nguyên
+TQU,ĐH Tân Trào
+YTB,ĐH Y Dược Thái Bình
+SKH,ĐH SP Kỹ Thuật TP.HCM
+XDA,ĐH Xây Dựng Hà Nội
+TTB,ĐH Thái Bình
+QSB,ĐH Quốc Gia TP.HCM
+KHA,ĐH Kinh Tế Quốc Dân
+HVN,Học Viện Nông Nghiệp
+NTH,ĐH Ngoại Thương
+HTC,Học Viện Tài Chính
+HHA,ĐH Hàng Hải
+MDA,ĐH Mỏ - Địa Chất
+LNH,ĐH Lâm Nghiệp
+BAL,ĐH Bạc Liêu
+SPS,ĐH Sư Phạm TP.HCM
+DDF,ĐH Ngoại Ngữ Đà Nẵng
+DDK,ĐH Bách Khoa Đà Nẵng
+DDS,ĐH Y Dược Đà Nẵng
+DHK,ĐH Kinh Tế Đà Nẵng
+DHS,ĐH Sư Phạm Đà Nẵng
+DHT,ĐH Tây Nguyên
+DHU,ĐH Hùng Vương
+DMS,ĐH Miền Tây
+DQN,ĐH Quy Nhơn
+DTK,ĐH Kiến Trúc Hà Nội
+DTN,ĐH Thủy Lợi
+DTS,ĐH Thể Dục Thể Thao
+DTT,ĐH Ton Đức Thắng
+DVT,ĐH Võ Trường Toản
+GTS,ĐH Giao Thông VT (Cơ sở 2)
+HAG,ĐH An Giang
+KSA,ĐH Kinh Tế TP.HCM
+LPH,ĐH Luật Hà Nội
+LPS,ĐH Luật TP.HCM
+NHH,Học Viện Ngân Hàng
+NHS,ĐH Ngân Hàng TP.HCM
+NLS,ĐH Nông Lâm TP.HCM
+QSK,ĐH Quốc Gia Hà Nội
+QST,ĐH Quốc Gia TP.HCM
+SGD,ĐH Sài Gòn
+SPD,ĐH Sư Phạm Đà Nẵng
+SPK,ĐH Sư Phạm Kỹ Thuật
+TAG,ĐH Tiền Giang
+TCT,ĐH Cần Thơ
+TDL,ĐH Đà Lạt
+THV,ĐH Hùng Vương
+TKG,ĐH Kiên Giang
+TLA,ĐH Long An
+TMA,ĐH Thương Mại
+TSN,ĐH Nha Trang
+TTG,ĐH Tiền Giang
+TTN,ĐH Tây Nguyên
+VLU,ĐH Văn Lang
+XDT,ĐH Xây Dựng TP.HCM
+YCT,ĐH Y Dược Cần Thơ
+79,TP. Hồ Chí Minh (Cụm ĐH)

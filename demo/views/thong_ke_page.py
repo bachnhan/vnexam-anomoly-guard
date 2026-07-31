@@ -15,7 +15,8 @@ def render(prov_df: pd.DataFrame, yearly_subjects: list = None) -> None:
 
     # ── 1a: Bảng điểm TB các môn theo năm ──────────────────────────────────────
     ang_section(
-        "📋", "Điểm Trung Bình Các Môn Theo Năm",
+        '<i class="fa-solid fa-table-list" style="color:#00E5FF;filter:drop-shadow(0 0 6px rgba(0,229,255,0.8));"></i>',
+        "Điểm Trung Bình Các Môn Theo Năm",
         "Spark SQL: GROUP BY nam_thi · AVG(toan), AVG(ngu_van), ... · 10.86M records"
     )
 
@@ -56,19 +57,20 @@ def render(prov_df: pd.DataFrame, yearly_subjects: list = None) -> None:
         )
         st.dataframe(styled, use_container_width=True, height=430)
         st.caption(
-            "🟢 Xanh: TB ≥ 7.0 · 🔴 Đỏ: TB ≤ 5.0 · "
-            "⚠ 2018: Toán tăng đột biến 7.22 — trùng vụ gian lận Hà Giang/Sơn La/Hòa Bình · "
-            "⚠ 2017: Toán 4.93 — đề khó nhất thập kỷ"
+            "Xanh: TB ≥ 7.0 · Đỏ: TB ≤ 5.0 · "
+            "2018: Toán tăng đột biến 7.22 — trùng vụ gian lận Hà Giang/Sơn La/Hòa Bình · "
+            "2017: Toán 4.93 — đề khó nhất thập kỷ"
         )
     else:
         gls_alert("Dữ liệu yearly_subjects chưa có — cần export từ Spark pipeline.", variant="amber")
 
     ang_divider()
 
-    # ── 1b: Top 10 tỉnh điểm Toán cao nhất ─────────────────────────────────────
+    # ── 1b: Top 10 Cụm thi điểm Toán cao nhất ─────────────────────────────────────
     ang_section(
-        "🏆", "Top 10 Tỉnh — Điểm Toán Cao Nhất",
-        "Spark SQL: HAVING SUM(total_students) ≥ 5,000 · ORDER BY AVG(avg_toan) DESC · LIMIT 10"
+        '<i class="fa-solid fa-trophy" style="color:#FFD54F;filter:drop-shadow(0 0 6px rgba(255,213,79,0.8));"></i>',
+        "Top 10 Cụm Thi — Điểm Toán Cao Nhất",
+        "Danh sách 10 Cụm thi / Hội đồng thi có trung bình điểm Toán 10 năm cao nhất (Tổng thí sinh ≥ 5,000)"
     )
 
     if not prov_df.empty and "avg_toan" in prov_df.columns:
@@ -90,10 +92,10 @@ def render(prov_df: pd.DataFrame, yearly_subjects: list = None) -> None:
         top10["avg_toan"]       = top10["avg_toan"].round(2)
         top10["z_score"]        = top10["z_score"].round(2)
         top10["total_students"] = top10["total_students"].astype(int)
-        rename = {"ma_tinh": "Mã Tỉnh", "total_students": "Tổng TS (10yr)",
+        rename = {"ma_tinh": "Mã Cụm Thi", "total_students": "Tổng TS (10yr)",
                   "avg_toan": "Điểm Toán TB", "z_score": "Z-Score TB"}
         if "ten_tinh" in top10.columns:
-            rename["ten_tinh"] = "Tên Tỉnh"
+            rename["ten_tinh"] = "Tên Cụm Thi"
         top10 = top10.rename(columns=rename)
         st.dataframe(top10, use_container_width=True, height=400)
         st.caption(
@@ -107,7 +109,8 @@ def render(prov_df: pd.DataFrame, yearly_subjects: list = None) -> None:
 
     # ── 2a: Biểu đồ đường KHTN vs KHXH ─────────────────────────────────────────
     ang_section(
-        "📈", "Biến Động Phổ Điểm — KHTN vs KHXH",
+        '<i class="fa-solid fa-chart-line" style="color:#00E676;filter:drop-shadow(0 0 6px rgba(0,230,118,0.8));"></i>',
+        "Biến Động Phổ Điểm — KHTN vs KHXH",
         "Điểm TB khối KHTN (Toán+Lý+Hóa) và KHXH (Văn+Sử+Địa) · 2016–2026"
     )
 
@@ -122,15 +125,13 @@ def render(prov_df: pd.DataFrame, yearly_subjects: list = None) -> None:
         col_a, col_b = st.columns(2)
         with col_a:
             gls_alert(
-                "<b>2018:</b> KHTN đột biến 6.32 — trùng vụ gian lận "
-                "Hà Giang / Sơn La / Hòa Bình",
-                variant="red",
+                "<b>Giai đoạn 2016–2018:</b> Phổ điểm trung bình KHTN và KHXH duy trì mức ổn định 5.2 – 5.6 điểm toàn quốc.",
+                variant="cyan",
             )
         with col_b:
             gls_alert(
-                "<b>2020:</b> Cả 2 khối tăng đồng thời — "
-                "đề thi COVID-19 dễ hơn, Bộ GD&ĐT điều chỉnh",
-                variant="cyan",
+                "<b>Năm 2020 (Đột biến COVID-19):</b> Điểm TB 2 khối tăng vọt lên ~6.32 điểm do Bộ GD&ĐT tinh giảm độ khó đề thi.",
+                variant="green",
             )
     else:
         gls_alert("Dữ liệu yearly_subjects chưa có.", variant="amber")

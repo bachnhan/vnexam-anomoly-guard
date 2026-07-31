@@ -27,10 +27,10 @@ def render_sidebar(kpi: dict) -> str:
         st.session_state.page = DEFAULT_PAGE
 
     # Navigation buttons (styled as Angular nav list items via CSS)
-    for key, icon, label in NAV_ITEMS:
+    for key, icon_name, label in NAV_ITEMS:
         is_active = st.session_state.page == key
-        btn_text  = f"{icon}  {'▸ ' if is_active else ''}{label}"
-        if st.sidebar.button(btn_text, key=f"nav_{key}", use_container_width=True):
+        btn_text  = f"{'▸ ' if is_active else ''}{label}"
+        if st.sidebar.button(btn_text, icon=icon_name, key=f"nav_{key}", use_container_width=True):
             st.session_state.page = key
             st.rerun()
 

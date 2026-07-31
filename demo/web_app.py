@@ -41,7 +41,7 @@ def main() -> None:
         prov_df, student_df, yearly_df, src, extra = load_data()
 
     if src == "none":
-        st.error("❌ Không tìm thấy dữ liệu. Kiểm tra dashboard_data.json.")
+        st.error("Không tìm thấy dữ liệu. Kiểm tra dashboard_data.json.")
         return
 
     kpi               = extra.get("kpi", {})
@@ -61,10 +61,10 @@ def main() -> None:
         views.tong_quan_page.render(prov_df, kpi)
     elif active_page == "thong_ke":
         views.thong_ke_page.render(prov_df, yearly_subjects)
-    elif active_page == "kmeans":
-        views.kmeans_page.render(student_df, kpi, student_specimens)
     elif active_page == "zscore":
         views.zscore_page.render(prov_df, ground_truth, zscore_2018)
+    elif active_page == "kmeans":
+        views.kmeans_page.render(student_df, kpi, student_specimens)
 
     st.markdown('</div>', unsafe_allow_html=True)
 

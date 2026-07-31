@@ -1,0 +1,82 @@
+{
+  "kpi": {
+    "total_records": 10865001,
+    "total_records_fmt": "10,865,001",
+    "years_covered": "2016–2026",
+    "data_size_gb": 1.01,
+    "num_columns": 33,
+    "province_anomalies_count": 131,
+    "zscore_threshold": 3.0,
+    "student_anomalies_count": 58404,
+    "student_anomalies_pct": 0.54,
+    "kmeans_k": 4,
+    "ground_truth_recall_pct": 100
+  },
+  "student_specimens": [
+    {
+      "sbd": "TND000441",
+      "nam_thi": 2016,
+      "ma_tinh": "TND",
+      "toan": 0.0,
+      "ngu_van": 0.0,
+      "ngoai_ngu": 0.0,
+      "vat_ly": 0.0,
+      "hoa_hoc": 0.0,
+      "sinh_hoc": 0.0,
+      "anomaly_score": 11.027074218280402,
+      "anomaly_pattern": "Lệch phổ điểm bất thường"
+    },
+    {
+      "sbd": "3004097",
+      "nam_thi": 2017,
+      "ma_tinh": "3",
+      "toan": 0.0,
+      "ngu_van": 0.0,
+      "ngoai_ngu": 0.20000000298023224,
+      "vat_ly": 0.5,
+      "hoa_hoc": 0.25,
+      "sinh_hoc": 0.0,
+      "anomaly_score": 10.689771819381393,
+      "anomaly_pattern": "Lệch phổ điểm bất thường"
+    },
+    {
+      "sbd": "28005869",
+      "nam_thi": 2018,
+      "ma_tinh": "28",
+      "toan": 0.0,
+      "ngu_van": 0.75,
+      "ngoai_ngu": 0.0,
+      "vat_ly": 0.0,
+      "hoa_hoc": 0.0,
+      "sinh_hoc": 0.0,
+      "anomaly_score": 10.684287704882616,
+      "anomaly_pattern": "Lệch phổ điểm bất thường"
+    },
+    {
+      "sbd": "13000074",
+      "nam_thi": 2017,
+      "ma_tinh": "13",
+      "toan": 0.0,
+      "ngu_van": 0.0,
+      "ngoai_ngu": 4.833983898162842,
+      "vat_ly": 0.0,
+      "hoa_hoc": 0.0,
+      "sinh_hoc": 0.0,
+      "anomaly_score": 10.325801796898743,
+      "anomaly_pattern": "Lệch phổ điểm bất thường"
+    },
+    {
+      "sbd": "TND006526",
+      "nam_thi": 2016,
+      "ma_tinh": "TND",
+      "toan": 0.0,
+      "ngu_van": 0.0,
+      "ngoai_ngu": 0.0,
+      "vat_ly": 0.0,
+      "hoa_hoc": 0.0,
+      "sinh_hoc": 5.3212890625,
+      "anomaly_score": 10.186210709973983,
+      "anomaly_pattern": "Lệch phổ điểm bất thường"
+    }
+  ]
+}

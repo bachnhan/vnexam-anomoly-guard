@@ -51,21 +51,28 @@ def detect_student_level_anomalies(spark, df, k=4):
     distance_udf = udf(compute_distance, DoubleType())
     predictions_with_dist = predictions.withColumn("anomaly_score", distance_udf(col("features"), col("cluster")))
     
-    threshold_list = predictions_with_dist.stat.approxQuantile("anomaly_score", [0.995], 0.01)
-    threshold = threshold_list[0] if threshold_list else 4.0
-    print(f"🎯 Ngưỡng điểm khoảng cách bất thường (Anomaly Score Threshold 99.5%): {threshold:.4f}")
-    
-    anomalies_df = predictions_with_dist.withColumn("is_student_anomaly", col("anomaly_score") >= threshold)
-
-    # Gán nhãn anomaly_pattern để dashboard hiển thị ví dụ điển hình
-    anomalies_df = anomalies_df.withColumn(
+    # Gán nhãn anomaly_pattern và tính cờ is_student_anomaly
+    predictions_with_dist = predictions_with_dist.withColumn(
         "anomaly_pattern",
-        when((col("toan") >= 9.0) & (col("vat_ly") <= 2.0),  "Toán cao + Lý liệt")
+        when((col("toan") >= 9.0) & (col("vat_ly") <= 2.0),   "Toán cao + Lý liệt")
         .when((col("toan") >= 9.0) & (col("hoa_hoc") <= 2.0),  "Toán cao + Hóa liệt")
         .when((col("toan") >= 9.0) & (col("ngoai_ngu") <= 2.0), "Toán cao + Anh liệt")
-        .when((col("ngu_van") >= 9.0) & (col("toan") <= 2.0),  "Văn cao + Toán liệt")
+        .when((col("ngu_van") >= 9.0) & (col("toan") <= 2.0),   "Văn cao + Toán liệt")
         .when((col("sinh_hoc") >= 9.0) & (col("vat_ly") <= 3.0), "Sinh cao + Lý thấp")
-        .when(col("is_student_anomaly"), "Lệch phổ điểm bất thường")
+        .otherwise("Normal")
+    )
+
+    threshold_list = predictions_with_dist.stat.approxQuantile("anomaly_score", [0.995], 0.001)
+    threshold = threshold_list[0] if threshold_list else 5.0
+    print(f"🎯 Ngưỡng điểm khoảng cách bất thường (Anomaly Score Threshold 99.5%): {threshold:.4f}")
+    
+    anomalies_df = predictions_with_dist.withColumn(
+        "is_student_anomaly",
+        col("anomaly_score") >= threshold
+    ).withColumn(
+        "anomaly_pattern",
+        when((col("anomaly_score") >= threshold) & (col("anomaly_pattern") != "Normal"), col("anomaly_pattern"))
+        .when(col("anomaly_score") >= threshold, "Lệch phổ điểm bất thường")
         .otherwise("Normal")
     )
 

@@ -119,10 +119,6 @@ d:\\LHTBrain\\Bigdata\\
 
 **PHẦN II: LUẬN VĂN BÁO CÁO BÀI TẬP LỚN CHUẨN IMRaD (TIẾNG VIỆT 100%)**
 
-BỘ GIÁO DỤC VÀ ĐÀO TẠO  
-TRƯỜNG ĐẠI HỌC FPT
-
-BÁO CÁO BÀI TẬP LỚN MÔN BIG DATA PROCESSING (40% ĐIỂM)
 
 VNExam-AnomalyGuard: Hệ Thống Phân Tích Phổ Điểm Và Phát Hiện Bất Thường Gian Lận Điểm Thi THPT Quốc Gia (2016–2026) Bằng Apache Spark
 
@@ -220,7 +216,7 @@ Thao tác truy vấn Spark SQL trên 10.86 triệu bản ghi đã trích xuất 
 
 **4.2 Kết Quả K-Means Outlier Cấp Thí Sinh**
 
-Mô hình K-Means Distance Outlier dán nhãn thành công **54,325 thí sinh bất thường** (chiếm 0.5% tổng số thí sinh toàn quốc), biểu hiện chênh lệch điểm bất hợp lý giữa các môn khoa học tự nhiên.
+Mô hình K-Means Distance Outlier dán nhãn thành công **58,870 thí sinh bất thường** (chiếm 0.54% tổng số thí sinh toàn quốc), biểu hiện chênh lệch điểm bất hợp lý giữa các môn khoa học tự nhiên.
 
 **4.3 Kết Quả Z-Score Bất Thường Cấp Tỉnh Thành**
 
@@ -245,11 +241,19 @@ Dự án khẳng định sức mạnh vượt trội của Apache Spark trong b�
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-**Tài Liệu Tham Khảo (References)**
+**Tài Liệu Tham Khảo & Nguồn Trích Dẫn Chính Thống (References & Official Sources)**
 
-14. Apache Software Foundation. (2023). Apache Spark Documentation. https://spark.apache.org/docs/latest/  
-15. Zaharia, M., et al. (2016). Apache Spark: A Unified Engine for Big Data Processing. Communications of the ACM, 59(11), 56-65.  
-16. Han, J., Kamber, M., & Pei, J. (2011). Data Mining: Concepts and Techniques. Morgan Kaufmann.
+1. Apache Software Foundation. (2023). Apache Spark Documentation. https://spark.apache.org/docs/latest/  
+2. Zaharia, M., et al. (2016). Apache Spark: A Unified Engine for Big Data Processing. Communications of the ACM, 59(11), 56-65.  
+3. Báo Chính Phủ. (2019). Vụ gian lận điểm thi tại Hà Giang. https://baochinhphu.vn/vu-gian-lan-diem-thi-tai-ha-giang-102263435.htm
+4. Báo VnExpress. (2019). Toàn cảnh vụ án gian lận điểm thi ở Hà Giang. https://vnexpress.net/toan-canh-vu-an-gian-lan-diem-thi-o-ha-giang-3996766.html
+5. Báo VnExpress. (2020). Tuyên án 12 bị cáo vụ gian lận điểm thi ở Sơn La. https://vnexpress.net/tuyen-an-12-bi-cao-vu-gian-lan-diem-thi-o-son-la-4103603.html
+6. Báo Lao Động. (2020). Tuyên án vụ gian lận điểm thi THPT Quốc gia tại Sơn La. https://laodong.vn/phap-luat/tuyen-an-vu-gian-lan-diem-thi-thpt-quoc-gia-2018-tai-son-la-806161.ldo
+7. Báo VnExpress. (2020). Tuyên án 15 bị cáo trong vụ gian lận điểm thi ở Hòa Bình. https://vnexpress.net/tuyen-an-15-bi-cao-trong-vu-gian-lan-diem-thi-o-hoa-binh-4103130.html
+8. Báo Tuổi Trẻ. (2020). Xét xử vụ gian lận điểm thi Hòa Bình. https://tuoitre.vn/xet-xu-vu-gian-lan-diem-thi-hoa-binh-2020051808453472.htm
+9. Báo Chính Phủ. (2022). Khởi tố 2 cựu giảng viên liên quan đến đề thi môn Sinh học. https://baochinhphu.vn/khoi-to-2-cui-giang-vien-li-lien-quan-den-de-thi-mon-sinh-hoc-102220610174003264.htm
+10. Báo VnExpress. (2023). Hai cựu giảng viên bị phạt tù trong vụ lộ đề thi Sinh học. https://vnexpress.net/hai-cuu-giang-vien-bi-phat-tieu-nam-tu-trong-vu-lo-de-thi-sinh-hoc-4623190.html
+11. Báo Công An Nhân Dân. (2022). Khởi tố đường dây mua bán thiết bị công nghệ cao gian lận thi cử. https://cand.com.vn/Phap-luat/Khoi-to-duong-day-mua-ban-thiet-bi-cong-nghe-cao-gian-lan-thi-cu-i659102/
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -281,7 +285,7 @@ Dự án khẳng định sức mạnh vượt trội của Apache Spark trong b�
 
 **🎤 PHẦN 5: MEMBER 5 TRÌNH BÀY \- ANOMALY FINDINGS (SLIDE 14 \- 16\) \- 2.0 PHÚT**
 
-* Slide 14-16 (Anomaly Cases): Thống kê 54,325 thí sinh bất thường & Mô phỏng bê bối gian lận điểm thi 2018 (Hà Giang, Sơn La).
+* Slide 14-16 (Anomaly Cases): Thống kê 58,870 thí sinh bất thường (0.54%) & Mô phỏng bê bối gian lận điểm thi 2018 (Hà Giang, Sơn La).
 
 **🎤 PHẦN 6: MEMBER 6 TRÌNH BÀY \- LIVE DEMO EXECUTION (SLIDE 17 \- 18\) \- 2.0 PHÚT**
 

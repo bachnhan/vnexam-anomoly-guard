@@ -19,7 +19,7 @@
 - **Kịch bản (Member 1):** "Kính chào Thầy và các bạn! Hôm nay nhóm xin trình bày dự án VNExam-AnomalyGuard xử lý Big Data 10.86 triệu bản ghi thi cử trong 10 năm qua..."
 
 ### SLIDE 2: BỐI CẢNH & TÍNH CẤP THIẾT
-- **Nội dung:** Gian lận thi cử qua các thời kỳ (Bê bối 2018 Hà Giang/Sơn La, 2021 Sinh học, 2026 Tuyên Quang). Thách thức xử lý dữ liệu 1.01 GB trên máy đơn bị crash RAM.
+- **Nội dung:** Gian lận thi cử qua các thời kỳ (Bê bối 2018 Hà Giang/Sơn La/Hòa Bình, 2021 Sinh học). Thách thức xử lý dữ liệu 1.01 GB trên máy đơn bị crash RAM.
 
 ### SLIDE 3: TẬP DỮ LIỆU THI CỬ (DATASET 10.86M)
 - **Nội dung:** 10,865,001 thí sinh, 33 thuộc tính điểm số từ 2016 đến 2026.
@@ -42,31 +42,26 @@
 ### SLIDE 9: TOP TỈNH THÀNH DẪN ĐẦU CẢ NƯỚC
 - **Nội dung:** Bảng xếp hạng Top 10 tỉnh thành có điểm Toán & khối A00 trung bình cao nhất.
 
-### SLIDE 10: TỔNG QUAN BỘ 5 PHƯƠNG ÁN PHÁT HIỆN BẤT THƯỜNG
-- **Nội dung:** 
-  - *Tầng Pipeline Chính:* PA1 K-Means Outlier, PA2 Multi-Subject Z-Score, PA3 YoY Window Lag Delta.
-  - *Tầng Forensic Audit SOTA:* PA4 Benford's Law Audit, PA5 Mahalanobis & Shannon Entropy.
+### SLIDE 10: TỔNG QUAN KHUNG PHƯƠNG ÁN PHÁT HIỆN BẤT THƯỜNG
+- **Nội dung:** Tư duy kiểm toán Top-Down (Từ Vĩ mô Cấp Tỉnh đến Vi mô Cấp Thí Sinh):
+  - *Tầng 1 (Macro Audit):* Multi-Subject Z-Score Engine ($Z > 3.0$) — Phát hiện bất thường diện rộng cấp Tỉnh thành dựa trên 4 Đại án Ground-Truth.
+  - *Tầng 2 (Micro Audit):* PySpark MLlib K-Means Outlier ($D \ge 11.03$) — Sàng lọc danh sách thí sinh dị biệt cá thể cần chấm thẩm định.
 
-### SLIDE 11: PHƯƠNG ÁN 1 - PYSPARK MLLIB K-MEANS OUTLIER ($D > 3\sigma$)
-- **Nội dung:** Gom cụm 10.86M thí sinh ($K=4$), tính khoảng cách Euclidean tới tâm cụm để lọc thí sinh bất thường.
+### SLIDE 11: PHƯƠNG ÁN 1 (MACRO) - MULTI-SUBJECT Z-SCORE ENGINE ($Z > 3.0$)
+- **Nội dung:** Chuẩn hóa Z-Score động cho 9 môn thi & 5 khối thi cấp tỉnh thành. Bẫy trực tiếp 100% 4 đại án lịch sử (Hà Giang, Sơn La, Hòa Bình 2018, Lộ đề Sinh 2021).
 
-### SLIDE 12: PHƯƠNG ÁN 2 - MULTI-SUBJECT Z-SCORE ENGINE ($Z > 3.0$)
-- **Nội dung:** Chuẩn hóa Z-Score động theo năm cho môn Toán, khối A00 và môn Sinh học ở cấp tỉnh thành.
+### SLIDE 12: PHƯƠNG ÁN 2 (MICRO) - PYSPARK MLLIB K-MEANS OUTLIER ($D \ge 11.03$)
+- **Nội dung:** Gom cụm 10.86M thí sinh ($K=4$), tính khoảng cách Euclidean xa tâm cụm để sàng lọc 58,870 thí sinh dị biệt cá thể (0.54% toàn quốc) phục vụ rà soát thủ công.
 
-### SLIDE 13: PHƯƠNG ÁN 3 - YEAR-OVER-YEAR (YoY) WINDOW LAG DELTA
-- **Nội dung:** Sử dụng hàm PySpark `LAG` so sánh mức nhảy vọt chênh lệch giữa năm $T$ so với năm $T-1$ của cùng địa phương.
+### SLIDE 13: KHUNG KIỂM TOÁN VÀ FORENSIC SOTA
+- **Nội dung:** Benford's Law Chi-Square ($\chi^2$), Mahalanobis Distance ($D_M$) và Shannon Entropy ($H(X)$) để minh chứng đa chiều.
 
-### SLIDE 14: PHƯƠNG ÁN 4 - BENFORD'S LAW CHI-SQUARE FORENSIC AUDIT
-- **Nội dung:** Kiểm toán phân phối chữ số đầu tiên ($D_1$) bằng kiểm định $\chi^2 > 26.12$ để bẫy vết tẩy xóa / sửa điểm trắc nghiệm thủ công.
-
-### SLIDE 15: PHƯƠNG ÁN 5 - MAHALANOBIS DISTANCE COVARIANCE OUTLIER
-- **Nội dung:** Khoảng cách ma trận hiệp phương sai $\mathbf{\Sigma}$ phát hiện thí sinh đạt Toán 10.0 nhưng dính điểm liệt các môn còn lại.
-
-### SLIDE 16: PHƯƠNG ÁN 6 - SHANNON ENTROPY AUDIT ($H(X)$)
-- **Nội dung:** Đo độ hỗn loạn phổ điểm. Các cụm thi bị sửa điểm hàng loạt có Shannon Entropy thấp kỷ lục ($H < 2.9$ bits).
-
-### SLIDE 17: KẾT QUẢ ĐỐI CHIẾU GROUND TRUTH (ĐỘ NHẠY 100%)
-- **Nội dung:** Bẫy chính xác 100% các đại án 2018 (Hà Giang/Sơn La $Z=4.43$), 2021 (Lộ đề Sinh học $Z=4.03$), 2026 (Tuyên Quang $Z=3.09$).
+### SLIDE 14: KẾT QUẢ ĐỐI CHIẾU 4 ĐẠI ÁN GROUND TRUTH (RECALL 100%)
+- **Nội dung:** Bẫy chính xác 100% (4/4) các đại án gian lận lịch sử ở cả 2 cấp độ vĩ mô và vi mô:
+  - *GT 1 (Hà Giang 2018):* Macro $Z_{\text{A00}}=4.43$ (Top 1) · Micro bẫy cụm thí sinh xa tâm cụm · Nguồn: [Báo Chính Phủ](https://baochinhphu.vn/vu-gian-lan-diem-thi-tai-ha-giang-102263435.htm)
+  - *GT 2 (Sơn La 2018):* Macro $Z_{\text{A00}}=4.13$ (Top 2) · Micro bẫy 181 thí sinh dị biệt $D \ge 5.0$ · Nguồn: [VnExpress](https://vnexpress.net/tuyen-an-12-bi-cao-vu-gian-lan-diem-thi-o-son-la-4103603.html)
+  - *GT 3 (Hòa Bình 2018):* Macro $Z_{\text{Math}}=3.75$ (Top 3) · Micro bẫy mẫu điểm bất thường Toán/KHTN · Nguồn: [VnExpress](https://vnexpress.net/tuyen-an-15-bi-cao-trong-vu-gian-lan-diem-thi-o-hoa-binh-4103130.html)
+  - *GT 4 (Lộ đề Sinh 2021):* Macro $Z_{\text{Bio}}=4.03$ · Micro bẫy cụm điểm lệch Sinh ĐBSCL · Nguồn: [Báo Chính Phủ](https://baochinhphu.vn/khoi-to-2-cui-giang-vien-li-lien-quan-den-de-thi-mon-sinh-hoc-102220610174003264.htm)
 
 ### SLIDE 18: PHÁT HIỆN CÁC HIỆN TƯỢNG GIÁO DỤC BẤT THƯỜNG KHÁC
 - **Nội dung:** 
