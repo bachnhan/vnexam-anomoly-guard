@@ -86,18 +86,6 @@ def glass_kpi(
     )
 
 
-def sota_box(
-    value: object,
-    label: str,
-    description: str,
-    color: str = "#00BCD4",
-) -> None:
-    """Render a SOTA metric display box."""
-    st.markdown(
-        _render("sota_box.html", value=value, label=label,
-                description=description, color=color),
-        unsafe_allow_html=True,
-    )
 
 
 def pipeline_step(step_num: int, layer: str, description: str, file: str) -> None:

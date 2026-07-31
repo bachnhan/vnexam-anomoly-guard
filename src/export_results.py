@@ -38,8 +38,51 @@ def export_results(student_anomalies_df, province_anomalies_df, output_dir="outp
         
     print(f"Đã ghi thành công Parquet Student Anomalies!")
 
-    # 2. Xuất danh sách Z-Score Tỉnh thành ra Parquet
+    # 2. Xuất danh sách Z-Score Tỉnh thành ra Parquet & CSV báo cáo
     if province_anomalies_df is not None:
+        # Map ten_tinh từ ma_tinh.csv
+        try:
+            import pandas as pd
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            ma_tinh_path = os.path.join(base_dir, "data", "metadata", "ma_tinh.csv")
+            if os.path.exists(ma_tinh_path):
+                meta_df = pd.read_csv(ma_tinh_path, encoding="utf-8", dtype={"ma_tinh": str})
+                meta_df["ma_tinh"] = meta_df["ma_tinh"].str.strip()
+                meta_df["ten_tinh"] = (
+                    meta_df["ten_tinh"]
+                    .str.replace(r"^Cụm\s+Thi\s+", "", regex=True)
+                    .str.replace(r"^Thành phố\s+", "", regex=True)
+                    .str.replace(r"^Tỉnh\s+", "", regex=True)
+                    .str.strip()
+                )
+                lookup = dict(zip(meta_df["ma_tinh"], meta_df["ten_tinh"]))
+                for k, v in list(lookup.items()):
+                    if k.isdigit():
+                        lookup[k.zfill(2)] = v
+
+                # Convert to Pandas or PySpark UDF to map ten_tinh
+                prov_pdf = province_anomalies_df.toPandas()
+                def resolve_name(code):
+                    if pd.isna(code) or not code: return ""
+                    s = str(code).strip()
+                    k = s.zfill(2) if s.isdigit() else s
+                    return lookup.get(k, lookup.get(s, f"ĐH {s}" if not s.isdigit() else f"Cụm Thi {s}"))
+
+                prov_pdf["ten_tinh"] = prov_pdf["ma_tinh"].apply(resolve_name)
+                # Convert back to Spark DF
+                province_anomalies_df = student_anomalies_df.sql_ctx.createDataFrame(prov_pdf)
+
+                # Export Top 15 và Full ra CSV (utf-8-sig cho Excel)
+                top15_pdf = prov_pdf.sort_values("z_score", ascending=False).head(15)
+                top15_cols = [c for c in ["nam_thi", "ma_tinh", "ten_tinh", "total_students", "avg_toan", "z_score", "is_province_anomaly"] if c in top15_pdf.columns]
+                top15_path = os.path.join(output_dir, "province_anomalies_top15.csv")
+                full_path = os.path.join(output_dir, "province_anomalies_full.csv")
+                top15_pdf[top15_cols].to_csv(top15_path, index=False, encoding="utf-8-sig")
+                prov_pdf.to_csv(full_path, index=False, encoding="utf-8-sig")
+                print(f"Đã export báo cáo Excel/CSV chống lỗi font (UTF-8 BOM) -> {top15_path}")
+        except Exception as ex:
+            print(f"Lưu ý khi map ten_tinh: {ex}")
+
         prov_parquet_path = os.path.join(output_dir, "province_anomalies_parquet")
         print(f"Đang ghi kết quả Province Z-Score Anomalies ra: {prov_parquet_path}...")
         province_anomalies_df.write \

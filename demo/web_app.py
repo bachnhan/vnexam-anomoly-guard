@@ -47,7 +47,6 @@ def main() -> None:
     kpi               = extra.get("kpi", {})
     ground_truth      = extra.get("ground_truth", [])
     top_chart         = extra.get("top_chart", [])
-    sota              = extra.get("sota", {})
     yearly_subjects   = extra.get("yearly_subjects", [])
     student_specimens = extra.get("student_specimens", [])
     zscore_2018       = extra.get("zscore_2018", [])

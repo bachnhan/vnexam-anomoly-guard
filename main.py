@@ -36,7 +36,8 @@ def main():
     else:
         input_csv = os.path.join(base_dir, "data", "processed", "exam_scores_2016_2026.csv")
         if not os.path.exists(input_csv):
-            input_csv = os.path.join(base_dir, "data", "exam_scores_2016_2026.csv")
+            from scripts.download_dataset import ensure_dataset
+            input_csv = ensure_dataset(input_csv)
 
     print("\n==========================================================================")
     print("🚀 BẮT ĐẦU THỰC THI PIPELINE VNEXAM-ANOMALYGUARD (APACHE SPARK PIPELINE)")

@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 """
 Module: src/anomaly_ml.py (Step 04 Anomaly Detector Engine)
-Khung 3 Phương Án Bất Thường Phân Tán Trên Apache Spark:
+Khung 2 Phương Án Bất Thường Phân Tán Trên Apache Spark:
 1. Cấp Thí Sinh: PySpark MLlib K-Means Student Outlier Detection (D > 3σ).
-2. Cấp Tỉnh Thành: Multi-Subject & Multi-Block Z-Score Engine (Z > 3.0) cho 9 Môn & 5 Khối.
-3. Cấp Chuỗi Thời Gian: Year-over-Year (YoY) Window Lag Delta Engine (ΔZ > 2.0) TÍNH RIÊNG THEO TỪNG MÔN VÀ KHỐI THI CỐ ĐỊNH.
+2. Cấp Tỉnh Thành: Multi-Subject & Multi-Block Z-Score Engine (Z >= 3.0) cho 9 Môn & 5 Khối.
 """
 import math
 import time
-from pyspark.sql.functions import col, udf, avg, stddev, round as spark_round, when, greatest, lag, count, coalesce, lit
-from pyspark.sql.window import Window
+from pyspark.sql.functions import col, udf, avg, stddev, round as spark_round, when, greatest, count, coalesce, lit
 from pyspark.sql.types import DoubleType, FloatType
 from pyspark.ml.feature import VectorAssembler
 from pyspark.ml.clustering import KMeans
@@ -175,41 +173,14 @@ def detect_province_level_anomalies(spark, df):
         .withColumn("z_b00", calc_z("high_b00_pct", "avg_b00_pct", "std_b00_pct")) \
         .withColumn("z_c00", calc_z("high_c00_pct", "avg_c00_pct", "std_c00_pct")) \
         .withColumn("z_d01", calc_z("high_d01_pct", "avg_d01_pct", "std_d01_pct")) \
-        .withColumn("z_score", greatest(
-            col("z_math"), col("z_van"), col("z_anh"), col("z_ly"), col("z_hoa"), col("z_bio"),
-            col("z_su"), col("z_dia"), col("z_gdcd"), col("z_a00"), col("z_a01"), col("z_b00"),
-            col("z_c00"), col("z_d01")
-        ))
+        .withColumn("is_province_anomaly", col("z_score") >= 3.0)
 
-    # Phương án 3: YoY Window Lag Delta Function (TÍNH CHUẨN XÁC THEO TỪNG MÔN VÀ KHỐI THI CỐ ĐỊNH)
-    windowSpec = Window.partitionBy("ma_tinh").orderBy("nam_thi")
-    
-    all_z_cols = ['z_math', 'z_van', 'z_anh', 'z_ly', 'z_hoa', 'z_bio', 'z_su', 'z_dia', 'z_gdcd', 'z_a00', 'z_a01', 'z_b00', 'z_c00', 'z_d01']
-    
-    yoy_df = zscore_df
-    for z_c in all_z_cols:
-        yoy_col = f"yoy_{z_c}"
-        prev_col = f"prev_{z_c}"
-        yoy_df = yoy_df \
-            .withColumn(prev_col, lag(z_c, 1).over(windowSpec)) \
-            .withColumn(yoy_col, when(col(prev_col).isNotNull(), spark_round(col(z_c) - col(prev_col), 2)).otherwise(lit(None)))
-
-    # Tính yoy_z_delta = LẤY MAX MỨC TĂNG VỌT CHÊNH LỆCH CỦA CÙNG MÔN/KHỐI ĐÓ SO VỚI NĂM TRƯỚC
-    yoy_z_cols = [col(f"yoy_{z_c}") for z_c in all_z_cols]
-    
-    yoy_df = yoy_df \
-        .withColumn("prev_year_math_pct", lag("high_math_pct", 1).over(windowSpec)) \
-        .withColumn("yoy_math_delta_pct", when(col("prev_year_math_pct").isNotNull(), spark_round(col("high_math_pct") - col("prev_year_math_pct"), 2)).otherwise(lit(None))) \
-        .withColumn("yoy_z_delta", greatest(*yoy_z_cols)) \
-        .withColumn("is_yoy_spike", when(col("yoy_z_delta") >= 2.0, True).otherwise(False)) \
-        .withColumn("is_province_anomaly", (col("z_score") >= 3.0) | col("is_yoy_spike"))
-
-    print("\n🚨 Top Các Tỉnh/Thành Cảnh Báo Bất Thường (Khung 3 Phương Án Spark Engine - YoY Chuẩn Hóa Theo Môn/Khối):")
-    flagged_provinces = yoy_df.filter(col("is_province_anomaly") == True).orderBy(col("z_score").desc())
+    print("\n🚨 Top Các Tỉnh/Thành Cảnh Báo Bất Thường (Multi-Subject Z-Score Engine Z >= 3.0):")
+    flagged_provinces = zscore_df.filter(col("is_province_anomaly") == True).orderBy(col("z_score").desc())
     flagged_provinces.select(
-        "nam_thi", "ma_tinh", "total_students", "z_math", "z_van", "z_anh", "z_ly", "z_hoa", "z_bio", "z_a00", "z_b00", "z_c00", "z_d01", "z_score", "yoy_z_delta"
+        "nam_thi", "ma_tinh", "total_students", "z_math", "z_van", "z_anh", "z_ly", "z_hoa", "z_bio", "z_a00", "z_b00", "z_c00", "z_d01", "z_score"
     ).show(25, truncate=False)
     
     elapsed = time.time() - start_time
     print(f"✅ Hoàn tất Anomaly Detector Engine trong {elapsed:.2f} giây!")
-    return yoy_df
+    return zscore_df
