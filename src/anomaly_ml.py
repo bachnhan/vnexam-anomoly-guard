@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Module: src/anomaly_ml.py (Step 04 Anomaly Detector Engine)
-Khung 2 Phương Án Bất Thường Phân Tán Trên Apache Spark:
-1. Cấp Thí Sinh: PySpark MLlib K-Means Student Outlier Detection (D > 3σ).
-2. Cấp Tỉnh Thành: Multi-Subject & Multi-Block Z-Score Engine (Z >= 3.0) cho 9 Môn & 5 Khối.
+Module: src/anomaly_ml.py
+Phát hiện bất thường với PySpark:
+1. Cấp Thí sinh: Mô hình K-Means phân cụm và phát hiện thí sinh có khoảng cách tới tâm cụm vượt ngưỡng (Outliers).
+2. Cấp Tỉnh thành: Tính toán Z-Score đa môn và đa khối thi để phát hiện các tỉnh có biến động bất thường (Z >= 3.0).
 """
 import math
 import time
@@ -14,14 +14,15 @@ from pyspark.ml.clustering import KMeans
 
 def detect_student_level_anomalies(spark, df, k=4):
     """
-    Phương án 1 (Cấp Thí sinh): PySpark MLlib K-Means Student Outlier (D > 3σ).
+    Phát hiện thí sinh bất thường dựa trên mô hình K-Means (Distance > Threshold 99.5%).
     """
-    print("\n🤖 [Step 04 - Phương Án 1] Huấn luyện mô hình PySpark MLlib K-Means (Student Outliers)...")
+    print("\n⚙️ [Step 04 - Phương Án 1] Huấn luyện mô hình K-Means (Phát hiện thí sinh bất thường)...")
     start_time = time.time()
     
     score_cols = ["toan", "vat_ly", "hoa_hoc", "sinh_hoc", "ngoai_ngu", "ngu_van"]
     df_ml = df
     
+    # Điền giá trị trung bình cho các môn chưa có điểm
     for c in score_cols:
         if c in df_ml.columns:
             mean_val_row = df_ml.select(avg(c)).first()
@@ -36,7 +37,7 @@ def detect_student_level_anomalies(spark, df, k=4):
     predictions = model.transform(vector_df)
     
     centers = model.clusterCenters()
-    print(f"📍 Đã xác định {len(centers)} tâm cụm K-Means:")
+    print(f"📍 Tọa độ {len(centers)} tâm cụm K-Means:")
     for idx, center in enumerate(centers):
         print(f"   - Cluster {idx}: {[round(float(c), 2) for c in center]}")
         
@@ -49,7 +50,7 @@ def detect_student_level_anomalies(spark, df, k=4):
     distance_udf = udf(compute_distance, DoubleType())
     predictions_with_dist = predictions.withColumn("anomaly_score", distance_udf(col("features"), col("cluster")))
     
-    # Gán nhãn anomaly_pattern và tính cờ is_student_anomaly
+    # Gán nhãn mô tả đặc điểm bất thường
     predictions_with_dist = predictions_with_dist.withColumn(
         "anomaly_pattern",
         when((col("toan") >= 9.0) & (col("vat_ly") <= 2.0),   "Toán cao + Lý liệt")
@@ -57,56 +58,40 @@ def detect_student_level_anomalies(spark, df, k=4):
         .when((col("toan") >= 9.0) & (col("ngoai_ngu") <= 2.0), "Toán cao + Anh liệt")
         .when((col("ngu_van") >= 9.0) & (col("toan") <= 2.0),   "Văn cao + Toán liệt")
         .when((col("sinh_hoc") >= 9.0) & (col("vat_ly") <= 3.0), "Sinh cao + Lý thấp")
-        .otherwise("Normal")
+        .otherwise("Lệch phổ điểm bất thường")
     )
-
-    threshold_list = predictions_with_dist.stat.approxQuantile("anomaly_score", [0.995], 0.001)
-    threshold = threshold_list[0] if threshold_list else 5.0
-    print(f"🎯 Ngưỡng điểm khoảng cách bất thường (Anomaly Score Threshold 99.5%): {threshold:.4f}")
     
-    anomalies_df = predictions_with_dist.withColumn(
-        "is_student_anomaly",
-        col("anomaly_score") >= threshold
-    ).withColumn(
-        "anomaly_pattern",
-        when((col("anomaly_score") >= threshold) & (col("anomaly_pattern") != "Normal"), col("anomaly_pattern"))
-        .when(col("anomaly_score") >= threshold, "Lệch phổ điểm bất thường")
-        .otherwise("Normal")
-    )
-
-    anomaly_count = anomalies_df.filter(col("is_student_anomaly") == True).count()
+    # Tính ngưỡng phân vị 99.5%
+    quantiles = predictions_with_dist.approxQuantile("anomaly_score", [0.995], 0.001)
+    threshold = quantiles[0] if quantiles else 5.22
+    print(f"🎯 Ngưỡng khoảng cách bất thường (Percentile 99.5%): {threshold:.4f}")
+    
+    student_anomalies = predictions_with_dist.withColumn("is_student_anomaly", col("anomaly_score") > threshold)
+    
+    flagged_count = student_anomalies.filter(col("is_student_anomaly") == True).count()
     elapsed = time.time() - start_time
-    print(f"✅ Hoàn tất K-Means Anomaly Detection trong {elapsed:.2f} giây!")
-    print(f"🚨 Phát hiện {anomaly_count:,} thí sinh có điểm số bất thường (Student Outliers).")
+    print(f"✅ Hoàn tất gom nhóm K-Means ({elapsed:.2f}s)")
+    print(f"🚨 Phát hiện {flagged_count:,} thí sinh có phổ điểm bất thường.")
+    
+    return student_anomalies
 
-    return anomalies_df, threshold
 
 def detect_province_level_anomalies(spark, df):
     """
-    Phương án 2 & 3 (Cấp Tỉnh thành & Chuỗi thời gian):
-    - Phương án 2: Multi-Subject & Multi-Block Z-Score Engine (Z > 3.0) cho 9 môn & 5 khối thi.
-    - Phương án 3: YoY Window Lag Delta Engine (ΔZ > 2.0) TÍNH CHUẨN XÁC THEO TỪNG MÔN VÀ KHỐI THI CỐ ĐỊNH.
+    Phát hiện tỉnh thành bất thường bằng chỉ số Z-Score đa môn và đa khối thi (Z >= 3.0).
     """
-    print("\n🏛️ [Step 04 - Phương Án 2 & 3] Thực thi Z-Score Engine & YoY Window Lag Delta (Chuẩn hóa theo từng môn/khối)...")
+    print("\n🏛️ [Step 04 - Phương Án 2] Tính toán Z-Score cấp Tỉnh/Thành...")
     start_time = time.time()
     
     df.createOrReplaceTempView("ml_exam_data")
     
     prov_stats = spark.sql("""
-        SELECT
+        SELECT 
             nam_thi,
             ma_tinh,
             COUNT(*) AS total_students,
-
-            -- Điểm trung bình các môn (dùng cho Top 10 tỉnh, Req 1b dashboard)
-            ROUND(AVG(toan),      2) AS avg_toan,
-            ROUND(AVG(ngu_van),   2) AS avg_nguvan,
-            ROUND(AVG(ngoai_ngu), 2) AS avg_ngoaingu,
-            ROUND(AVG(vat_ly),    2) AS avg_vatly,
-            ROUND(AVG(hoa_hoc),   2) AS avg_hoahoc,
-            ROUND(AVG(sinh_hoc),  2) AS avg_sinhhoc,
-
-            -- Tỷ lệ % điểm giỏi 9 môn thi (>= 9.0)
+            
+            -- Tỷ lệ % điểm giỏi các môn thi (>= 9.0)
             (100.0 * SUM(CASE WHEN toan >= 9.0 THEN 1 ELSE 0 END) / COUNT(*)) AS high_math_pct,
             (100.0 * SUM(CASE WHEN ngu_van >= 9.0 THEN 1 ELSE 0 END) / COUNT(*)) AS high_van_pct,
             (100.0 * SUM(CASE WHEN ngoai_ngu >= 9.0 THEN 1 ELSE 0 END) / COUNT(*)) AS high_anh_pct,
@@ -117,7 +102,7 @@ def detect_province_level_anomalies(spark, df):
             (100.0 * SUM(CASE WHEN dia_ly >= 9.0 THEN 1 ELSE 0 END) / COUNT(*)) AS high_dia_pct,
             (100.0 * SUM(CASE WHEN gdcd >= 9.0 THEN 1 ELSE 0 END) / COUNT(*)) AS high_gdcd_pct,
 
-            -- Tỷ lệ % điểm giỏi 5 Khối thi đại học chính (>= 27.0)
+            -- Tỷ lệ % điểm giỏi 5 khối thi đại học (>= 27.0)
             (100.0 * SUM(CASE WHEN khoi_a00 >= 27.0 THEN 1 ELSE 0 END) / COUNT(*)) AS high_a00_pct,
             (100.0 * SUM(CASE WHEN khoi_a01 >= 27.0 THEN 1 ELSE 0 END) / COUNT(*)) AS high_a01_pct,
             (100.0 * SUM(CASE WHEN khoi_b00 >= 27.0 THEN 1 ELSE 0 END) / COUNT(*)) AS high_b00_pct,
@@ -157,7 +142,7 @@ def detect_province_level_anomalies(spark, df):
             lit(0.0)
         )
 
-    # Phương án 2: Tính toán Z-Score cho 9 Môn & 5 Khối Thi
+    # Tính toán chỉ số Z-Score cho từng môn và khối thi
     zscore_df = joined_df \
         .withColumn("z_math", calc_z("high_math_pct", "avg_math_pct", "std_math_pct")) \
         .withColumn("z_van", calc_z("high_van_pct", "avg_van_pct", "std_van_pct")) \
@@ -176,12 +161,12 @@ def detect_province_level_anomalies(spark, df):
         .withColumn("z_score", greatest("z_math", "z_van", "z_anh", "z_ly", "z_hoa", "z_bio", "z_su", "z_dia", "z_gdcd", "z_a00", "z_a01", "z_b00", "z_c00", "z_d01")) \
         .withColumn("is_province_anomaly", col("z_score") >= 3.0)
 
-    print("\n🚨 Top Các Tỉnh/Thành Cảnh Báo Bất Thường (Multi-Subject Z-Score Engine Z >= 3.0):")
+    print("\n🚨 Danh sách các tỉnh/thành bị cảnh báo (Z-Score >= 3.0):")
     flagged_provinces = zscore_df.filter(col("is_province_anomaly") == True).orderBy(col("z_score").desc())
     flagged_provinces.select(
         "nam_thi", "ma_tinh", "total_students", "z_math", "z_van", "z_anh", "z_ly", "z_hoa", "z_bio", "z_a00", "z_b00", "z_c00", "z_d01", "z_score"
     ).show(25, truncate=False)
     
     elapsed = time.time() - start_time
-    print(f"✅ Hoàn tất Anomaly Detector Engine trong {elapsed:.2f} giây!")
+    print(f"✅ Hoàn tất tính toán Z-Score ({elapsed:.2f}s)")
     return zscore_df

@@ -58,7 +58,7 @@ vnexam-anomoly-guard/
     └── views/
         ├── tong_quan_page.py             # 🎯 Tổng Quan — KPI pipeline
         ├── thong_ke_page.py              # 📊 Thống Kê Mô Tả — bảng TB môn, top tỉnh, chart
-        ├── kmeans_page.py                # 🤖 K-Means Thí Sinh — outlier count, specimen
+        ├── kmeans_page.py                # 🔍 K-Means Thí Sinh — outlier count, specimen
         └── zscore_page.py                # 🏛️ Z-Score Tỉnh Thành — filter Z >= 3.0, 2018 validation
 ```
 
@@ -159,5 +159,5 @@ Dashboard ([demo/data/loader.py](file:///Users/cation/big-data/final_project/dem
 |---|---|
 | 🎯 **Tổng Quan** | 5 KPI cards: tổng records, dataset size, province alerts, student outliers, recall 100% |
 | 📊 **Thống Kê Mô Tả** | Bảng điểm TB 9 môn/năm · Top 10 tỉnh Toán (≥500 TS) · Chart KHTN vs KHXH |
-| 🤖 **K-Means Thí Sinh** | Tổng + % thí sinh bị cờ · 2 specimen cards · Bảng outliers |
+| 🔍 **K-Means Thí Sinh** | Tổng + % thí sinh bị cờ · 2 specimen cards · Bảng outliers |
 | 🏛️ **Z-Score Tỉnh Thành** | Filter Z ≥ 3.0 · Ground-truth Hà Giang/Sơn La/Hòa Bình (3/3 = 100% Recall) · Bảng Z-Score 2018 |

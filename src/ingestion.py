@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """
-Module: src/ingestion.py (Step 01 Ingestion)
-Nạp tập dữ liệu 1.01GB (10.86 triệu bản ghi) vào PySpark DataFrame với cấu hình bộ nhớ tối ưu.
+Module: src/ingestion.py
+Khởi tạo SparkSession và đọc dữ liệu điểm thi từ file CSV.
 """
 import os
 import time
 from pyspark.sql import SparkSession
 
-def create_spark_session(master_url=None, app_name="VNExam-AnomalyGuard-01-Ingestion"):
+def create_spark_session(master_url=None, app_name="VNExam-AnomalyGuard-Ingestion"):
     """
-    Khởi tạo hoặc kết nối SparkSession với các cấu hình tối ưu bộ nhớ.
+    Khởi tạo hoặc lấy SparkSession hiện tại với các thông số cấu hình cơ bản.
     """
     builder = SparkSession.builder \
         .appName(app_name) \
@@ -29,12 +29,12 @@ def create_spark_session(master_url=None, app_name="VNExam-AnomalyGuard-01-Inges
 
 def ingest_data(spark, file_path):
     """
-    Nạp dữ liệu từ file CSV 1.01GB vào PySpark DataFrame.
+    Đọc file CSV điểm thi THPT vào Spark DataFrame.
     """
     if not os.path.exists(file_path):
-        raise FileNotFoundError(f"❌ Không tìm thấy tệp dữ liệu tại path: {file_path}")
+        raise FileNotFoundError(f"Không tìm thấy file dữ liệu tại: {file_path}")
         
-    print(f"🚀 [Step 01] Bắt đầu nạp tập dữ liệu Big Data: {file_path}")
+    print(f"🚀 [Step 01] Nạp dữ liệu từ file: {file_path}")
     start_time = time.time()
     
     df = spark.read \
@@ -45,9 +45,9 @@ def ingest_data(spark, file_path):
     elapsed = time.time() - start_time
     total_count = df.count()
     
-    print(f"✅ Nạp dữ liệu hoàn tất trong {elapsed:.2f} giây!")
-    print(f"📊 Tổng số bản ghi (rows): {total_count:,}")
-    print(f"📐 Số lượng cột (columns): {len(df.columns)}")
-    print(f"🧩 Số lượng partitions: {df.rdd.getNumPartitions()}")
+    print(f"✅ Đọc dữ liệu thành công ({elapsed:.2f}s)")
+    print(f"   - Số dòng: {total_count:,}")
+    print(f"   - Số cột: {len(df.columns)}")
+    print(f"   - Số partition: {df.rdd.getNumPartitions()}")
     
     return df

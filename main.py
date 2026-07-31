@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-VNExam-AnomalyGuard Main Orchestrator Script
-Entrypoint điều phối toàn bộ PySpark Data Pipeline từ Input (CSV 1.01GB) đến Output (Parquet & Anomaly Reports).
+VNExam-AnomalyGuard Main Pipeline Script
+Script điều phối các bước nạp, xử lý dữ liệu và phát hiện bất thường bằng PySpark.
 
 Cách dùng:
     python3 main.py --mode local
@@ -12,7 +12,6 @@ import sys
 import argparse
 import time
 
-# Thêm thư mục hiện tại vào sys.path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from src.ingestion import create_spark_session, ingest_data
@@ -22,11 +21,11 @@ from src.anomaly_ml import detect_student_level_anomalies, detect_province_level
 from src.export_results import export_results
 
 def main():
-    parser = argparse.ArgumentParser(description="VNExam-AnomalyGuard PySpark Main Pipeline")
-    parser.add_argument("--mode", choices=["local", "cluster"], default="local", help="Chế độ thực thi (local / cluster)")
-    parser.add_argument("--master", type=str, default=None, help="Spark Master URL (VD: spark://spark-master:7077)")
-    parser.add_argument("--input", type=str, default=None, help="Đường dẫn file CSV dữ liệu thi")
-    parser.add_argument("--output", type=str, default="output", help="Thư mục đầu ra kết quả Parquet")
+    parser = argparse.ArgumentParser(description="VNExam-AnomalyGuard Spark Pipeline")
+    parser.add_argument("--mode", choices=["local", "cluster"], default="local", help="Chế độ chạy (local / cluster)")
+    parser.add_argument("--master", type=str, default=None, help="Spark Master URL (ví dụ: spark://spark-master:7077)")
+    parser.add_argument("--input", type=str, default=None, help="Đường dẫn file CSV dữ liệu đầu vào")
+    parser.add_argument("--output", type=str, default="output", help="Thư mục xuất kết quả")
     args = parser.parse_args()
 
     base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -40,11 +39,11 @@ def main():
             input_csv = ensure_dataset(input_csv)
 
     print("\n==========================================================================")
-    print("🚀 BẮT ĐẦU THỰC THI PIPELINE VNEXAM-ANOMALYGUARD (APACHE SPARK PIPELINE)")
+    print("🚀 CHẠY PIPELINE VNEXAM-ANOMALYGUARD (SPARK PIPELINE)")
     print("==========================================================================")
-    print(f"📌 Chế độ thực thi (Execution Mode): {args.mode}")
-    print(f"📌 Tập dữ liệu đầu vào (Input CSV): {input_csv}")
-    print(f"📌 Thư mục xuất kết quả (Output Dir): {args.output}")
+    print(f"📌 Chế độ chạy: {args.mode}")
+    print(f"📌 File dữ liệu đầu vào: {input_csv}")
+    print(f"📌 Thư mục xuất kết quả: {args.output}")
     print("==========================================================================")
     
     overall_start = time.time()
@@ -53,29 +52,29 @@ def main():
     spark = create_spark_session(master_url=master_url, app_name="VNExam-AnomalyGuard-Full-Pipeline")
     
     try:
-        # Step 01: Ingestion
+        # Bước 1: Nạp dữ liệu
         raw_df = ingest_data(spark, input_csv)
         
-        # Step 02: Cleaning & Transformation
+        # Bước 2: Làm sạch và biến đổi dữ liệu
         cleaned_df = clean_and_transform(raw_df)
         
-        # Step 03: Spark SQL Analytics
+        # Bước 3: Phân tích thống kê bằng Spark SQL
         run_spark_sql_analytics(spark, cleaned_df)
         
-        # Step 04: Anomaly Detection (Student Level & Province Level)
-        student_anomalies, threshold = detect_student_level_anomalies(spark, cleaned_df)
+        # Bước 4: Phát hiện bất thường cấp Thí sinh và Tỉnh thành
+        student_anomalies = detect_student_level_anomalies(spark, cleaned_df)
         province_anomalies = detect_province_level_anomalies(spark, cleaned_df)
         
-        # Step 05: Export Results to Parquet
+        # Bước 5: Xuất kết quả ra Parquet, CSV và JSON
         export_results(student_anomalies, province_anomalies, output_dir=args.output)
         
         total_time = time.time() - overall_start
         print("\n==========================================================================")
-        print(f"🎉 TỔNG KẾT PIPELINE THÀNH CÔNG RỰC RỠ TRONG {total_time:.2f} GIÂY ({total_time/60:.2f} PHÚT)!")
+        print(f"✅ Hoàn tất pipeline trong {total_time:.2f} giây ({total_time/60:.2f} phút).")
         print("==========================================================================\n")
         
     except Exception as e:
-        print(f"\n❌ LỖI TRONG QUÁ TRÌNH THỰC THI PIPELINE: {e}")
+        print(f"\n❌ Có lỗi xảy ra trong quá trình thực thi: {e}")
         import traceback
         traceback.print_exc()
     finally:

@@ -1,25 +1,25 @@
 #!/usr/bin/env python3
 """
-Module: src/analytics.py (Step 03 Analytics Engine)
-Thực thi các truy vấn Spark SQL nâng cao để phân tích phổ điểm thi THPT Toàn quốc,
-thống kê top tỉnh thành, tỷ lệ điểm giỏi/điểm liệt, và so sánh biến động theo các năm.
+Module: src/analytics.py
+Thực thi các truy vấn Spark SQL để phân tích mô tả phổ điểm,
+thống kê trung bình theo tỉnh thành và biến động các năm.
 """
 import time
 
 def run_spark_sql_analytics(spark, df):
     """
-    Tạo TempView 'exam_data' và thực hiện phân tích thống kê Spark SQL.
+    Tạo TempView 'exam_data' và chạy các truy vấn thống kê mô tả.
     """
     print("\n========================================================")
-    print("📈 [Step 03] BẮT ĐẦU THỰC THI SPARK SQL ANALYTICS ENGINE")
+    print("📈 [Step 03] PHÂN TÍCH THỐNG KÊ SPARK SQL")
     print("========================================================")
     start_time = time.time()
     
     # 1. Đăng ký TempView
     df.createOrReplaceTempView("exam_data")
     
-    # Query 1: Thống kê phổ điểm trung bình 3 môn bắt buộc (Toán, Văn, Ngoại ngữ) toàn quốc
-    print("\n📌 1. Thống Kê Điểm Trung Bình Các Môn Bắt Buộc Toàn Quốc:")
+    # Query 1: Điểm trung bình và độ lệch chuẩn các môn bắt buộc
+    print("\n📌 1. Điểm trung bình các môn bắt buộc toàn quốc:")
     spark.sql("""
         SELECT 
             ROUND(AVG(toan), 2) AS avg_toan,
@@ -31,8 +31,8 @@ def run_spark_sql_analytics(spark, df):
         FROM exam_data
     """).show()
     
-    # Query 2: Top 10 Tỉnh/Thành có điểm môn Toán trung bình cao nhất (yêu cầu >= 5,000 thí sinh)
-    print("\n📌 2. Top 10 Tỉnh/Thành Có Điểm Toán Trung Bình Cao Nhất:")
+    # Query 2: Top 10 tỉnh có điểm môn Toán trung bình cao nhất (>= 5000 thí sinh)
+    print("\n📌 2. Top 10 tỉnh/thành có điểm Toán trung bình cao nhất:")
     top_provinces = spark.sql("""
         SELECT 
             ma_tinh,
@@ -48,8 +48,8 @@ def run_spark_sql_analytics(spark, df):
     """)
     top_provinces.show()
 
-    # Query 3: Thống kê số lượng & tỷ lệ thí sinh đạt điểm giỏi (>= 9.0) và điểm liệt (<= 1.0) môn Toán theo năm
-    print("\n📌 3. Thống Kê Biến Động Điểm Giỏi (>= 9.0) Và Điểm Liệt (<= 1.0) Môn Toán Theo Năm:")
+    # Query 3: Thống kê số thí sinh đạt điểm giỏi (>= 9.0) và điểm liệt (<= 1.0) môn Toán theo năm
+    print("\n📌 3. Thống kê tỷ lệ điểm giỏi (>= 9.0) và điểm liệt (<= 1.0) môn Toán theo năm:")
     high_low_stats = spark.sql("""
         SELECT 
             nam_thi,
@@ -65,8 +65,8 @@ def run_spark_sql_analytics(spark, df):
     """)
     high_low_stats.show(15)
 
-    # Query 4: Thống kê điểm trung bình thủ khoa Khối A00 (Toán, Lý, Hóa) theo Tỉnh thành
-    print("\n📌 4. Top 10 Tỉnh Có Điểm Trung Bình Khối A00 Cao Nhất Toàn Quốc:")
+    # Query 4: Top 10 tỉnh có điểm trung bình khối A00 cao nhất
+    print("\n📌 4. Top 10 tỉnh có điểm trung bình khối A00 cao nhất:")
     spark.sql("""
         SELECT 
             ma_tinh,
@@ -82,5 +82,5 @@ def run_spark_sql_analytics(spark, df):
     """).show()
 
     elapsed = time.time() - start_time
-    print(f"✅ Hoàn tất thực thi Spark SQL Analytics trong {elapsed:.2f} giây!")
+    print(f"✅ Hoàn tất phân tích thống kê ({elapsed:.2f}s)")
     return top_provinces
