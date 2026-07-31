@@ -63,22 +63,32 @@ def render(student_df: pd.DataFrame, kpi: dict = None, student_specimens=None) -
         "2 trường hợp có phổ điểm không thể xảy ra tự nhiên"
     )
 
-    specimens = student_specimens or [
-        {
-            "sbd": "26180001", "nam_thi": 2018, "ten_tinh": "Sơn La",
-            "toan": 10.0, "vat_ly": 1.0, "hoa_hoc": 1.25,
-            "ngoai_ngu": 9.5, "ngu_van": 7.0,
-            "anomaly_pattern": "Toán 10.0 + Lý/Hóa liệt",
-            "note": "Toán xuất sắc nhưng Vật Lý và Hóa Học gần như liệt — không thể xảy ra tự nhiên"
-        },
-        {
-            "sbd": "15180002", "nam_thi": 2018, "ten_tinh": "Hà Giang",
-            "toan": 9.8, "vat_ly": 9.6, "hoa_hoc": 9.4,
-            "ngoai_ngu": 1.2, "ngu_van": 5.5,
-            "anomaly_pattern": "A00 hoàn hảo + Anh liệt",
-            "note": "Tổ hợp A00 = 28.8/30 nhưng Ngoại Ngữ chỉ 1.2 — pattern rất bất thường"
-        },
-    ]
+    # Lấy chính xác 2 SBD mẫu Bạc Liêu 2021 (55010003 & 55010937)
+    specimens = []
+    if student_df is not None and not student_df.empty:
+        sp_target = student_df[(student_df["nam_thi"] == 2021) & (student_df["sbd"].astype(str).isin(["55010003", "55010937"]))]
+        if not sp_target.empty and len(sp_target) >= 2:
+            specimens = sp_target.to_dict("records")
+            
+    if not specimens or len(specimens) < 2:
+        specimens = [
+            {
+                "sbd": "55010003", "nam_thi": 2021, "ten_tinh": "Bạc Liêu",
+                "toan": 9.2, "vat_ly": 1.5, "hoa_hoc": 8.5, "sinh_hoc": 9.5,
+                "ngoai_ngu": 4.83, "ngu_van": 6.29,
+                "anomaly_pattern": "Toán cao + Lý liệt",
+                "anomaly_score": 7.3260,
+                "note": "Toán 9.2, Sinh 9.5 nhưng Vật Lý 1.5 điểm liệt"
+            },
+            {
+                "sbd": "55010937", "nam_thi": 2021, "ten_tinh": "Bạc Liêu",
+                "toan": 9.2, "vat_ly": 9.0, "hoa_hoc": 2.0, "sinh_hoc": 4.25,
+                "ngoai_ngu": 9.4, "ngu_van": 8.0,
+                "anomaly_pattern": "Toán cao + Hóa liệt",
+                "anomaly_score": 5.9327,
+                "note": "Toán 9.2, Anh 9.4, Lý 9.0 nhưng Hóa Học 2.0 điểm liệt"
+            },
+        ]
 
     c1, c2 = st.columns(2)
     for col, sp in zip([c1, c2], specimens[:2]):
@@ -96,10 +106,14 @@ def render(student_df: pd.DataFrame, kpi: dict = None, student_specimens=None) -
             }
             score_bars = ""
             for subj, score in scores.items():
-                if score is None:
+                if score is None or pd.isna(score):
                     continue
-                pct_bar = int(score / 10 * 100)
-                color   = "#EF5350" if score <= 2.0 else "#66BB6A" if score >= 9.0 else "#78909C"
+                try:
+                    score_val = float(score)
+                except (ValueError, TypeError):
+                    continue
+                pct_bar = int(score_val / 10 * 100)
+                color   = "#EF5350" if score_val <= 2.0 else "#66BB6A" if score_val >= 9.0 else "#78909C"
                 score_bars += (
                     f'<div style="margin:4px 0;">'
                     f'<div style="display:flex;justify-content:space-between;margin-bottom:2px;">'
@@ -129,7 +143,6 @@ def render(student_df: pd.DataFrame, kpi: dict = None, student_specimens=None) -
 
     # ── Bảng thí sinh ───────────────────────────────────────────────────────────
     if student_df is not None and not student_df.empty:
-        import pandas as pd
         pd.set_option("styler.render.max_elements", 2000000)
 
         # Bộ lọc tương tác (Year, Province, SBD Search)
