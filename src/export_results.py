@@ -25,8 +25,8 @@ def export_results(student_anomalies_df, province_anomalies_df, output_dir="outp
     
     selected_student_cols = [
         "sbd", "nam_thi", "ma_tinh", "toan", "ngu_van", "ngoai_ngu",
-        "vat_ly", "hoa_hoc", "sinh_hoc", "cluster", "anomaly_score",
-        "anomaly_pattern", "is_student_anomaly"   # anomaly_pattern: nhãn cho dashboard
+        "vat_ly", "hoa_hoc", "sinh_hoc", "lich_su", "dia_ly", "gdcd",
+        "cluster", "anomaly_score", "anomaly_pattern", "is_student_anomaly"
     ]
     cols_to_write = [c for c in selected_student_cols if c in student_anomalies_df.columns]
     

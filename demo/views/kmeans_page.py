@@ -85,10 +85,14 @@ def render(student_df: pd.DataFrame, kpi: dict = None, student_specimens=None) -
         with col:
             scores = {
                 "Toán":      sp.get("toan"),
-                "Vật Lý":   sp.get("vat_ly"),
-                "Hóa Học":  sp.get("hoa_hoc"),
                 "Ngữ Văn":  sp.get("ngu_van"),
                 "Ngoại Ngữ": sp.get("ngoai_ngu"),
+                "Vật Lý":   sp.get("vat_ly"),
+                "Hóa Học":  sp.get("hoa_hoc"),
+                "Sinh Học": sp.get("sinh_hoc"),
+                "Lịch Sử":  sp.get("lich_su"),
+                "Địa Lý":   sp.get("dia_ly"),
+                "GDCD":     sp.get("gdcd"),
             }
             score_bars = ""
             for subj, score in scores.items():
@@ -137,9 +141,10 @@ def render(student_df: pd.DataFrame, kpi: dict = None, student_specimens=None) -
 
         show_cols = [c for c in [
             "sbd", "nam_thi", "ma_tinh", "toan", "ngu_van", "ngoai_ngu",
-            "vat_ly", "hoa_hoc", "sinh_hoc", "anomaly_score", "anomaly_pattern",
+            "vat_ly", "hoa_hoc", "sinh_hoc", "lich_su", "dia_ly", "gdcd",
+            "anomaly_score", "anomaly_pattern",
         ] if c in student_df.columns]
-        score_cols = [c for c in ["toan", "ngu_van", "ngoai_ngu", "vat_ly", "hoa_hoc", "sinh_hoc"] if c in student_df.columns]
+        score_cols = [c for c in ["toan", "ngu_van", "ngoai_ngu", "vat_ly", "hoa_hoc", "sinh_hoc", "lich_su", "dia_ly", "gdcd"] if c in student_df.columns]
 
         display_df = student_df.sort_values("anomaly_score", ascending=False).head(top_limit)
 

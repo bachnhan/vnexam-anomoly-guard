@@ -44,7 +44,7 @@ _TINH_LOOKUP: dict = {}  # lazy-loaded once
 # Public API
 # ────────────────────────────────────────────────────────────────
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=60)
 def load_data() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, str, dict]:
     """
     Load pipeline data.

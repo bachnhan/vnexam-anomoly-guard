@@ -173,6 +173,7 @@ def detect_province_level_anomalies(spark, df):
         .withColumn("z_b00", calc_z("high_b00_pct", "avg_b00_pct", "std_b00_pct")) \
         .withColumn("z_c00", calc_z("high_c00_pct", "avg_c00_pct", "std_c00_pct")) \
         .withColumn("z_d01", calc_z("high_d01_pct", "avg_d01_pct", "std_d01_pct")) \
+        .withColumn("z_score", greatest("z_math", "z_van", "z_anh", "z_ly", "z_hoa", "z_bio", "z_su", "z_dia", "z_gdcd", "z_a00", "z_a01", "z_b00", "z_c00", "z_d01")) \
         .withColumn("is_province_anomaly", col("z_score") >= 3.0)
 
     print("\n🚨 Top Các Tỉnh/Thành Cảnh Báo Bất Thường (Multi-Subject Z-Score Engine Z >= 3.0):")

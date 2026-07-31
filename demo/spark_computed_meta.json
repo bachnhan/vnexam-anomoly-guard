@@ -5,7 +5,7 @@
     "years_covered": "2016–2026",
     "data_size_gb": 1.01,
     "num_columns": 33,
-    "province_anomalies_count": 131,
+    "province_anomalies_count": 97,
     "zscore_threshold": 3.0,
     "student_anomalies_count": 58404,
     "student_anomalies_pct": 0.54,
