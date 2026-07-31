@@ -132,28 +132,52 @@ def render(student_df: pd.DataFrame, kpi: dict = None, student_specimens=None) -
         import pandas as pd
         pd.set_option("styler.render.max_elements", 2000000)
 
-        top_limit = min(len(student_df), 500)
-        ang_section(
-            '<i class="fa-solid fa-table-cells" style="color:#AB47BC;filter:drop-shadow(0 0 6px rgba(171,71,188,0.8));"></i>',
-            "Danh Sách Thí Sinh Bị Gắn Cờ",
-            f"Hiển thị Top {top_limit:,} / {len(student_df):,} thí sinh có Anomaly Score cao nhất"
-        )
+        # Bộ lọc tương tác (Year, Province, SBD Search)
+        f_col1, f_col2, f_col3 = st.columns([1, 1.5, 1.5])
+        
+        with f_col1:
+            years = ["Tất cả"] + [int(y) for y in sorted(student_df["nam_thi"].dropna().unique(), reverse=True)]
+            sel_year = st.selectbox("📅 Lọc Theo Năm", years, key="km_filter_year")
+            
+        with f_col2:
+            provinces = ["Tất cả"]
+            if "ten_tinh" in student_df.columns:
+                prov_list = student_df.groupby("ma_tinh")["ten_tinh"].first().reset_index()
+                prov_options = [f"{row['ma_tinh']} - {row['ten_tinh']}" for _, row in prov_list.iterrows()]
+                provinces += sorted(prov_options)
+            else:
+                provinces += sorted([str(p) for p in student_df["ma_tinh"].dropna().unique()])
+            sel_prov = st.selectbox("🏛️ Lọc Theo Tỉnh / Cụm Thi", provinces, key="km_filter_prov")
+
+        with f_col3:
+            search_sbd = st.text_input("🔍 Tìm Số Báo Danh (SBD)", "", key="km_search_sbd").strip()
+
+        # Áp dụng bộ lọc
+        filtered_df = student_df.copy()
+        if sel_year != "Tất cả":
+            filtered_df = filtered_df[filtered_df["nam_thi"] == sel_year]
+        if sel_prov != "Tất cả":
+            selected_code = sel_prov.split(" - ")[0]
+            filtered_df = filtered_df[filtered_df["ma_tinh"].astype(str) == selected_code]
+        if search_sbd:
+            filtered_df = filtered_df[filtered_df["sbd"].astype(str).str.contains(search_sbd, case=False, na=False)]
+
+        top_limit = min(len(filtered_df), 500)
+        display_df = filtered_df.sort_values("anomaly_score", ascending=False).head(top_limit)
 
         show_cols = [c for c in [
             "sbd", "nam_thi", "ma_tinh", "toan", "ngu_van", "ngoai_ngu",
             "vat_ly", "hoa_hoc", "sinh_hoc", "lich_su", "dia_ly", "gdcd",
             "anomaly_score", "anomaly_pattern",
-        ] if c in student_df.columns]
-        score_cols = [c for c in ["toan", "ngu_van", "ngoai_ngu", "vat_ly", "hoa_hoc", "sinh_hoc", "lich_su", "dia_ly", "gdcd"] if c in student_df.columns]
-
-        display_df = student_df.sort_values("anomaly_score", ascending=False).head(top_limit)
+        ] if c in filtered_df.columns]
+        score_cols = [c for c in ["toan", "ngu_van", "ngoai_ngu", "vat_ly", "hoa_hoc", "sinh_hoc", "lich_su", "dia_ly", "gdcd"] if c in filtered_df.columns]
 
         st.dataframe(
             display_df[show_cols].style.map(style_score, subset=score_cols),
             use_container_width=True,
             height=400,
         )
-        st.caption(f"Đã sắp xếp theo Anomaly Score giảm dần · Hiển thị {top_limit:,} trên tổng số {len(student_df):,} thí sinh bị cờ K-Means.")
+        st.caption(f"Đã lọc hiển thị {top_limit:,} trên tổng số {len(filtered_df):,} thí sinh thỏa mãn bộ lọc (Xếp theo Anomaly Score giảm dần).")
     else:
         ang_section(
             '<i class="fa-solid fa-table-cells" style="color:#AB47BC;filter:drop-shadow(0 0 6px rgba(171,71,188,0.8));"></i>',
