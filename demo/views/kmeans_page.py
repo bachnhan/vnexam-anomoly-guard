@@ -106,16 +106,17 @@ def render(student_df: pd.DataFrame, kpi: dict = None, student_specimens=None) -
                     f'<div style="background:{color};width:{pct_bar}%;height:6px;border-radius:2px;"></div>'
                     f'</div></div>'
                 )
+            note_str = sp.get("note", f"Anomaly Score: {sp.get('anomaly_score', 0.0):.4f}")
             st.markdown(
                 f'<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(239,83,80,0.35);'
                 f'border-radius:6px;padding:18px;">'
                 f'<div style="color:#EF5350;font-size:0.68rem;font-weight:700;letter-spacing:1px;">'
-                f'SBĐ: {sp["sbd"]} · {sp.get("ten_tinh","")} {sp["nam_thi"]}</div>'
-                f'<div style="color:#FFA726;font-size:0.75rem;margin:6px 0;"><i class="fa-solid fa-triangle-exclamation" style="margin-right:4px;"></i>{sp["anomaly_pattern"]}</div>'
+                f'SBĐ: {sp.get("sbd","")} · {sp.get("ten_tinh","")} {sp.get("nam_thi","")}</div>'
+                f'<div style="color:#FFA726;font-size:0.75rem;margin:6px 0;"><i class="fa-solid fa-triangle-exclamation" style="margin-right:4px;"></i>{sp.get("anomaly_pattern","")}</div>'
                 f'{score_bars}'
                 f'<div style="color:#546E7A;font-size:0.7rem;margin-top:10px;'
                 f'border-top:1px solid rgba(255,255,255,0.05);padding-top:8px;">'
-                f'{sp["note"]}</div>'
+                f'{note_str}</div>'
                 f'</div>',
                 unsafe_allow_html=True,
             )
