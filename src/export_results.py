@@ -19,7 +19,7 @@ def export_results(student_anomalies_df, province_anomalies_df, output_dir="outp
     
     os.makedirs(output_dir, exist_ok=True)
     
-    # 1. Ghi kết quả bất thường cấp thí sinh ra Parquet phân vùng theo năm
+    # 1. Ghi kết quả bất thường cấp thí sinh ra Parquet phân vùng theo năm (chỉ lọc lấy thí sinh bất thường)
     student_parquet_path = os.path.join(output_dir, "student_anomalies_parquet")
     print(f"Ghi file Parquet (Student Anomalies) -> {student_parquet_path}...")
     
@@ -30,7 +30,11 @@ def export_results(student_anomalies_df, province_anomalies_df, output_dir="outp
     ]
     cols_to_write = [c for c in selected_student_cols if c in student_anomalies_df.columns]
     
-    student_anomalies_df.select(cols_to_write) \
+    export_students_df = student_anomalies_df
+    if "is_student_anomaly" in student_anomalies_df.columns:
+        export_students_df = student_anomalies_df.filter(F.col("is_student_anomaly") == True)
+
+    export_students_df.select(cols_to_write) \
         .write \
         .mode("overwrite") \
         .partitionBy("nam_thi") \

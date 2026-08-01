@@ -7,7 +7,7 @@
     "num_columns": 33,
     "province_anomalies_count": 97,
     "zscore_threshold": 3.0,
-    "student_anomalies_count": 58404,
+    "student_anomalies_count": 58403,
     "student_anomalies_pct": 0.54,
     "kmeans_k": 4,
     "ground_truth_recall_pct": 100

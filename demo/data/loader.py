@@ -100,7 +100,10 @@ def _try_parquet():
         return None
     try:
         prov_df    = pd.read_parquet(prov_file)
-        student_df = pd.read_parquet(student_file)
+        try:
+            student_df = pd.read_parquet(student_file, filters=[("is_student_anomaly", "==", True)])
+        except Exception:
+            student_df = pd.read_parquet(student_file)
 
         # Standardize ma_cum & ten_cum (Mã Cụm Thi & Tên Cụm Thi)
         lookup = _load_tinh_lookup()
