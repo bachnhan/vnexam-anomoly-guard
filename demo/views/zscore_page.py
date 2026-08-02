@@ -93,7 +93,11 @@ def render(prov_df: pd.DataFrame, ground_truth: list, zscore_2018: list = None) 
         anom_cnt = len(anom_df)
         total_cnt = len(filtered)
 
-        view_df = anom_df if only_anom else filtered
+        # Show all years when a specific province is selected so data is never hidden
+        if sel_tinh != "Tất cả Cụm Thi":
+            view_df = filtered
+        else:
+            view_df = anom_df if only_anom else filtered
 
         if sel_tinh == "Tất cả Cụm Thi":
             label = f"Phát hiện {anom_cnt} cụm thi-năm bị cảnh báo Z-Score (Z ≥ 3.0) / tổng {total_cnt} cụm thi-năm"
@@ -110,9 +114,14 @@ def render(prov_df: pd.DataFrame, ground_truth: list, zscore_2018: list = None) 
             show_cols = [c for c in [
                 "nam_thi", "ten_cum", "ma_cum", "total_students",
                 "avg_toan", "high_math_pct",
-                "z_math", "z_a00", "z_bio", "z_score", "is_province_anomaly",
+                "z_math", "z_van", "z_anh", "z_ly", "z_hoa", "z_bio", "z_su", "z_dia", "z_gdcd",
+                "z_a00", "z_a01", "z_b00", "z_c00", "z_d01",
+                "z_score", "is_province_anomaly",
             ] if c in view_df.columns]
-            z_cols = [c for c in ["z_math", "z_a00", "z_bio", "z_score"] if c in view_df.columns]
+            z_cols = [c for c in [
+                "z_math", "z_van", "z_anh", "z_ly", "z_hoa", "z_bio", "z_su", "z_dia", "z_gdcd",
+                "z_a00", "z_a01", "z_b00", "z_c00", "z_d01", "z_score"
+            ] if c in view_df.columns]
 
             def _highlight(row):
                 is_anom = row.get("is_province_anomaly", row.get("z_score", 0) >= _Z_THRESHOLD)
@@ -126,9 +135,20 @@ def render(prov_df: pd.DataFrame, ground_truth: list, zscore_2018: list = None) 
                 "total_students": "Tổng Thí Sinh",
                 "avg_toan": "ĐTB Toán",
                 "high_math_pct": "% Toán ≥9",
-                "z_math": "Z-Score Toán",
-                "z_a00": "Z-Score A00",
-                "z_bio": "Z-Score Sinh",
+                "z_math": "Z-Toán",
+                "z_van": "Z-Văn",
+                "z_anh": "Z-Anh",
+                "z_ly": "Z-Lý",
+                "z_hoa": "Z-Hóa",
+                "z_bio": "Z-Sinh",
+                "z_su": "Z-Sử",
+                "z_dia": "Z-Địa",
+                "z_gdcd": "Z-GDCD",
+                "z_a00": "Z-A00",
+                "z_a01": "Z-A01",
+                "z_b00": "Z-B00",
+                "z_c00": "Z-C00",
+                "z_d01": "Z-D01",
                 "z_score": "Z-Score Max",
                 "is_province_anomaly": "Cảnh Báo Bất Thường"
             }
