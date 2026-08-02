@@ -100,7 +100,7 @@ def pipeline_step(step_num: int, layer: str, description: str, file: str) -> Non
 def ml_card(title: str, bullets: list[str], accent_color: str = "#00BCD4") -> None:
     """Render an ML algorithm description card with bullet list."""
     bullet_html = "".join(
-        f'<div style="color:#546E7A;font-size:0.78rem;padding:2px 0;">· {b}</div>'
+        f'<div style="color:#94A3B8;font-size:0.85rem;font-weight:600;padding:2px 0;">· {b}</div>'
         for b in bullets
     )
     st.markdown(

@@ -132,7 +132,7 @@ def render(student_df: pd.DataFrame, kpi: dict = None, student_specimens=None) -
                 f'SBĐ: {sp.get("sbd","")} · {sp.get("ten_tinh","")} {sp.get("nam_thi","")}</div>'
                 f'<div style="color:#FFA726;font-size:0.75rem;margin:6px 0;"><i class="fa-solid fa-triangle-exclamation" style="margin-right:4px;"></i>{sp.get("anomaly_pattern","")}</div>'
                 f'{score_bars}'
-                f'<div style="color:#546E7A;font-size:0.7rem;margin-top:10px;'
+                f'<div style="color:#94A3B8;font-size:0.82rem;font-weight:600;margin-top:10px;'
                 f'border-top:1px solid rgba(255,255,255,0.05);padding-top:8px;">'
                 f'{note_str}</div>'
                 f'</div>',

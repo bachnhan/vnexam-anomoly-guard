@@ -64,7 +64,7 @@ def render(prov_df, kpi: dict) -> None:
             "<b>Thuật toán:</b> Z-Score Engine · % điểm cao ≥9.0 từng Cụm thi<br>"
             "<b>Threshold:</b> Z > 3.0 (tương đương 3σ)<br>"
             f"<b>Kết quả:</b> <span style='color:#EF5350;font-weight:700;'>"
-            f"{prov_cnt} cụm thi-năm bị cảnh báo (Z ≥ 3.0)</span> trên tổng {len(prov_df)} cụm thi-năm<br>"
+            f"{prov_cnt} cụm thi-năm bị cảnh báo</span><br>"
             "<b>Ground-Truth Recall:</b> 100% (Bẫy 4/4 đại án cấp cụm thi)",
             variant="red",
         )

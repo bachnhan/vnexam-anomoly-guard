@@ -41,7 +41,7 @@ def render(prov_df: pd.DataFrame, yearly_subjects: list = None) -> None:
 
         def style_subject(val):
             if not isinstance(val, (int, float)) or pd.isna(val):
-                return "color:#546E7A;"
+                return "color:#94A3B8;font-weight:600;"
             if val >= 7.0:
                 return "background:rgba(0,200,83,0.15);color:#69F0AE;font-weight:700;"
             if val <= 5.0:

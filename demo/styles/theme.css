@@ -72,7 +72,7 @@ html, body, [data-testid="stAppViewContainer"] {
     color: #00BCD4 !important;
     font-weight: 700 !important;
 }
-[data-testid="stSidebar"] p { color: #546E7A !important; font-size: 0.78rem !important; }
+[data-testid="stSidebar"] p { color: #94A3B8 !important; font-size: 0.88rem !important; font-weight: 600 !important; }
 [data-testid="stSidebar"] hr { border-color: rgba(0,188,212,0.15) !important; margin: 12px 0 !important; }
 
 /* == Angular App Bar == */
@@ -148,7 +148,7 @@ html, body, [data-testid="stAppViewContainer"] {
 .glass-kpi .kv.red   { color: #EF5350; text-shadow: 0 0 20px rgba(239,83,80,0.4); }
 .glass-kpi .kv.green { color: #66BB6A; text-shadow: 0 0 20px rgba(102,187,106,0.4); }
 .glass-kpi .kv.amber { color: #FFA726; text-shadow: 0 0 20px rgba(255,167,38,0.4); }
-.glass-kpi .kl { font-size: 0.68rem; color: #546E7A; font-weight: 700;
+.glass-kpi .kl { font-size: 0.78rem; color: #94A3B8; font-weight: 700;
                   text-transform: uppercase; letter-spacing: 1.2px; margin-top: 6px; }
 .glass-kpi .kd { font-size: 0.75rem; color: #78909C; margin-top: 4px; }
 .glass-kpi .accent-line {
@@ -181,7 +181,7 @@ html, body, [data-testid="stAppViewContainer"] {
 }
 .ang-section .title { color: #E2E8F0; font-size: 1rem; font-weight: 700;
                        text-transform: uppercase; letter-spacing: 1px; }
-.ang-section .subtitle { color: #546E7A; font-size: 0.75rem; margin-top: 1px; }
+.ang-section .subtitle { color: #94A3B8; font-size: 0.85rem; font-weight: 600; margin-top: 1px; }
 
 /* == Divider == */
 .ang-divider {
@@ -244,7 +244,7 @@ html, body, [data-testid="stAppViewContainer"] {
 }
 .sota-box .big-num { font-size: 2.5rem; font-weight: 900; font-family: var(--font-mono);
                       line-height: 1; margin-bottom: 4px; }
-.sota-box .label { color: #546E7A; font-size: 0.72rem; text-transform: uppercase;
+.sota-box .label { color: #94A3B8; font-size: 0.82rem; text-transform: uppercase;
                     letter-spacing: 1px; font-weight: 700; }
 .sota-box .verdict { color: #90A4AE; font-size: 0.82rem; margin-top: 8px; }
 
@@ -275,8 +275,8 @@ strong, b { color: #E2E8F0 !important; }
 }
 .stTabs [data-baseweb="tab"] {
     background: transparent !important; border: none !important;
-    color: #546E7A !important; font-weight: 600 !important;
-    font-size: 0.82rem !important; text-transform: uppercase !important;
+    color: #94A3B8 !important; font-weight: 700 !important;
+    font-size: 0.88rem !important; text-transform: uppercase !important;
     letter-spacing: 0.8px !important; padding: 10px 20px !important;
 }
 .stTabs [aria-selected="true"] { color: #00BCD4 !important; border-bottom: 2px solid #00BCD4 !important; }
@@ -290,5 +290,5 @@ strong, b { color: #E2E8F0 !important; }
 [data-testid="stExpander"] summary { color: #90A4AE !important; }
 
 /* == Caption == */
-.stCaption { color: #546E7A !important; font-size: 0.75rem !important; }
+.stCaption { color: #94A3B8 !important; font-size: 0.85rem !important; font-weight: 600 !important; }
 
