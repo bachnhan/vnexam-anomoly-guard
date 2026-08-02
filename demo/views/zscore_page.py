@@ -65,6 +65,7 @@ def render(prov_df: pd.DataFrame, ground_truth: list, zscore_2018: list = None) 
     with col_f:
         sel_tinh = st.selectbox("Cụm Thi / Hội Đồng Thi:", tinh_list)
         sel_yr   = st.selectbox("Năm thi:", ["Tất cả"] + [str(int(y)) for y in years])
+        only_anom = st.checkbox("Chỉ xem Cụm Thi bị cảnh báo (Z ≥ 3.0)", value=True)
         gls_alert(
             "<b>Phương án 2 (Z-Score):</b> Z ≥ 3.0 (tương đương 3σ)<br>"
             "<b>Critical:</b> Z ≥ 4.0 · <b>Warning:</b> Z ≥ 3.0",
@@ -84,10 +85,20 @@ def render(prov_df: pd.DataFrame, ground_truth: list, zscore_2018: list = None) 
 
         filtered = filtered.sort_values("z_score", ascending=False).reset_index(drop=True)
 
-        if sel_tinh == "Tất cả Cụm Thi":
-            label = f"{len(filtered)} cụm CụmThi-Năm bị cảnh báo Z-Score (Z ≥ 3.0)"
+        if "is_province_anomaly" in filtered.columns:
+            anom_df = filtered[filtered["is_province_anomaly"] == True]
         else:
-            label = f"Cụm thi '{sel_tinh}' — {len(filtered)} năm có cảnh báo Z-Score (Z ≥ 3.0)"
+            anom_df = filtered[filtered["z_score"] >= _Z_THRESHOLD]
+
+        anom_cnt = len(anom_df)
+        total_cnt = len(filtered)
+
+        view_df = anom_df if only_anom else filtered
+
+        if sel_tinh == "Tất cả Cụm Thi":
+            label = f"Phát hiện {anom_cnt} cụm thi-năm bị cảnh báo Z-Score (Z ≥ 3.0) / tổng {total_cnt} cụm thi-năm"
+        else:
+            label = f"Cụm thi '{sel_tinh}' — {anom_cnt} năm có cảnh báo Z-Score (Z ≥ 3.0) / tổng {total_cnt} năm"
 
         st.markdown(
             f'<div style="color:#00BCD4;font-size:0.8rem;font-weight:700;margin-bottom:8px;">'
@@ -95,13 +106,13 @@ def render(prov_df: pd.DataFrame, ground_truth: list, zscore_2018: list = None) 
             unsafe_allow_html=True,
         )
 
-        if not filtered.empty:
+        if not view_df.empty:
             show_cols = [c for c in [
                 "nam_thi", "ten_cum", "ma_cum", "total_students",
                 "avg_toan", "high_math_pct",
                 "z_math", "z_a00", "z_bio", "z_score", "is_province_anomaly",
-            ] if c in filtered.columns]
-            z_cols = [c for c in ["z_math", "z_a00", "z_bio", "z_score"] if c in filtered.columns]
+            ] if c in view_df.columns]
+            z_cols = [c for c in ["z_math", "z_a00", "z_bio", "z_score"] if c in view_df.columns]
 
             def _highlight(row):
                 is_anom = row.get("is_province_anomaly", row.get("z_score", 0) >= _Z_THRESHOLD)
@@ -121,7 +132,7 @@ def render(prov_df: pd.DataFrame, ground_truth: list, zscore_2018: list = None) 
                 "z_score": "Z-Score Max",
                 "is_province_anomaly": "Cảnh Báo Bất Thường"
             }
-            display_df = filtered[show_cols].rename(columns=rename_map)
+            display_df = view_df[show_cols].rename(columns=rename_map)
 
             # Map style on original z column names before rename or on renamed
             z_renamed = [rename_map[c] for c in z_cols if c in rename_map]
@@ -132,7 +143,7 @@ def render(prov_df: pd.DataFrame, ground_truth: list, zscore_2018: list = None) 
 
             st.dataframe(styled, use_container_width=True, height=380)
         else:
-            st.info("Không có dữ liệu khớp. Thử chọn cụm thi khác hoặc năm khác.")
+            st.info("Không có cụm thi nào bị cảnh báo theo bộ lọc đã chọn.")
 
     ang_divider()
 

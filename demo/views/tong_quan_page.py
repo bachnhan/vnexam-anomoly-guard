@@ -16,11 +16,12 @@ def render(prov_df, kpi: dict) -> None:
     # ── 5 KPI cards ─────────────────────────────────────────────────────────────
     c1, c2, c3, c4, c5 = st.columns(5)
 
-    prov_cnt = kpi.get(
-        "province_anomalies_count",
-        int(prov_df["is_province_anomaly"].sum())
-        if "is_province_anomaly" in prov_df.columns else 29,
-    )
+    if "is_province_anomaly" in prov_df.columns:
+        prov_cnt = int((prov_df["is_province_anomaly"] == True).sum())
+    elif "z_score" in prov_df.columns:
+        prov_cnt = int((prov_df["z_score"] >= 3.0).sum())
+    else:
+        prov_cnt = kpi.get("province_anomalies_count", 97)
 
     with c1:
         glass_kpi(
@@ -63,7 +64,7 @@ def render(prov_df, kpi: dict) -> None:
             "<b>Thuật toán:</b> Z-Score Engine · % điểm cao ≥9.0 từng Cụm thi<br>"
             "<b>Threshold:</b> Z > 3.0 (tương đương 3σ)<br>"
             f"<b>Kết quả:</b> <span style='color:#EF5350;font-weight:700;'>"
-            f"{prov_cnt} cụm thi-năm bị cảnh báo</span><br>"
+            f"{prov_cnt} cụm thi-năm bị cảnh báo (Z ≥ 3.0)</span> trên tổng {len(prov_df)} cụm thi-năm<br>"
             "<b>Ground-Truth Recall:</b> 100% (Bẫy 4/4 đại án cấp cụm thi)",
             variant="red",
         )
