@@ -37,7 +37,7 @@ def render(prov_df, kpi: dict) -> None:
     with c3:
         glass_kpi(
             prov_cnt, "Province Alerts",
-            f"Z-Score > {kpi.get('zscore_threshold', 3.0)}",
+            f"Z-Score >= {kpi.get('zscore_threshold', 3.0)}",
             color_class="red", accent_color="rgba(239,83,80,0.6)",
         )
     with c4:
@@ -62,7 +62,7 @@ def render(prov_df, kpi: dict) -> None:
         ang_section('<i class="fa-solid fa-map-location-dot" style="color:#EF5350;filter:drop-shadow(0 0 6px rgba(239,83,80,0.8));"></i>', "Cấp Độ Cụm Thi — Z-Score (Macro)")
         gls_alert(
             "<b>Thuật toán:</b> Z-Score Engine · % điểm cao ≥9.0 từng Cụm thi<br>"
-            "<b>Threshold:</b> Z > 3.0 (tương đương 3σ)<br>"
+            "<b>Threshold:</b> Z ≥ 3.0 (tương đương 3σ)<br>"
             f"<b>Kết quả:</b> <span style='color:#EF5350;font-weight:700;'>"
             f"{prov_cnt} cụm thi-năm bị cảnh báo</span><br>"
             "<b>Ground-Truth Recall:</b> 100% (Bẫy 4/4 đại án cấp cụm thi)",
@@ -76,7 +76,6 @@ def render(prov_df, kpi: dict) -> None:
             "<b>Threshold:</b> Euclidean distance > Percentile 99.5%<br>"
             f"<b>Kết quả:</b> <span style='color:#FFA726;font-weight:700;'>"
             f"{kpi.get('student_anomalies_count', 58870):,} thí sinh bị gắn cờ</span><br>"
-            f"<b>Tỷ lệ:</b> {kpi.get('student_anomalies_pct', 0.54)}% trên 10.86M thí sinh<br>"
-            "<b>Đánh giá:</b> Phát hiện chùm Outliers (D ≥ 11.03) bùng nổ đúng năm xảy ra đại án",
+            f"<b>Tỷ lệ:</b> {kpi.get('student_anomalies_pct', 0.54)}% trên 10.86M thí sinh<br>",
             variant="amber",
         )

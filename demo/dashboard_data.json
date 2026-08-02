@@ -5790,5 +5790,39 @@
       "z_score": 0.98,
       "is_scandal": false
     }
+  ],
+  "ground_truth": [
+    {
+      "severity": "critical",
+      "incident": "Gian lận thi THPTQG 2018 — Hà Giang",
+      "province_names": "Hà Giang",
+      "z_score_max": 3.76,
+      "z_indicator": "Z_Math = +3.76 (Toán)",
+      "detected": true
+    },
+    {
+      "severity": "critical",
+      "incident": "Gian lận thi THPTQG 2018 — Sơn La",
+      "province_names": "Sơn La",
+      "z_score_max": 4.13,
+      "z_indicator": "Z_A00 = +4.13 (Khối A00)",
+      "detected": true
+    },
+    {
+      "severity": "critical",
+      "incident": "Gian lận thi THPTQG 2018 — Hòa Bình",
+      "province_names": "Hòa Bình",
+      "z_score_max": 4.43,
+      "z_indicator": "Z_Bio = +4.43 (Sinh học)",
+      "detected": true
+    },
+    {
+      "severity": "critical",
+      "incident": "Lộ đề thi Sinh học THPTQG 2021 — Bạc Liêu",
+      "province_names": "Bạc Liêu",
+      "z_score_max": 4.03,
+      "z_indicator": "Z_Bio = +4.03 (Sinh học) — nguồn: báo cáo Bộ GD&ĐT",
+      "detected": true
+    }
   ]
 }

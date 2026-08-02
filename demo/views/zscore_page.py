@@ -67,7 +67,7 @@ def render(prov_df: pd.DataFrame, ground_truth: list, zscore_2018: list = None) 
         sel_yr   = st.selectbox("Năm thi:", ["Tất cả"] + [str(int(y)) for y in years])
         only_anom = st.checkbox("Chỉ xem Cụm Thi bị cảnh báo (Z ≥ 3.0)", value=True)
         gls_alert(
-            "<b>Phương án 2 (Z-Score):</b> Z ≥ 3.0 (tương đương 3σ)<br>"
+            "<b>Z-Score:</b> Z ≥ 3.0 (tương đương 3σ)<br>"
             "<b>Critical:</b> Z ≥ 4.0 · <b>Warning:</b> Z ≥ 3.0",
             variant="cyan",
         )
@@ -173,11 +173,11 @@ def render(prov_df: pd.DataFrame, ground_truth: list, zscore_2018: list = None) 
         "Ground-Truth Validation — Cấp Cụm Thi (Macro Level)",
         "Đối chiếu 4/4 sự cố gian lận cấp cụm thi với Phương Án Multi-Subject Z-Score (Z ≥ 3.0)"
     )
-    gls_alert(
-        "<b>Validation result:</b> System correctly identifies <b>100% (4/4)</b> of all "
-        "historically confirmed province-level examination fraud cases using Multi-Subject Z-Score Engine (Recall = 100%).",
-        variant="green",
-    )
+    # gls_alert(
+    #     "<b>Validation result:</b> System correctly identifies <b>100% (4/4)</b> of all "
+    #     "historically confirmed province-level examination fraud cases using Multi-Subject Z-Score Engine (Recall = 100%).",
+    #     variant="green",
+    # )
     st.markdown(
         '<div class="glass-table" style="margin:16px 0;">'
         '  <div class="gt-row gt-header">'

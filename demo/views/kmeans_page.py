@@ -47,12 +47,12 @@ def render(student_df: pd.DataFrame, kpi: dict = None, student_specimens=None) -
             color_class="cyan", accent_color="rgba(0,188,212,0.5)",
         )
 
-    gls_alert(
-        "<b>Phương pháp:</b> VectorAssembler (6 môn: Toán, Văn, Anh, Lý, Hóa, Sinh) → "
-        "StandardScaler → K-Means K=4 → Euclidean distance tới centroid → "
-        "Flag nếu distance > Percentile 99.5%",
-        variant="cyan",
-    )
+    # gls_alert(
+    #     "<b>Phương pháp:</b> VectorAssembler (6 môn: Toán, Văn, Anh, Lý, Hóa, Sinh) → "
+    #     "StandardScaler → K-Means K=4 → Euclidean distance tới centroid → "
+    #     "Flag nếu distance > Percentile 99.5%",
+    #     variant="cyan",
+    # )
 
     ang_divider()
 
@@ -205,13 +205,13 @@ def render(student_df: pd.DataFrame, kpi: dict = None, student_specimens=None) -
     ang_section(
         '<i class="fa-solid fa-bullseye" style="color:#00E676;filter:drop-shadow(0 0 6px rgba(0,230,118,0.8));"></i>',
         "Đánh Giá K-Means Outliers Trên 4 Đại Án Ground-Truth Lịch Sử",
-        "Đối chiếu sự bùng nổ của các cụm thí sinh dị biệt (D ≥ 11.03) vào các mùa thi xảy ra 4 đại án lịch sử"
+        "Đối chiếu sự bùng nổ của các cụm thí sinh dị biệt (D ≥ 11.03) vào các mùa thi xảy ra 4 sự vụ lịch sử"
     )
-    gls_alert(
-        "<b>K-Means Micro Validation:</b> Thuật toán MLlib K-Means tuy không công khai danh tính cá nhân (do bảo mật), "
-        "nhưng đã chứng minh tính đúng đắn khi bẫy dính sự bùng nổ của các chùm thí sinh Outliers ($D \\ge 11.03$) tập trung cao nhất vào đúng các mùa thi xảy ra đại án (2018 & 2021).",
-        variant="green",
-    )
+    # gls_alert(
+    #     "<b>K-Means Micro Validation:</b> Thuật toán MLlib K-Means tuy không công khai danh tính cá nhân (do bảo mật), "
+    #     "nhưng đã chứng minh tính đúng đắn khi bẫy dính sự bùng nổ của các chùm thí sinh Outliers ($D \\ge 11.03$) tập trung cao nhất vào đúng các mùa thi xảy ra đại án (2018 & 2021).",
+    #     variant="green",
+    # )
     st.markdown(
         '<div class="glass-table" style="margin:16px 0;">'
         '  <div class="gt-row gt-header">'
