@@ -90,7 +90,8 @@ def detect_province_level_anomalies(spark, df):
             nam_thi,
             ma_tinh,
             COUNT(*) AS total_students,
-            
+            ROUND(AVG(toan), 2) AS avg_toan,
+
             -- Tỷ lệ % điểm giỏi các môn thi (>= 9.0)
             (100.0 * SUM(CASE WHEN toan >= 9.0 THEN 1 ELSE 0 END) / COUNT(*)) AS high_math_pct,
             (100.0 * SUM(CASE WHEN ngu_van >= 9.0 THEN 1 ELSE 0 END) / COUNT(*)) AS high_van_pct,
